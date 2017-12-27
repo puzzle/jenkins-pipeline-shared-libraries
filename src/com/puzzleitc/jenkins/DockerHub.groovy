@@ -145,11 +145,8 @@ class DockerHub {
         con.setRequestMethod("DELETE")
 
         int httpResult = con.getResponseCode()
-        if (httpResult == HttpURLConnection.HTTP_OK) {
-            def responseContent = new JsonSlurper().parseText(con.content.text)
-
-            script.echo "deleted"
-            script.echo responseContent
+        if (httpResult == HttpURLConnection.HTTP_NO_CONTENT) {
+            script.echo "deleted tag: " + tagName
         } else {
             script.echo "HTTP response code: " + httpResult
             script.echo "HTTP response message: " + con.getResponseMessage()
