@@ -15,7 +15,7 @@ class DockerHub {
 
     /**
      * This constructor sets the Jenkins 'script' class as the local script
-     * variable in order to resolve execution steps (sh, withCredentials, etc).
+     * variable in order to resolve execution steps (echo, etc).
      * @param script the script object
      */
     DockerHub(script) {
