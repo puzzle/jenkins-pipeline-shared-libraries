@@ -110,12 +110,13 @@ class DockerHub {
 
         int httpResult = con.getResponseCode()
         if (httpResult == HttpURLConnection.HTTP_OK) {
-            def responseContent = new JsonSlurper().parseText(con.content.text)
+            def contentText = con.content.text
+            def responseContent = new JsonSlurper().parseText(contentText)
             def size = responseContent.count
             List tagNames = new ArrayList(size)
             List tagsList = (List) responseContent.get("results")
             for (int i = 0; i < size; i++) {
-                tagNames.add(tagsList[i].name)
+                tagNames.add(tagsList[i] != null ? tagsList[i].name : "null")
             }
             return tagNames
         } else {
