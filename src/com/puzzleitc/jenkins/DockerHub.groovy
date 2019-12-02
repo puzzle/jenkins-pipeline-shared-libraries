@@ -127,10 +127,7 @@ class DockerHub {
     }
 
     /**
-     * Reads all tags of the given repository and returns the names as list.
-     * Returning null means no successful reading.
-     *
-     * @return a list of all tags of the repository.
+     * Deletes the given tag of a given repository.
      */
     @com.cloudbees.groovy.cps.NonCPS
     void deleteByTag(String dockerHubUser, String repository, String tagName, String token) {
