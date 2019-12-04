@@ -1,4 +1,4 @@
-package com.puzzleitc.jenkins;
+package com.puzzleitc.jenkins
 
 def sh(String command) {
   def process = new ProcessBuilder(["sh", "-c", command])
@@ -6,7 +6,7 @@ def sh(String command) {
                                     .start()
   // process.inputStream.each_line {println it}
   print process.inputStream.getText()
-  process.waitFor();
+  process.waitFor()
   return process.exitValue()
 }
 

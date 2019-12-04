@@ -29,6 +29,6 @@ class AvailableJDKs {
           }
         }
     }
-    return jdks;
+    return jdks
   }
 }

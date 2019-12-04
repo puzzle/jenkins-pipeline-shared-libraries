@@ -1,4 +1,4 @@
-package com.puzzleitc;
+package com.puzzleitc
 
 def tar(openShiftConfigDir, String... deployables) {
   String potHome = tool("pot")
@@ -27,7 +27,6 @@ def copyArtifact(String build, String artifact) {
    def matcher = build =~ '/job/([^/]+)/([0-9]+)'
    def job = matcher[0][1]
    def buildNumber = matcher[0][2]
-   matcher = null
 
    sh "cp -f ${env.JENKINS_HOME}/jobs/${job}/builds/${buildNumber}/archive/${artifact} ."
 }
