@@ -128,9 +128,9 @@ class DockerHub {
     }
 
     private HttpURLConnection connect(String url) {
-        URL tagsUrl = new URL(url)
+        URL targetURL = new URL(url)
 
-        HttpURLConnection con = (HttpURLConnection) tagsUrl.openConnection()
+        HttpURLConnection con = (HttpURLConnection) targetURL.openConnection()
         con.setDoOutput(true)
         con.setDoInput(true)
         con.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
