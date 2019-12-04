@@ -1,7 +1,3 @@
-/*def sh(String text) {
-    println(text)
-}*/
-
 def call(Map args = [:], String... scanDirs) {
     args = [tool: "owasp-dependency-check-5.2.4"] << args
     withEnv(["PATH+DC=${tool name: args.tool, type: 'dependency-check'}/bin"]) {                    
@@ -11,6 +7,3 @@ def call(Map args = [:], String... scanDirs) {
     }
     dependencyCheckPublisher pattern: 'report/dependency-check-report.xml'
 }
-
-/*call  "app", "api", extraArgs: "--enableExperimental"
-call tool: "test", extraArgs: "--enableExperimental"*/
