@@ -3,17 +3,10 @@
         The <code>owaspDependencyCheck</code> variable offers access to the OWASP Dependency Check.
     </p>
     <p>
-        Example call: 
-        <code>
-            stage('OWASP Dependency Check') {
-            steps {
-                owaspDependencyCheck "app", "api", extraArgs: "--enableExperimental --suppression dependency-check-suppression.xml --failOnCVSS 7 --exclude exclude"
-            }
-        </code>
+        Example call: <code>owaspDependencyCheck "app", "api", extraArgs: "--enableExperimental --suppression dependency-check-suppression.xml --failOnCVSS 7 --exclude exclude"</code>
     </p>
     <p>
-        The name of the OWASP Dependency Check in the Global Tool Configuration.
-        Default: owasp-dependency-check-5.2.4
+        The name of the OWASP Dependency Check in the Global Tool Configuration. Default: owasp-dependency-check-5.2.4
     </p>
     <p>
         The generated reports (<code>--format 'ALL'</code>) dependency-check-junit.xml, dependency-check-report.csv, dependency-check-report.html, dependency-check-report.json and dependency-check-report.xml are written to the folder report (<code>--out report</code>) in the current workspace.
@@ -22,19 +15,13 @@
         The first arguments are the application folders to be scanned. In the example above: <code>app</code> and <code>api</code>.
     </p>
     <p>
-        Extra arguments can be added to the call with <code>extraArgs: ""</code>.
-        For a full list of available arguments see: https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html
-        Important arguments are: 
-    </p>
-    <p>
-        For further information see documentation on GitHub: https://jeremylong.github.io/DependencyCheck/.
+        Extra arguments can be added to the call with <code>extraArgs: ""</code>. For a full list of available arguments see: https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html. Important arguments are: 
     </p>
     <dl>
         <dt><code>--enableExperimental</code></dt>
         <dd>
             <p>
-                Enable the experimental analyzers. If not set the analyzers marked as experimental below will not be loaded or used. 
-                File Type and Experimental Analyzers: https://jeremylong.github.io/DependencyCheck/analyzers/index.html
+                Enable the experimental analyzers. If not set the analyzers marked as experimental below will not be loaded or used. File Type and Experimental Analyzers: https://jeremylong.github.io/DependencyCheck/analyzers/index.html
             </p>
         </dd>
         <dt><code>--exclude <pattern></code></dt>
@@ -52,8 +39,10 @@
         <dt><code>--suppression <files></code></dt>
         <dd>
             <p>
-                The file paths to the suppression XML files; used to suppress false positives. This can be specified more than once to utilize multiple suppression files. The argument can be a local file path, a URL to a suppression file, or even a reference to a file on the class path (see https://github.com/jeremylong/DependencyCheck/issues/1878#issuecomment-487533799).
-                For further information see: https://jeremylong.github.io/DependencyCheck/general/suppression.html
+                The file paths to the suppression XML files; used to suppress false positives. This can be specified more than once to utilize multiple suppression files. The argument can be a local file path, a URL to a suppression file, or even a reference to a file on the class path (see https://github.com/jeremylong/DependencyCheck/issues/1878#issuecomment-487533799). For further information see: https://jeremylong.github.io/DependencyCheck/general/suppression.html.
             </p>
         </dd>
     </dl>
+    <p>
+        For further information see documentation on GitHub: https://jeremylong.github.io/DependencyCheck/.
+    </p>
