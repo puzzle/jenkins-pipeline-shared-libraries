@@ -31,13 +31,7 @@ class DockerHub {
     @com.cloudbees.groovy.cps.NonCPS
     String createLoginToken(String dockerHubUser, String dockerHubPwd) {
         String auth = JsonOutput.toJson([username: dockerHubUser, password: dockerHubPwd])
-
-        URL loginUrl = new URL(DockerHub.LOGIN_URL)
-        HttpURLConnection con = (HttpURLConnection) loginUrl.openConnection()
-        con.setDoOutput(true)
-        con.setDoInput(true)
-        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
-        con.setRequestProperty("Accept", "application/json")
+        HttpURLConnection con = connect(url)
         con.setRequestMethod("POST")
 
         OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream())
@@ -64,13 +58,7 @@ class DockerHub {
     @com.cloudbees.groovy.cps.NonCPS
     String readRepositoryNames(String dockerHubUser, String token) {
         def url = REPOSITORIES_URL + dockerHubUser
-        URL repositoriesUrl = new URL(url)
-
-        HttpURLConnection con = (HttpURLConnection) repositoriesUrl.openConnection()
-        con.setDoOutput(true)
-        con.setDoInput(true)
-        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
-        con.setRequestProperty("Accept", "application/json")
+        HttpURLConnection con = connect(url)
         con.setRequestProperty("Authorization", "JWT ${token}")
 
         int httpResult = con.getResponseCode()
@@ -99,13 +87,7 @@ class DockerHub {
     @com.cloudbees.groovy.cps.NonCPS
     List readTags(String dockerHubUser, String repository, String token) {
         def url = REPOSITORIES_URL + dockerHubUser + "/" + repository + "/tags"
-        URL tagsUrl = new URL(url)
-
-        HttpURLConnection con = (HttpURLConnection) tagsUrl.openConnection()
-        con.setDoOutput(true)
-        con.setDoInput(true)
-        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
-        con.setRequestProperty("Accept", "application/json")
+        HttpURLConnection con = connect(url)
         con.setRequestProperty("Authorization", "JWT ${token}")
 
         int httpResult = con.getResponseCode()
@@ -132,13 +114,7 @@ class DockerHub {
     @com.cloudbees.groovy.cps.NonCPS
     void deleteByTag(String dockerHubUser, String repository, String tagName, String token) {
         def url = REPOSITORIES_URL + dockerHubUser + "/" + repository + "/tags/" + tagName
-        URL tagsUrl = new URL(url)
-
-        HttpURLConnection con = (HttpURLConnection) tagsUrl.openConnection()
-        con.setDoOutput(true)
-        con.setDoInput(true)
-        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
-        con.setRequestProperty("Accept", "application/json")
+        HttpURLConnection con = connect(url)
         con.setRequestProperty("Authorization", "JWT ${token}")
         con.setRequestMethod("DELETE")
 
@@ -150,4 +126,16 @@ class DockerHub {
             script.echo "HTTP response message: " + con.getResponseMessage()
         }
     }
+
+    private HttpURLConnection connect(String url) {
+        URL targetURL = new URL(url)
+
+        HttpURLConnection con = (HttpURLConnection) targetURL.openConnection()
+        con.setDoOutput(true)
+        con.setDoInput(true)
+        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
+        con.setRequestProperty("Accept", "application/json")
+        return con
+    }
+
 }
