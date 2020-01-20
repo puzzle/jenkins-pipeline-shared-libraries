@@ -66,6 +66,12 @@
                     information see: https://jeremylong.github.io/DependencyCheck/general/suppression.html.
                 </p>
             </dd>
+            <dt><code>--project <files></code></dt>
+            <dd>
+                <p>
+                    The name of the project being scanned.
+                </p>
+            </dd>
         </dl>
     </dd>
 
