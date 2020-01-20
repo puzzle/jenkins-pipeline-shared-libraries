@@ -3,7 +3,7 @@ def call(Map args = [:], String... scanDirs) {
     withEnv(["PATH+DC=${tool name: args.tool, type: 'dependency-check'}/bin"]) {                    
         sh 'mkdir -p data report'
         scanArgs = scanDirs.collect { "--scan '$it'"}.join(' ')
-        sh "dependency-check.sh ${scanArgs} --format 'ALL' --project 'OWASP Dependency Check' --out report ${args.extraArgs}"
+        sh "dependency-check.sh ${scanArgs} --format 'ALL' --out report ${args.extraArgs}"
     }
     dependencyCheckPublisher pattern: 'report/dependency-check-report.xml'
 }
