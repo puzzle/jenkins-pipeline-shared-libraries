@@ -69,3 +69,5 @@ def void updateResourcesWithEnvFile(String ocpUrl, String ocpProject, String fil
         }
     }
 }
+
+return this
