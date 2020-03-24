@@ -3,7 +3,7 @@
 //
 // method parameters:
 // ocpUrl -> url of the OpenShift server
-// ocpProject -> project-name/namespace of the build project
+// ocpProject -> project-name/namespace of the OpenShift project
 // templateFile -> OpenShift template
 // credentialsId -> credentials for the OpenShift login
 // namespace -> true adds NAMESPACE_NAME param
@@ -39,7 +39,7 @@ def void applyTemplate(String ocpUrl, String ocpProject, String templateFile, St
 //
 // method parameters:
 // ocpUrl -> url of the OpenShift server
-// ocpProject -> project-name/namespace of the build project
+// ocpProject -> project-name/namespace of the OpenShift project
 // templateFile -> OpenShift template
 // credentialsId -> credentials for the OpenShift login
 // envFile -> environment file

@@ -8,10 +8,22 @@ Documentation: <https://jenkins.io/doc/book/pipeline/shared-libraries/>
 
 ## global variables
 
+### openshiftUtils
+
+Functionality to interact with an OpenShift cluster. See it's [documentation](vars/openshiftUtils.txt)
+
+File: [vars/openshiftUtils.groovy](vars/openshiftUtils.groovy)
+
+### owaspDependencyCheck
+
+Custom step to execute the OWASP Dependency Check. See it's [documentation](vars/owaspDependencyCheck.txt)
+
+File: [vars/owaspDependencyCheck.groovy](vars/owaspDependencyCheck.groovy)
+
 ## Groovy source files
 
 ### DockerHub
 
 This class was implemented to read and delete Docker Images by tag names.
 
-File: src/com/puzzleitc/jenkins/DockerHub.groovy
+File: [src/com/puzzleitc/jenkins/DockerHub.groovy](src/com/puzzleitc/jenkins/DockerHub.groovy)
