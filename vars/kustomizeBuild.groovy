@@ -1,3 +1,3 @@
 def call(Map args = [:]) {
-    sh 'kustomize build'
+    sh 'echo kustomize build'
 }
