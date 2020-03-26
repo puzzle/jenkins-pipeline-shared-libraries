@@ -1,7 +1,7 @@
-def call(String resourceFile) {
+def call(String resource) {
     echo "-- start kustomize build --"
-    echo "resource file: $resourceFile"
+    echo "resource: $resource"
     withEnv(["PATH+KUSTOMIZE_HOME=${tool 'kustomize'}/bin"]) {
-        sh "kustomize build ${resourceFile}"
+        sh "kustomize build ${resource}"
     }
 }

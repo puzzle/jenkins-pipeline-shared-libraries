@@ -1,0 +1,3 @@
+*kustomizeBuild(resource:String)*
+
+* **resourceFile** - the resource to generate
