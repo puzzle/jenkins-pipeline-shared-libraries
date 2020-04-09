@@ -1,10 +1,7 @@
-import com.puzzleitc.jenkins.util.JenkinsInvoker
-
 def call(String resource) {
-    JenkinsInvoker invoker = new JenkinsInvoker()
-    invoker.info("start kustomize build")
-    invoker.info("resource: $resource")
+    echo "-- start kustomize build --"
+    echo "resource: $resource"
     withEnv(["PATH+KUSTOMIZE_HOME=${tool 'kustomize'}/bin"]) {
-        return sh("kustomize build ${resource}")
+        sh("kustomize build ${resource}")
     }
 }
