@@ -1,4 +1,4 @@
-import com.puzzleitc.jenkins.util
+import com.puzzleitc.jenkins.util.JenkinsInvoker
 
 def call(String resource) {
     JenkinsInvoker invoker = new JenkinsInvoker()
