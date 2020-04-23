@@ -6,6 +6,16 @@ Object callSh(map) {
     return sh(map)
 }
 
+Object callWithEnv(List<String> env, Closure<Object> closure) {
+    withEnv(env) {
+        return closure.call()
+    }
+}
+
+String toolHome(String toolName) {
+    return tool(toolName)
+}
+
 def getEnvironment() {
     return env
 }
