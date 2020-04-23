@@ -3,5 +3,5 @@ import com.puzzleitc.jenkins.command.context.JenkinsPipelineContext
 
 def call(Map args = [:]) {
     OpenshiftApplyCommand command = new OpenshiftApplyCommand(new JenkinsPipelineContext())
-    return command.execute()
+    command.execute()
 }
