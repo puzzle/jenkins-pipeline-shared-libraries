@@ -16,24 +16,28 @@ class ReplaceFromVaultCommand {
         def result = input
         while (parseVaultLookup(result).size() > 0) {
             def match = parseVaultLookup(result).get(0)
-            def path = match[0]
-            def key = match[1]
-            def start = match[2]
-            def end = match[3]
-            if (path) {
-                result = result.substring(0, start) + ctx.vault(path, key) + result.substring(end, result.length())
+            if (match.path) {
+                def replacedValue = ctx.vault(match.path, match.key)
+                result = result.substring(0, match.start) + replacedValue + result.substring(match.end, result.length())
             }
         }
         return result
     }
 
-    private static List<List> parseVaultLookup(String lookup) {
+    private static List<VaultMatch> parseVaultLookup(String lookup) {
         def matcher = lookup =~ /(?m)\{\{\s*vault\.get\(\s*"([^"]+)",\s*"([^"]+)"\s*\)\s*\}\}/
         def result = []
         while (matcher.find()) {
-            result.add([matcher.group(1), matcher.group(2), matcher.start(), matcher.end()])
+            result.add(new VaultMatch(path: matcher.group(1), key: matcher.group(2), start: matcher.start(), end: matcher.end()))
         }
         return result
+    }
+
+    private static class VaultMatch {
+        String path
+        String key
+        int start
+        int end
     }
 
 }
