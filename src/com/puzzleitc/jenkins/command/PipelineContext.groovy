@@ -2,13 +2,13 @@ package com.puzzleitc.jenkins.command
 
 interface PipelineContext {
 
-    Object sh(map)
+    Object shell(map)
 
-    Object withEnv(List<String> env, Closure<Object> closure)
+    Object withEnvironment(List<String> env, Closure<Object> closure)
 
-    String tool(String toolName)
+    String toolHome(String toolName)
 
-    def env()
+    def environment()
 
     void log(String message)
 

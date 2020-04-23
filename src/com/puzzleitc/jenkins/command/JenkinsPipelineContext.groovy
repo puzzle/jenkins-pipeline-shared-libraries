@@ -7,22 +7,22 @@ class JenkinsPipelineContext implements PipelineContext {
     private final JenkinsInvoker invoker = new JenkinsInvoker()
 
     @Override
-    Object sh(Object map) {
+    Object shell(Object map) {
         return invoker.callSh(map)
     }
 
     @Override
-    Object withEnv(List<String> env, Closure<Object> closure) {
+    Object withEnvironment(List<String> env, Closure<Object> closure) {
         return invoker.callWithEnv(env, closure)
     }
 
     @Override
-    String tool(String toolName) {
+    String toolHome(String toolName) {
         return invoker.callTool(toolName)
     }
 
     @Override
-    def env() {
+    def environment() {
         return invoker.callEnv()
     }
 

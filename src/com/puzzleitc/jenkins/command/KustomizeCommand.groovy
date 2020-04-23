@@ -9,14 +9,14 @@ class KustomizeCommand {
     KustomizeCommand(String resource, PipelineContext ctx) {
         this.ctx = ctx
         this.resource = resource
-        this.kustomizeHome = ctx.tool("kustomize")
+        this.kustomizeHome = ctx.toolHome("kustomize")
     }
 
     Object execute() {
         ctx.log("-- start kustomize build --")
         ctx.log("resource: $resource")
-        ctx.withEnv(["PATH+KUSTOMIZE_HOME=${kustomizeHome}/bin"]) {
-            return ctx.sh(script: "kustomize build ${resource}", returnStdout: true)
+        ctx.withEnvironment(["PATH+KUSTOMIZE_HOME=${kustomizeHome}/bin"]) {
+            return ctx.shell(script: "kustomize build ${resource}", returnStdout: true)
         }
     }
 
