@@ -1,4 +1,4 @@
-import com.puzzleitc.jenkins.command.JenkinsPipelineContext
+import com.puzzleitc.jenkins.command.context.JenkinsPipelineContext
 import com.puzzleitc.jenkins.command.KustomizeCommand
 
 def call(String resource) {

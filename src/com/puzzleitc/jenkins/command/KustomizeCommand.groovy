@@ -1,5 +1,7 @@
 package com.puzzleitc.jenkins.command
 
+import com.puzzleitc.jenkins.command.context.PipelineContext
+
 class KustomizeCommand {
 
     private final String resource;
@@ -15,7 +17,7 @@ class KustomizeCommand {
         ctx.echo("resource: $resource")
         def kustomizeHome = ctx.tool("kustomize")
         ctx.withEnv(["PATH+KUSTOMIZE_HOME=${kustomizeHome}/bin"]) {
-            return ctx.sh(script: "kustomize build ${resource}", returnStdout: true)
+            ctx.sh(script: "kustomize build ${resource}", returnStdout: true)
         }
     }
 

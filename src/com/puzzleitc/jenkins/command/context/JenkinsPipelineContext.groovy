@@ -1,29 +1,32 @@
-package com.puzzleitc.jenkins.command
-
-import com.puzzleitc.jenkins.util.JenkinsInvoker
+package com.puzzleitc.jenkins.command.context
 
 class JenkinsPipelineContext implements PipelineContext {
 
     private final JenkinsInvoker invoker = new JenkinsInvoker()
 
     @Override
-    Object sh(Object map) {
-        return invoker.callSh(map)
+    Object sh(Map map) {
+        invoker.callSh(map)
     }
 
     @Override
     Object withEnv(List<String> env, Closure<Object> closure) {
-        return invoker.callWithEnv(env, closure)
+        invoker.callWithEnv(env, closure)
+    }
+
+    @Override
+    Object withVault(Map map, Closure<Object> closure) {
+        invoker.callWithVault(map, closure)
     }
 
     @Override
     String tool(String toolName) {
-        return invoker.callTool(toolName)
+        invoker.callTool(toolName)
     }
 
     @Override
     def environment() {
-        return invoker.callEnv()
+        invoker.callEnv()
     }
 
     @Override
