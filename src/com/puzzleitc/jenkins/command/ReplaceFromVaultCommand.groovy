@@ -12,7 +12,8 @@ class ReplaceFromVaultCommand {
         this.ctx = ctx
     }
 
-    String execute() {
+    Object execute() {
+        ctx.info("-- replaceFromVault --")
         def result = input
         while (parseVaultLookup(result).size() > 0) {
             def match = parseVaultLookup(result).get(0)

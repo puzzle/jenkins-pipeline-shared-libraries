@@ -43,4 +43,9 @@ class JenkinsPipelineContext implements PipelineContext {
         }
     }
 
+    @Override
+    Object getOpenshift() {
+        return invoker.callOpenshift();
+    }
+
 }

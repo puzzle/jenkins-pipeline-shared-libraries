@@ -4,8 +4,8 @@ import com.puzzleitc.jenkins.command.context.PipelineContext
 
 class KustomizeCommand {
 
-    private final String resource;
-    private final PipelineContext ctx;
+    private final String resource
+    private final PipelineContext ctx
 
     KustomizeCommand(String resource, PipelineContext ctx) {
         this.ctx = ctx
@@ -13,7 +13,7 @@ class KustomizeCommand {
     }
 
     Object execute() {
-        ctx.info("-- start kustomize build --")
+        ctx.info("-- kustomize --")
         ctx.echo("resource: $resource")
         def kustomizeHome = ctx.tool("kustomize")
         ctx.withEnv(["PATH+KUSTOMIZE_HOME=${kustomizeHome}/bin"]) {

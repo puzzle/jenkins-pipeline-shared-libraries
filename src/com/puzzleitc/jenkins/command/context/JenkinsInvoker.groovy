@@ -2,8 +2,8 @@ package com.puzzleitc.jenkins.command.context
 
 /** this is deliberately not a real class, otherwise the build-in methods of Jenkins do not work */
 
-Object callSh(Map map) {
-    sh(map)
+Object callSh(Map args) {
+    sh(args)
 }
 
 Object callWithEnv(List<String> env, Closure<Object> closure) {
@@ -24,6 +24,10 @@ String callTool(String toolName) {
 
 String callEnv() {
     return env
+}
+
+Object callOpenshift() {
+    return openshift
 }
 
 def callEcho(String message) {

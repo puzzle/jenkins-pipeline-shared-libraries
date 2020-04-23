@@ -10,6 +10,8 @@ interface PipelineContext {
 
     String vault(String path, String key)
 
+    Object getOpenshift()
+
     void echo(String message)
 
     void info(String message)
