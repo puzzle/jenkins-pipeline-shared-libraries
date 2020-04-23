@@ -12,6 +12,12 @@ Object callWithEnv(List<String> env, Closure<Object> closure) {
     }
 }
 
+void callAnsiColor(String colorMapName, Closure<Void> closure) {
+    ansiColor(colorMapName) {
+        closure.call()
+    }
+}
+
 String callTool(String toolName) {
     return tool(toolName)
 }
@@ -21,5 +27,5 @@ def callEnv() {
 }
 
 void callEcho(String message) {
-        echo message
+    echo message
 }
