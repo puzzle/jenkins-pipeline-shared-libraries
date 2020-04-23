@@ -17,7 +17,7 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    String toolHome(String toolName) {
+    String tool(String toolName) {
         return invoker.callTool(toolName)
     }
 

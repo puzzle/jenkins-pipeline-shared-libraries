@@ -13,7 +13,7 @@ class KustomizeCommand {
     Object execute() {
         ctx.log("-- start kustomize build --")
         ctx.log("resource: $resource")
-        def kustomizeHome = ctx.toolHome("kustomize")
+        def kustomizeHome = ctx.tool("kustomize")
         ctx.withEnvironment(["PATH+KUSTOMIZE_HOME=${kustomizeHome}/bin"]) {
             return ctx.shell(script: "kustomize build ${resource}", returnStdout: true)
         }

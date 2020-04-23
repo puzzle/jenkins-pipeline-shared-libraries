@@ -6,7 +6,7 @@ interface PipelineContext {
 
     Object withEnvironment(List<String> env, Closure<Object> closure)
 
-    String toolHome(String toolName)
+    String tool(String toolName)
 
     def environment()
 
