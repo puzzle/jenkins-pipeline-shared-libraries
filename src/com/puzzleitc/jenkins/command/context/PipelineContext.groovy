@@ -6,11 +6,9 @@ interface PipelineContext {
 
     Object withEnv(List<String> env, Closure<Object> closure)
 
-    Object withVault(Map map, Closure<Object> closure)
-
     String tool(String toolName)
 
-    def environment()
+    String vault(String path, String key)
 
     void echo(String message)
 

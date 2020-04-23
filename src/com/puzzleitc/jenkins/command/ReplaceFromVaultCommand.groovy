@@ -21,9 +21,7 @@ class ReplaceFromVaultCommand {
             def start = match[2]
             def end = match[3]
             if (path) {
-                ctx.withVault(vaultSecrets: [[path: path, engineVersion: 2, secretValues: [[envVar: 'secretValue', vaultKey: key]]]]) {
-                    result = result.substring(0, start) + secretValue + result.substring(end, result.length())
-                }
+                result = result.substring(0, start) + ctx.vault(path, key) + result.substring(end, result.length())
             }
         }
         return result

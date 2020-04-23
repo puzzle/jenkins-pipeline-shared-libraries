@@ -12,12 +12,6 @@ Object callWithEnv(List<String> env, Closure<Object> closure) {
     }
 }
 
-Object callWithVault(Map map, Closure<Object> closure) {
-    withVault(map) {
-        closure.call()
-    }
-}
-
 def callAnsiColor(String colorMapName, Closure<Void> closure) {
     ansiColor(colorMapName) {
         closure.call()
@@ -34,4 +28,10 @@ String callEnv() {
 
 def callEcho(String message) {
     echo message
+}
+
+String callVault(String path, String key) {
+    withVault(vaultSecrets: [[path: path, engineVersion: 2, secretValues: [[envVar: 'secretValue', vaultKey: key]]]]) {
+        return secretValue
+    }
 }

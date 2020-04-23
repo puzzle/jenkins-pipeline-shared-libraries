@@ -15,18 +15,13 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    Object withVault(Map map, Closure<Object> closure) {
-        invoker.callWithVault(map, closure)
-    }
-
-    @Override
     String tool(String toolName) {
         invoker.callTool(toolName)
     }
 
     @Override
-    def environment() {
-        invoker.callEnv()
+    String vault(String path, String key) {
+        invoker.callVault(path, key)
     }
 
     @Override
