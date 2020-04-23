@@ -12,22 +12,14 @@ Object callWithEnv(List<String> env, Closure<Object> closure) {
     }
 }
 
-String toolHome(String toolName) {
+String callTool(String toolName) {
     return tool(toolName)
 }
 
-def getEnvironment() {
+def callEnv() {
     return env
 }
 
-void info(String message) {
-    ansiColor('xterm') {
-        echo "\033[0;34m${message}\033[0m"
-    }
-}
-
-void warn(String message) {
-    ansiColor('xterm') {
-        echo "\033[0;33m${message}\033[0m"
-    }
+void callEcho(String message) {
+        echo message
 }

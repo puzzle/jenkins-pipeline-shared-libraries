@@ -1,21 +1,22 @@
 package com.puzzleitc.jenkins.command
 
-import com.puzzleitc.jenkins.util.JenkinsInvoker
-
 class KustomizeCommand {
 
-    private final JenkinsInvoker invoker = new JenkinsInvoker()
-
     private final String resource;
+    private final String kustomizeHome;
+    private final PipelineContext ctx;
 
-    KustomizeCommand(String resource) {
+    KustomizeCommand(String resource, PipelineContext ctx) {
+        this.ctx = ctx
         this.resource = resource
+        this.kustomizeHome = ctx.tool("kustomize")
     }
 
     Object execute() {
-        def kustomizeHome = invoker.toolHome("kustomize")
-        invoker.callWithEnv(["PATH+KUSTOMIZE_HOME=${kustomizeHome}/bin"]) {
-            return invoker.sh(script: "kustomize build ${resource}", returnStdout: true)
+        ctx.log("-- start kustomize build --")
+        ctx.log("resource: $resource")
+        ctx.withEnv(["PATH+KUSTOMIZE_HOME=${kustomizeHome}/bin"]) {
+            return ctx.sh(script: "kustomize build ${resource}", returnStdout: true)
         }
     }
 
