@@ -2,6 +2,8 @@ package com.puzzleitc.jenkins.command.context
 
 interface PipelineContext {
 
+    StepParams getStepParams()
+
     Object sh(Map map)
 
     Object withEnv(List<String> env, Closure<Object> closure)
@@ -15,6 +17,8 @@ interface PipelineContext {
     void info(String message)
 
     void warn(String message)
+
+    void fail(String message)
 
     String lookupValueFromVault(String path, String key)
 

@@ -3,6 +3,16 @@ package com.puzzleitc.jenkins.command.context
 class JenkinsPipelineContext implements PipelineContext {
 
     private final JenkinsInvoker invoker = new JenkinsInvoker()
+    private final StepParams stepParams
+
+    JenkinsPipelineContext(Map params = [:]) {
+        this.stepParams = new StepParams(params, this)
+    }
+
+    @Override
+    StepParams getStepParams() {
+        return stepParams
+    }
 
     @Override
     Object sh(Map map) {
@@ -39,8 +49,18 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
+    void fail(String message) {
+        invoker.callAnsiColor('xterm') {
+            invoker.callEcho("\033[0;31m${message}\033[0m")
+        }
+        invoker.currentBuildVar.result = 'FAILURE'
+        invoker.callError(message)
+        invoker.callExit(1)
+    }
+
+    @Override
     Object getOpenshift() {
-        return invoker.callOpenshift();
+        return invoker.openshiftVar
     }
 
     @Override

@@ -6,23 +6,26 @@ class OpenshiftApplyCommand {
 
     private final PipelineContext ctx
 
+    private final String projectName
+
     OpenshiftApplyCommand(PipelineContext ctx) {
         this.ctx = ctx
+        this.projectName = ctx.stepParams.lookupRequired("projectName")
+        ctx.stepParams.lookupRequired("foo")
     }
 
     Object execute() {
         ctx.info("-- openshiftApply --")
+        def saToken = ctx.lookupTokenFromCredentials("pitc-wekan-cicd-test-kustomize-2-cicd-deployer")
         ctx.openshift.withCluster("OpenShiftCloudscaleProduction") {
-            def saToken = ctx.lookupTokenFromCredentials("pitc-wekan-cicd-test-kustomize-2-cicd-deployer")
-            ctx.echo("Token: ${saToken}")
             ctx.openshift.withProject("pitc-wekan-cicd-test-kustomize-2") {
                 ctx.openshift.withCredentials(saToken) {
-                    ctx.echo("OpenShift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
                     ctx.echo("OpenShift cluster: ${ctx.openshift.cluster()}")
                     ctx.echo("OpenShift project: ${ctx.openshift.project()}")
+                    ctx.echo("OpenShift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
 
                     /*
-                    openshift.raw("convert", "-f", "mongodb.yaml")
+                    // openshift.raw("convert", "-f", "mongodb.yaml")
                     result = openshift.apply(replaceSecretsFromVault(readFile(file: "mongodb.yaml")), "-l", "app=mongodb", "-n", "$PROJECT_NAME", "--prune")
                     echo "Overall status: ${result.status}"
                     echo "Actions performed: ${result.actions[0].cmd}"

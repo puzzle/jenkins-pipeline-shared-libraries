@@ -4,6 +4,19 @@ import groovy.json.JsonSlurper
 
 /** this is deliberately not a real class, otherwise the build-in methods of Jenkins do not work */
 
+
+String getEnvVar() {
+    return env
+}
+
+Object getOpenshiftVar() {
+    return openshift
+}
+
+Object getCurrentBuildVar() {
+    return currentBuild
+}
+
 Object callSh(Map args) {
     sh(args)
 }
@@ -24,16 +37,16 @@ String callTool(String toolName) {
     tool(toolName)
 }
 
-String callEnv() {
-    return env
-}
-
-Object callOpenshift() {
-    return openshift
-}
-
 def callEcho(String message) {
     echo message
+}
+
+def callError(String message) {
+    error(message)
+}
+
+def callExit(int status) {
+    exit(status)
 }
 
 String lookupValueFromVault(String path, String key) {
