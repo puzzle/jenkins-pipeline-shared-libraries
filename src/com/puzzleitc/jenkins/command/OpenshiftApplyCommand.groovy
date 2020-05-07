@@ -20,7 +20,8 @@ class OpenshiftApplyCommand {
         String cluster = ctx.stepParams.lookupOptional("cluster", null)
         String credentialId = ctx.stepParams.lookupOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
         String saToken = ctx.lookupTokenFromCredentials(credentialId)
-        ctx.withEnv(["OC_HOME=${ctx.tool(DEFAULT_OC_TOOL_NAME)}"]) {
+        String ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME);
+        ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
             ctx.openshift.withCluster(cluster) {
                 ctx.openshift.withProject(project) {
                     ctx.openshift.withCredentials(saToken) {
