@@ -54,7 +54,6 @@ class JenkinsPipelineContext implements PipelineContext {
             invoker.callEcho("\033[0;31m${message}\033[0m")
         }
         invoker.currentBuildVar.result = 'FAILURE'
-        invoker.callError(message)
         invoker.callExit(1)
     }
 
