@@ -18,7 +18,7 @@ class OpenshiftApplyCommand {
         String project = ctx.stepParams.lookupRequired("project")
         String cluster = ctx.stepParams.lookupOptional("cluster", null)
         String credentialId = ctx.stepParams.lookupOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
-        String saToken = ctx.lookupTokenFromCredentials(credentialId)
+        def saToken = ctx.lookupTokenFromCredentials(credentialId)
         ctx.openshift.withCluster(cluster) {
             ctx.openshift.withProject(project) {
                 ctx.openshift.withCredentials(saToken) {
