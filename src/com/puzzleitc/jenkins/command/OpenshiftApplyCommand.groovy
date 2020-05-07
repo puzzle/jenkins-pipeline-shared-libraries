@@ -13,9 +13,22 @@ class OpenshiftApplyCommand {
     Object execute() {
         ctx.info("-- openshiftApply --")
         ctx.openshift.withCluster("OpenShiftCloudscaleProduction") {
-            ctx.openshift.withCredentials("openshift_cloudscale_jenkins_cicd_prod_token_client_plugin") {
-                ctx.openshift.withProject("pitc-wekan-cicd-test-kustomize-2") {
-                    ctx.echo("Working on namespace: " + ctx.openshift.project())
+            def saToken = ctx.lookupTokenFromCredentials("pitc-wekan-cicd-test-kustomize-3-cicd-deployer")
+            ctx.echo("Token: ${saToken}")
+            ctx.openshift.withProject("pitc-wekan-cicd-test-kustomize-3") {
+                ctx.openshift.withCredentials(saToken) {
+                    ctx.echo("OpenShift whoami: ${ctx.openshift.raw('whoami')}")
+                    ctx.echo("OpenShift cluster: ${ctx.openshift.cluster()}")
+                    ctx.echo("OpenShift project: ${ctx.openshift.project()}")
+
+                    /*
+                    openshift.raw("convert", "-f", "mongodb.yaml")
+                    result = openshift.apply(replaceSecretsFromVault(readFile(file: "mongodb.yaml")), "-l", "app=mongodb", "-n", "$PROJECT_NAME", "--prune")
+                    echo "Overall status: ${result.status}"
+                    echo "Actions performed: ${result.actions[0].cmd}"
+                    echo "Operation output:\n${result.out}"
+                    openshift.selector("dc", "mongodb").rollout().status()
+                    */
                 }
             }
         }

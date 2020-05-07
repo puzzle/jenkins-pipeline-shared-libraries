@@ -20,11 +20,6 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    String vault(String path, String key) {
-        invoker.callVault(path, key)
-    }
-
-    @Override
     void echo(String message) {
         invoker.callEcho(message)
     }
@@ -48,4 +43,13 @@ class JenkinsPipelineContext implements PipelineContext {
         return invoker.callOpenshift();
     }
 
+    @Override
+    String lookupValueFromVault(String path, String key) {
+        invoker.lookupValueFromVault(path, key)
+    }
+
+    @Override
+    String lookupTokenFromCredentials(String credentialsId) {
+        return invoker.lookupTokenFromCredentials(credentialsId)
+    }
 }

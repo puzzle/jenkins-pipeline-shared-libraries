@@ -1,5 +1,7 @@
 package com.puzzleitc.jenkins.command.context
 
+import groovy.json.JsonSlurper
+
 /** this is deliberately not a real class, otherwise the build-in methods of Jenkins do not work */
 
 Object callSh(Map args) {
@@ -34,8 +36,17 @@ def callEcho(String message) {
     echo message
 }
 
-String callVault(String path, String key) {
+String lookupValueFromVault(String path, String key) {
     withVault(vaultSecrets: [[path: path, engineVersion: 2, secretValues: [[envVar: 'secretValue', vaultKey: key]]]]) {
         return secretValue
+    }
+}
+
+String lookupTokenFromCredentials(String credentialsId) {
+    withCredentials([string(credentialsId: credentialsId, variable: 'secretValue')]) {
+        def jsonObj = new JsonSlurper().parseText(secretValue)
+        callEcho("Credentials: " + secretValue)
+        callEcho("Token: " + jsonObj.token.decodeBase64())
+        return jsonObj.token.decodeBase64()
     }
 }

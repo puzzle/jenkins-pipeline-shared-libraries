@@ -18,7 +18,7 @@ class ReplaceFromVaultCommand {
         while (parseVaultLookup(result).size() > 0) {
             def match = parseVaultLookup(result).get(0)
             if (match.path) {
-                def replacedValue = ctx.vault(match.path, match.key)
+                def replacedValue = ctx.lookupValueFromVault(match.path, match.key)
                 result = result.substring(0, match.start) + replacedValue + result.substring(match.end, result.length())
             }
         }

@@ -8,8 +8,6 @@ interface PipelineContext {
 
     String tool(String toolName)
 
-    String vault(String path, String key)
-
     Object getOpenshift()
 
     void echo(String message)
@@ -17,5 +15,9 @@ interface PipelineContext {
     void info(String message)
 
     void warn(String message)
+
+    String lookupValueFromVault(String path, String key)
+
+    String lookupTokenFromCredentials(String credentialsId)
 
 }
