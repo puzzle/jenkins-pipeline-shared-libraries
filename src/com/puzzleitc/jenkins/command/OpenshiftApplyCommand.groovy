@@ -18,10 +18,7 @@ class OpenshiftApplyCommand {
         String project = ctx.stepParams.lookupRequired("project")
         String cluster = ctx.stepParams.lookupOptional("cluster", null)
         String credentialId = ctx.stepParams.lookupOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
-        ctx.echo("credentialId: ${credentialId}")
-
-        def saToken = ctx.lookupTokenFromCredentials(credentialId)
-        ctx.echo("saToken: ${saToken}")
+        String saToken = ctx.lookupTokenFromCredentials(credentialId)
         ctx.openshift.withCluster(cluster) {
             ctx.openshift.withProject(project) {
                 ctx.openshift.withCredentials(saToken) {
@@ -29,7 +26,8 @@ class OpenshiftApplyCommand {
                     ctx.echo("openshift project: ${ctx.openshift.project()}")
                     ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
 
-                    ctx.echo("TODO apply configuration: ${configuration}")
+                    ctx.echo("todo: apply configuration")
+                    ctx.echo(configuration)
 
                     /*
                     openshift.raw("convert", "-f", "mongodb.yaml")
