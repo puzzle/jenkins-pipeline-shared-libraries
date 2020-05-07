@@ -22,9 +22,9 @@ class OpenshiftApplyCommand {
         ctx.openshift.withCluster(cluster) {
             ctx.openshift.withProject(project) {
                 ctx.openshift.withCredentials(saToken) {
+                    ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
                     ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
                     ctx.echo("openshift project: ${ctx.openshift.project()}")
-                    ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
 
                     ctx.echo("todo: apply configuration")
                     ctx.echo(configuration)
