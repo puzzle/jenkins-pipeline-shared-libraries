@@ -6,16 +6,16 @@ class OpenshiftApplyCommand {
 
     private final PipelineContext ctx
 
-    private final String projectName
-
     OpenshiftApplyCommand(PipelineContext ctx) {
         this.ctx = ctx
-        this.projectName = ctx.stepParams.lookupRequired("projectName")
-        ctx.stepParams.lookupRequired("foo")
     }
 
     Object execute() {
         ctx.info("-- openshiftApply --")
+
+        def projectName = ctx.stepParams.lookupRequired("projectName")
+        ctx.stepParams.lookupRequired("foo")
+
         def saToken = ctx.lookupTokenFromCredentials("pitc-wekan-cicd-test-kustomize-2-cicd-deployer")
         ctx.openshift.withCluster("OpenShiftCloudscaleProduction") {
             ctx.openshift.withProject("pitc-wekan-cicd-test-kustomize-2") {
