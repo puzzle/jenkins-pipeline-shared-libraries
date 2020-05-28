@@ -25,8 +25,8 @@ class OpenshiftApplyCommand {
         def configuration = ctx.stepParams.getRequired("configuration")
         def project = ctx.stepParams.getRequired("project")
         def cluster = ctx.stepParams.getOptional("cluster", null)
+        def app = ctx.stepParams.getOptional("app", null)
         def credentialId = ctx.stepParams.getOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String
-        def app = ctx.stepParams.getOptional("app")
         def saToken = ctx.lookupTokenFromCredentials(credentialId)
         def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME);
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
