@@ -13,14 +13,22 @@ class OpenshiftApplyCommand {
         this.ctx = ctx
     }
 
+    // TODO:
+    // - OC CLI Version (tool) konfigurierbar?
+    // - Direkt oc cli über Shell verwenden?
+    // - Ist -n nötig, wenn in withProject Klammer?
+    // - Globale Cluster Konfiguration?
+    // - Gehören Labels nicht eher ins Template?
+    // - Parameter app Optional?
     Object execute() {
         ctx.info("-- openshiftApply --")
-        String configuration = ctx.stepParams.lookupRequired("configuration")
-        String project = ctx.stepParams.lookupRequired("project")
-        String cluster = ctx.stepParams.lookupOptional("cluster", null)
-        String credentialId = ctx.stepParams.lookupOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
-        String saToken = ctx.lookupTokenFromCredentials(credentialId)
-        String ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME);
+        def configuration = ctx.stepParams.getRequired("configuration")
+        def project = ctx.stepParams.getRequired("project")
+        def cluster = ctx.stepParams.getOptional("cluster", null)
+        def credentialId = ctx.stepParams.getOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String
+        def app = ctx.stepParams.getOptional("app")
+        def saToken = ctx.lookupTokenFromCredentials(credentialId)
+        def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME);
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
             ctx.openshift.withCluster(cluster) {
                 ctx.openshift.withProject(project) {
@@ -29,17 +37,14 @@ class OpenshiftApplyCommand {
                         ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
                         ctx.echo("openshift project: ${ctx.openshift.project()}")
 
-                        ctx.echo("todo: apply configuration")
-                        ctx.echo(configuration)
-
                         /*
                         openshift.raw("convert", "-f", "mongodb.yaml")
-                        result = openshift.apply(replaceSecretsFromVault(readFile(file: "mongodb.yaml")), "-l", "app=mongodb", "-n", "$PROJECT_NAME", "--prune")
-                        echo "Overall status: ${result.status}"
-                        echo "Actions performed: ${result.actions[0].cmd}"
-                        echo "Operation output:\n${result.out}"
-                        openshift.selector("dc", "mongodb").rollout().status()
                         */
+                        def result = ctx.openshift.apply(configuration, "-l", "app=${app}", "-n", project, "--prune")
+                        ctx.echo("openshift result status: ${result.status}")
+                        ctx.echo("openshift result actions: ${result.actions[0].cmd}")
+                        ctx.echo("openshift result output:\n${result.out}")
+                        ctx.openshift.selector("dc", app).rollout().status()
                     }
                 }
             }

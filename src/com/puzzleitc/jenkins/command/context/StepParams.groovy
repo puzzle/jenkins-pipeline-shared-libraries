@@ -10,7 +10,7 @@ class StepParams {
         this.ctx = ctx
     }
 
-    Object lookupRequired(String paramName) {
+    Object getRequired(String paramName) {
         Object value = params.get(paramName)
         if (!value) {
             ctx.fail("missing required step parameter: '${paramName}'")
@@ -18,7 +18,7 @@ class StepParams {
         return value
     }
 
-    Object lookupOptional(String paramName, Object defaultValue) {
+    Object getOptional(String paramName, Object defaultValue) {
         return params.get(paramName) ?: defaultValue
     }
 
