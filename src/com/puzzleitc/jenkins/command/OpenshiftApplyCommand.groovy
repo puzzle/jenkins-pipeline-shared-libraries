@@ -42,10 +42,7 @@ class OpenshiftApplyCommand {
 
     private void ocConvert(String configuration) {
         File workspaceDir = new File(ctx.lookupEnvironmentVariable('WORKSPACE'))
-        ctx.echo("workspaceDir: ${workspaceDir.absolutePath}")
-        ctx.echo("workspaceDir exists: ${workspaceDir.exists()}")
-
-
+        workspaceDir.createNewFile()
         File tempFile
         try {
             tempFile = File.createTempFile("convert", ".markup", workspaceDir)
