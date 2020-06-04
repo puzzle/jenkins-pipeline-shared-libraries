@@ -31,10 +31,7 @@ class OpenshiftApplyCommand {
                         ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
                         ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
                         ctx.echo("openshift project: ${ctx.openshift.project()}")
-
-                        /*
-                        openshift.raw("convert", "-f", "mongodb.yaml")
-                        */
+                        ocConvert(configuration)
                         ocApply(configuration, appLabel)
                         ocRollout(appLabel)
                     }
