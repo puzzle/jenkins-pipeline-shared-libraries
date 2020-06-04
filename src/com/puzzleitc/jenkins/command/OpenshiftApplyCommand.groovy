@@ -2,6 +2,7 @@ package com.puzzleitc.jenkins.command
 
 import com.puzzleitc.jenkins.command.context.PipelineContext
 
+
 class OpenshiftApplyCommand {
 
     private static final DEFAULT_CREDENTIAL_ID_SUFFIX = "-cicd-deployer"
@@ -13,8 +14,7 @@ class OpenshiftApplyCommand {
         this.ctx = ctx
     }
 
-    // TODO:
-    // - Globale Cluster Konfiguration?
+    // TODO: Globale Cluster Konfiguration?
     Object execute() {
         ctx.info("-- openshiftApply --")
         def configuration = ctx.stepParams.getRequired("configuration")
@@ -41,38 +41,18 @@ class OpenshiftApplyCommand {
     }
 
     private void ocConvert(String configuration) {
-        File workspaceDir = new File(ctx.lookupEnvironmentVariable('WORKSPACE'))
-        workspaceDir.createNewFile()
+        // TODO: Temp file in workspace
         File tempFile
         try {
             tempFile = File.createTempFile("convert", ".markup", workspaceDir)
             tempFile.write(configuration)
 
-            ctx.echo("Temp file: ${tempFile.absolutePath}")
-            ctx.echo("Content: ${new String(tempFile.readBytes())}")
-
+            // TODO call oc convert
         } finally {
             if (tempFile) {
                 tempFile.delete()
             }
         }
-
-
-        /*
-        FilePath f = currentContext.exec.getWorkspaceFilePath().createTextTempFile(verb, ".markup", s, true);
-
-        try {
-            Map stepArgs = buildCommonArgs(verb, [ "-f", f.getRemote() ], userArgs, "-o=name");
-            stepArgs["reference"] = [ "${f.getRemote()}": s ];  // Store the markup content for reference in the result
-            if (project != null) {
-                stepArgs["project"] = project;
-            }
-            r.actions.add((OcAction.OcActionResult)script._OcAction(stepArgs));
-        } finally {
-            f.delete();
-        }
-
-         */
     }
 
     private void ocApply(String configuration, String appLabel) {
@@ -83,7 +63,7 @@ class OpenshiftApplyCommand {
     }
 
     private void ocRollout(String app) {
-        // Falls selector als parameter definiert, dann wie unten, sonst select über appLabel Label:
+        // TODO Falls selector als parameter definiert, dann wie unten, sonst select über appLabel Label:
         // openshift.selector( 'dc', [ tier: 'frontend' ] )
         ctx.openshift.selector("dc", app).rollout().status()
     }
