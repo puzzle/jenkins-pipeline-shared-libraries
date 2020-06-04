@@ -44,8 +44,8 @@ class OpenshiftApplyCommand {
         // TODO: Temp file in workspace
         File tempFile
         try {
-            tempFile = File.createTempFile("convert", ".markup", workspaceDir)
-            tempFile.write(configuration)
+            tempFile = File.createTempFile("convert", ".markup")
+            ctx.echo("Temp file: ${tempFile.absolutePath}")
 
             // TODO call oc convert
         } finally {
