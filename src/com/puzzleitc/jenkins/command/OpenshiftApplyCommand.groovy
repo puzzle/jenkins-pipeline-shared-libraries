@@ -45,9 +45,8 @@ class OpenshiftApplyCommand {
 
         File tempFile
         try {
-            tempFile = File.createTempFile("convert", ".markup").with {
-                write configuration
-            }
+            tempFile = File.createTempFile("convert", ".markup")
+            tempFile.write(configuration)
 
             ctx.echo("Temp file: ${tempFile.absolutePath}")
             ctx.echo("Content: ${new String(tempFile.readBytes())}")
