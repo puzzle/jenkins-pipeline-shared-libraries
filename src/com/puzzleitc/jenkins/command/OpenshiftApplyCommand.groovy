@@ -42,6 +42,23 @@ class OpenshiftApplyCommand {
 
     private void ocConvert(String configuration) {
         ctx.echo("Workspace: ${ctx.lookupEnvironmentVariable('WORKSPACE')}")
+
+        File tempFile
+        try {
+            tempFile = File.createTempFile("convert", ".markup").with {
+                write configuration
+            }
+
+            ctx.echo("Temp file: ${tempFile.absolutePath}")
+            ctx.echo("Content: ${new String(tempFile.readBytes())}")
+
+        } finally {
+            if (tempFile) {
+                tempFile.delete()
+            }
+        }
+
+
         /*
         FilePath f = currentContext.exec.getWorkspaceFilePath().createTextTempFile(verb, ".markup", s, true);
 
