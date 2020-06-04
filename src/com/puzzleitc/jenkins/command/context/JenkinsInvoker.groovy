@@ -4,20 +4,15 @@ import groovy.json.JsonSlurper
 
 /** this is deliberately not a real class, otherwise the build-in methods of Jenkins do not work */
 
-
-String getEnvVar() {
-    return env
-}
-
 Object getOpenshiftVar() {
     return openshift
 }
 
-Object getCurrentBuildVar() {
-    return currentBuild
-}
-
 Object callSh(Map args) {
+    if (args["script"] && !args["script"].toString().startsWith("#!")) {
+        // suppress stdout of shell command by passing custom shebang line
+        args["script"] = "#!/bin/sh -e\n" + args["script"]
+    }
     sh(args)
 }
 
