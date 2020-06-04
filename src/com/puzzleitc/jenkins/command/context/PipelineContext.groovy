@@ -4,6 +4,8 @@ interface PipelineContext {
 
     StepParams getStepParams()
 
+    Map getEnv()
+
     Object sh(Map map)
 
     Object withEnv(List<String> env, Closure<Object> closure)

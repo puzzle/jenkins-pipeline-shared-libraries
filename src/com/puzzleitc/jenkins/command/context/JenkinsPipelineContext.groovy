@@ -15,6 +15,11 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
+    Map getEnv() {
+        return invoker.getEnvVar()
+    }
+
+    @Override
     Object sh(Map map) {
         invoker.callSh(map)
     }

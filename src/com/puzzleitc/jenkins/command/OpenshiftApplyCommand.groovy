@@ -14,21 +14,16 @@ class OpenshiftApplyCommand {
     }
 
     // TODO:
-    // - Direkt oc cli über Shell verwenden?
     // - Globale Cluster Konfiguration?
-    // - Gehören Labels nicht eher ins Template?
-    // - Parameter app Optional?
-    // - Mehr als ein Project?
-    // - Next Steps
     Object execute() {
         ctx.info("-- openshiftApply --")
         def configuration = ctx.stepParams.getRequired("configuration")
         def project = ctx.stepParams.getRequired("project")
         def cluster = ctx.stepParams.getOptional("cluster", null)
-        def app = ctx.stepParams.getOptional("app", null)
-        def credentialId = ctx.stepParams.getOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String
+        def appLabel = ctx.stepParams.getRequired("appLabel")
+        def credentialId = ctx.stepParams.getOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
         def saToken = ctx.lookupTokenFromCredentials(credentialId)
-        def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME);
+        def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
             ctx.openshift.withCluster(cluster) {
                 ctx.openshift.withProject(project) {
@@ -40,15 +35,45 @@ class OpenshiftApplyCommand {
                         /*
                         openshift.raw("convert", "-f", "mongodb.yaml")
                         */
-                        def result = ctx.openshift.apply(configuration, "-l", "app=${app}", "--prune")
-                        ctx.echo("openshift result action: ${result.actions[0].cmd}")
-                        ctx.echo("openshift result status: ${result.status}")
-                        ctx.echo("openshift result output:\n${result.out}")
-                        ctx.openshift.selector("dc", app).rollout().status()
+                        ocApply(configuration, appLabel)
+                        ocRollout(appLabel)
                     }
                 }
             }
         }
+    }
+
+    private void ocConvert(String configuration) {
+
+        ctx.echo("Workspace: " + ctx.env["WORKSPACE"])
+        /*
+        FilePath f = currentContext.exec.getWorkspaceFilePath().createTextTempFile(verb, ".markup", s, true);
+
+        try {
+            Map stepArgs = buildCommonArgs(verb, [ "-f", f.getRemote() ], userArgs, "-o=name");
+            stepArgs["reference"] = [ "${f.getRemote()}": s ];  // Store the markup content for reference in the result
+            if (project != null) {
+                stepArgs["project"] = project;
+            }
+            r.actions.add((OcAction.OcActionResult)script._OcAction(stepArgs));
+        } finally {
+            f.delete();
+        }
+
+         */
+    }
+
+    private void ocApply(String configuration, String appLabel) {
+        def result = ctx.openshift.apply(configuration, "-l", "app=${appLabel}", "--prune")
+        ctx.echo("openshift result action: ${result.actions[0].cmd}")
+        ctx.echo("openshift result status: ${result.status}")
+        ctx.echo("openshift result output:\n${result.out}")
+    }
+
+    private void ocRollout(String app) {
+        // Falls selector als parameter definiert, dann wie unten, sonst select über appLabel Label:
+        // openshift.selector( 'dc', [ tier: 'frontend' ] )
+        ctx.openshift.selector("dc", app).rollout().status()
     }
 
 }

@@ -8,6 +8,10 @@ Object getOpenshiftVar() {
     return openshift
 }
 
+Map getEnvVar() {
+    return env
+}
+
 Object callSh(Map args) {
     if (args["script"] && !args["script"].toString().startsWith("#!")) {
         // suppress stdout of shell command by passing custom shebang line
