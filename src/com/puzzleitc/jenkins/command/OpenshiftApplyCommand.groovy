@@ -14,12 +14,12 @@ class OpenshiftApplyCommand {
     }
 
     // TODO:
-    // - OC CLI Version (tool) konfigurierbar?
     // - Direkt oc cli über Shell verwenden?
-    // - Ist -n nötig, wenn in withProject Klammer?
     // - Globale Cluster Konfiguration?
     // - Gehören Labels nicht eher ins Template?
     // - Parameter app Optional?
+    // - Mehr als ein Project?
+    // - Next Steps
     Object execute() {
         ctx.info("-- openshiftApply --")
         def configuration = ctx.stepParams.getRequired("configuration")
@@ -40,9 +40,9 @@ class OpenshiftApplyCommand {
                         /*
                         openshift.raw("convert", "-f", "mongodb.yaml")
                         */
-                        def result = ctx.openshift.apply(configuration, "-l", "app=${app}", "-n", project, "--prune")
-                        ctx.echo("openshift result status: ${result.status}")
+                        def result = ctx.openshift.apply(configuration, "-l", "app=${app}", "--prune")
                         ctx.echo("openshift result actions: ${result.actions[0].cmd}")
+                        ctx.echo("openshift result status: ${result.status}")
                         ctx.echo("openshift result output:\n${result.out}")
                         ctx.openshift.selector("dc", app).rollout().status()
                     }
