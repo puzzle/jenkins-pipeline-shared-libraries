@@ -42,6 +42,9 @@ class OpenshiftApplyCommand {
 
     private void ocConvert(String configuration) {
         File workspaceDir = new File(ctx.lookupEnvironmentVariable('WORKSPACE'))
+        ctx.echo("workspaceDir: ${workspaceDir.absolutePath}")
+        ctx.echo("workspaceDir exists: ${workspaceDir.exists()}")
+
 
         File tempFile
         try {
