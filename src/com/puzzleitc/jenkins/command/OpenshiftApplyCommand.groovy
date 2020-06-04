@@ -41,8 +41,7 @@ class OpenshiftApplyCommand {
     }
 
     private void ocConvert(String configuration) {
-        ctx.echo("Env: ${ctx.env}")
-        ctx.echo("Workspace: ${ctx.env['WORKSPACE']}")
+        ctx.echo("Workspace: ${ctx.lookupEnvironmentVariable('WORKSPACE')}")
         /*
         FilePath f = currentContext.exec.getWorkspaceFilePath().createTextTempFile(verb, ".markup", s, true);
 

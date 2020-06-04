@@ -48,6 +48,10 @@ def callExit(int status) {
     exit(status)
 }
 
+String lookupEnvironmentVariable(String name) {
+    return env[name]
+}
+
 String lookupValueFromVault(String path, String key) {
     withVault(vaultSecrets: [[path: path, engineVersion: 2, secretValues: [[envVar: 'secretValue', vaultKey: key]]]]) {
         return secretValue

@@ -15,11 +15,6 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    Map getEnv() {
-        return invoker.getEnvVar()
-    }
-
-    @Override
     Object sh(Map map) {
         invoker.callSh(map)
     }
@@ -64,6 +59,11 @@ class JenkinsPipelineContext implements PipelineContext {
     @Override
     Object getOpenshift() {
         return invoker.openshiftVar
+    }
+
+    @Override
+    String lookupEnvironmentVariable(String name) {
+        invoker.lookupEnvironmentVariable(name)
     }
 
     @Override
