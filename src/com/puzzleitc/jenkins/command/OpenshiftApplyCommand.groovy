@@ -41,7 +41,7 @@ class OpenshiftApplyCommand {
                         openshift.raw("convert", "-f", "mongodb.yaml")
                         */
                         def result = ctx.openshift.apply(configuration, "-l", "app=${app}", "--prune")
-                        ctx.echo("openshift result actions: ${result.actions[0].cmd}")
+                        ctx.echo("openshift result action: ${result.actions[0].cmd}")
                         ctx.echo("openshift result status: ${result.status}")
                         ctx.echo("openshift result output:\n${result.out}")
                         ctx.openshift.selector("dc", app).rollout().status()
