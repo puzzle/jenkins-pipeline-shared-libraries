@@ -80,6 +80,7 @@ class JenkinsPipelineContext implements PipelineContext {
     void doWithTemporaryFile(String filePrefix, String fileSuffix, Closure body) {
         File tempFile
         try {
+            // TODO: Put temp file in workspace
             tempFile = File.createTempFile(filePrefix, fileSuffix)
             body.call(tempFile)
         } finally {

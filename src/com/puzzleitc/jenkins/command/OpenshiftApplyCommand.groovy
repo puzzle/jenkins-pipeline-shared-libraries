@@ -43,13 +43,10 @@ class OpenshiftApplyCommand {
     }
 
     private void ocConvert(String configuration) {
-        // TODO: Temp file in workspace
-        // TODO: Actually call oc convert
         ctx.doWithTemporaryFile("convert", ".markup") {
             File tempFile ->
                 tempFile.write(configuration)
-                // ctx.openshift.raw("convert", "-f", tempFile.absolutePath)
-                ctx.echo("File content: ${tempFile.readLines()}")
+                ctx.openshift.raw("convert", "-f", tempFile.absolutePath)
         }
     }
 
