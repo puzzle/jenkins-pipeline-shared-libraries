@@ -2,9 +2,6 @@ package com.puzzleitc.jenkins.command
 
 import com.puzzleitc.jenkins.command.context.PipelineContext
 
-import java.util.function.Consumer
-
-
 class OpenshiftApplyCommand {
 
     private static final DEFAULT_CREDENTIAL_ID_SUFFIX = "-cicd-deployer"
@@ -19,11 +16,12 @@ class OpenshiftApplyCommand {
     // TODO: Globale Cluster Konfiguration?
     Object execute() {
         ctx.info("-- openshiftApply --")
-        def configuration = ctx.stepParams.getRequired("configuration")
+        def configuration = ctx.stepParams.getRequired("configuration") as String
         def project = ctx.stepParams.getRequired("project")
         def cluster = ctx.stepParams.getOptional("cluster", null)
-        def appLabel = ctx.stepParams.getRequired("appLabel")
-        def credentialId = ctx.stepParams.getOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
+        def appLabel = ctx.stepParams.getRequired("appLabel") as String
+        def rolloutSelector = ctx.stepParams.getOptional("rolloutSelector", [:]) as Map
+        def credentialId = ctx.stepParams.getOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String
         def saToken = ctx.lookupTokenFromCredentials(credentialId)
         def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
@@ -35,7 +33,7 @@ class OpenshiftApplyCommand {
                         ctx.echo("openshift project: ${ctx.openshift.project()}")
                         ocConvert(configuration)
                         ocApply(configuration, appLabel)
-                        ocRollout(appLabel)
+                        ocRollout(appLabel, rolloutSelector)
                     }
                 }
             }
@@ -46,7 +44,8 @@ class OpenshiftApplyCommand {
         ctx.doWithTemporaryFile("convert", ".markup") {
             File tempFile ->
                 tempFile.write(configuration)
-                ctx.openshift.raw("convert", "-f", tempFile.absolutePath)
+                // TODO call oc convert
+                // ctx.openshift.raw("convert", "-f", tempFile.absolutePath)
         }
     }
 
@@ -57,10 +56,14 @@ class OpenshiftApplyCommand {
         ctx.echo("openshift result output:\n${result.out}")
     }
 
-    private void ocRollout(String app) {
-        // TODO Falls selector als parameter definiert, dann wie unten, sonst select über appLabel Label:
-        // openshift.selector( 'dc', [ tier: 'frontend' ] )
-        ctx.openshift.selector("dc", app).rollout().status()
+    private void ocRollout(String app, Map rolloutSelector) {
+        if (rolloutSelector.isEmpty()) {
+            ctx.echo("waiting for dc with selector ${app} to be rolled out")
+            ctx.openshift.selector("dc", app).rollout().status()
+        } else {
+            ctx.echo("waiting for dc with selector ${rolloutSelector} to be rolled out")
+            ctx.openshift.selector("dc", rolloutSelector).rollout().status()
+        }
     }
 
 }
