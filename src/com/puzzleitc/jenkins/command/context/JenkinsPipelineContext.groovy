@@ -77,7 +77,7 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    doWithTemporaryFile(String filePrefix, String fileSuffix, Closure body) {
+    void doWithTemporaryFile(String filePrefix, String fileSuffix, Closure body) {
         File tempFile
         try {
             tempFile = File.createTempFile(filePrefix, fileSuffix)
