@@ -2,6 +2,8 @@ package com.puzzleitc.jenkins.command
 
 import com.puzzleitc.jenkins.command.context.PipelineContext
 
+import java.util.function.Consumer
+
 
 class OpenshiftApplyCommand {
 
@@ -42,16 +44,9 @@ class OpenshiftApplyCommand {
 
     private void ocConvert(String configuration) {
         // TODO: Temp file in workspace
-        File tempFile
-        try {
-            tempFile = File.createTempFile("convert", ".markup")
-            ctx.echo("Temp file: ${tempFile.absolutePath}")
-
-            // TODO call oc convert
-        } finally {
-            if (tempFile) {
-                tempFile.delete()
-            }
+        // TODO: Actually call oc convert
+        doWithTemporaryFile("convert", ".markup") {
+            File temp -> ctx.echo("Temp file: ${temp.absolutePath}")
         }
     }
 
@@ -66,6 +61,18 @@ class OpenshiftApplyCommand {
         // TODO Falls selector als parameter definiert, dann wie unten, sonst select über appLabel Label:
         // openshift.selector( 'dc', [ tier: 'frontend' ] )
         ctx.openshift.selector("dc", app).rollout().status()
+    }
+
+    void doWithTemporaryFile(String filePrefix, String fileSuffix, Closure body) {
+        File tempFile
+        try {
+            tempFile = File.createTempFile(filePrefix, fileSuffix)
+            body.call(tempFile)
+        } finally {
+            if (tempFile) {
+                tempFile.delete()
+            }
+        }
     }
 
 }
