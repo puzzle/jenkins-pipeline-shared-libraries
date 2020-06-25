@@ -13,12 +13,11 @@ class OpenshiftApplyCommand {
         this.ctx = ctx
     }
 
-    // TODO: Globale Cluster Konfiguration?
     Object execute() {
         ctx.info("-- openshiftApply --")
         def configuration = ctx.stepParams.getRequired("configuration") as String
         def project = ctx.stepParams.getRequired("project")
-        def cluster = ctx.stepParams.getOptional("cluster", null)
+        def cluster = ctx.stepParams.getRequired("cluster")
         def appLabel = ctx.stepParams.getRequired("appLabel") as String
         def rolloutSelector = ctx.stepParams.getOptional("rolloutSelector", [:]) as Map
         def credentialId = ctx.stepParams.getOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String
