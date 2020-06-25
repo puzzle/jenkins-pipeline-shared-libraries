@@ -45,8 +45,11 @@ class OpenshiftApplyCommand {
     private void ocConvert(String configuration) {
         // TODO: Temp file in workspace
         // TODO: Actually call oc convert
-        doWithTemporaryFile("convert", ".markup") {
-            File temp -> ctx.echo("Temp file: ${temp.absolutePath}")
+        ctx.doWithTemporaryFile("convert", ".markup") {
+            File tempFile ->
+                tempFile.write(configuration)
+                // ctx.openshift.raw("convert", "-f", tempFile.absolutePath)
+                ctx.echo("File content: ${tempFile.readLines()}")
         }
     }
 
@@ -61,18 +64,6 @@ class OpenshiftApplyCommand {
         // TODO Falls selector als parameter definiert, dann wie unten, sonst select über appLabel Label:
         // openshift.selector( 'dc', [ tier: 'frontend' ] )
         ctx.openshift.selector("dc", app).rollout().status()
-    }
-
-    void doWithTemporaryFile(String filePrefix, String fileSuffix, Closure body) {
-        File tempFile
-        try {
-            tempFile = File.createTempFile(filePrefix, fileSuffix)
-            body.call(tempFile)
-        } finally {
-            if (tempFile) {
-                tempFile.delete()
-            }
-        }
     }
 
 }

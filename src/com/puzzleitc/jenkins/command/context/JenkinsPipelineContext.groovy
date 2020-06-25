@@ -75,4 +75,18 @@ class JenkinsPipelineContext implements PipelineContext {
     String lookupTokenFromCredentials(String credentialsId) {
         return invoker.lookupTokenFromCredentials(credentialsId)
     }
+
+    @Override
+    doWithTemporaryFile(String filePrefix, String fileSuffix, Closure body) {
+        File tempFile
+        try {
+            tempFile = File.createTempFile(filePrefix, fileSuffix)
+            body.call(tempFile)
+        } finally {
+            if (tempFile) {
+                tempFile.delete()
+            }
+        }
+    }
+
 }
