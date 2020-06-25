@@ -58,7 +58,7 @@ class OpenshiftApplyCommand {
 
     private void ocRollout(String app, Map rolloutSelector) {
         if (rolloutSelector.isEmpty()) {
-            ctx.echo("waiting for dc with selector ${app} to be rolled out")
+            ctx.echo("waiting for dc with selector '${app}' to be rolled out")
             ctx.openshift.selector("dc", app).rollout().status()
         } else {
             ctx.echo("waiting for dc with selector ${rolloutSelector} to be rolled out")
