@@ -83,6 +83,7 @@ class JenkinsPipelineContext implements PipelineContext {
                 def fileName = "temp${fileSuffix}"
                 def absolutePath = "${invoker.callPwd()}/${fileName}"
                 invoker.callWriteFile(fileName, content, encoding)
+                invoker.callEcho("wrote temporary file: ${absolutePath}")
                 body.call(absolutePath)
             } finally {
                 invoker.callDeleteDir()
