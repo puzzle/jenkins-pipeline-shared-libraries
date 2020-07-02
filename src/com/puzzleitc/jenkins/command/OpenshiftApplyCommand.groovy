@@ -40,21 +40,19 @@ class OpenshiftApplyCommand {
     }
 
     private void ocConvert(String configuration) {
-        ctx.echo("Oc convert")
         ctx.doWithTemporaryFile(configuration, ".yaml", "UTF-8") {
             String absolutePath ->
                 def result = ctx.openshift.raw("convert", "-f", absolutePath)
-                ctx.echo("openshift convert result action: ${result.actions[0].cmd}")
-                ctx.echo("openshift convert result status: ${result.status}")
-                ctx.echo("openshift convert result output:\n${result.out}")
+                ctx.echo("oc convert action: ${result.actions[0].cmd}")
+                ctx.echo("oc convert status: ${result.status}")
         }
     }
 
     private void ocApply(String configuration, String appLabel) {
         def result = ctx.openshift.apply(configuration, "-l", "app=${appLabel}", "--prune")
-        ctx.echo("openshift result action: ${result.actions[0].cmd}")
-        ctx.echo("openshift result status: ${result.status}")
-        ctx.echo("openshift result output:\n${result.out}")
+        ctx.echo("oc apply action: ${result.actions[0].cmd}")
+        ctx.echo("oc apply status: ${result.status}")
+        ctx.echo("oc apply output:\n${result.out}")
     }
 
     private void ocRollout(String app, Map rolloutSelector) {
