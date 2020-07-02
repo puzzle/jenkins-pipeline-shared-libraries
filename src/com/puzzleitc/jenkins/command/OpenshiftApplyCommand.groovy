@@ -40,6 +40,7 @@ class OpenshiftApplyCommand {
     }
 
     private void ocConvert(String configuration) {
+        ctx.echo("Oc convert")
         ctx.doWithTemporaryFile("convert", ".markup") {
             File tempFile ->
                 ctx.echo("Temp file: ${tempFile.absolutePath}")
