@@ -80,7 +80,7 @@ class JenkinsPipelineContext implements PipelineContext {
     void doWithTemporaryFile(String filePrefix, String fileSuffix, Closure body) {
         invoker.callDir("${System.currentTimeMillis()}") {
             try {
-                invoker.callEcho("PWD: ${invoker.pwd}")
+                invoker.callEcho("PWD: ${invoker.callPwd()}")
                 body.call("temp")
             } finally {
                 invoker.callDeleteDir()

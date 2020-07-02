@@ -42,14 +42,8 @@ def callDeleteDir() {
     deleteDir()
 }
 
-String getPwd() {
-    pwd()
-}
-
 String callPwd() {
-    dir(path) {
-        closure.call()
-    }
+    pwd()
 }
 
 String callTool(String toolName) {
