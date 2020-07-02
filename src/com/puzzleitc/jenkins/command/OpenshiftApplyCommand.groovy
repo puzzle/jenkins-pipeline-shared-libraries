@@ -42,7 +42,11 @@ class OpenshiftApplyCommand {
     private void ocConvert(String configuration) {
         ctx.echo("Oc convert")
         ctx.doWithTemporaryFile(configuration, ".yaml", "UTF-8") {
-            String absolutePath -> ctx.openshift.raw("convert", "-f", absolutePath)
+            String absolutePath ->
+                def result = ctx.openshift.raw("convert", "-f", absolutePath)
+                ctx.echo("openshift convert result action: ${result.actions[0].cmd}")
+                ctx.echo("openshift convert result status: ${result.status}")
+                ctx.echo("openshift convert result output:\n${result.out}")
         }
     }
 
