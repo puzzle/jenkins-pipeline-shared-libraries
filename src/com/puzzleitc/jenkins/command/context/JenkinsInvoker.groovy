@@ -32,6 +32,26 @@ def callAnsiColor(String colorMapName, Closure<Void> closure) {
     }
 }
 
+def callDir(String path, Closure closure) {
+    dir(path) {
+        closure.call()
+    }
+}
+
+def callDeleteDir() {
+    deleteDir()
+}
+
+String getPwd() {
+    pwd()
+}
+
+String callPwd() {
+    dir(path) {
+        closure.call()
+    }
+}
+
 String callTool(String toolName) {
     tool(toolName)
 }
