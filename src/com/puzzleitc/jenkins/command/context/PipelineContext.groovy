@@ -26,6 +26,6 @@ interface PipelineContext {
 
     String lookupTokenFromCredentials(String credentialsId)
 
-    void doWithTemporaryFile(String filePrefix, String fileSuffix, Closure body)
+    void doWithTemporaryFile(String content, String fileSuffix, String encoding, Closure body)
 
 }

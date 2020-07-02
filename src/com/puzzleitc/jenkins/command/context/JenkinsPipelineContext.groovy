@@ -77,11 +77,13 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    void doWithTemporaryFile(String filePrefix, String fileSuffix, Closure body) {
+    void doWithTemporaryFile(String content, String fileSuffix, String encoding, Closure body) {
         invoker.callDir("${System.currentTimeMillis()}") {
             try {
-                invoker.callEcho("PWD: ${invoker.callPwd()}")
-                body.call("temp")
+                def fileName = "temp${fileSuffix}"
+                def absolutePath = "${invoker.callPwd()}/${fileName}"
+                invoker.callWriteFile(fileName, content, encoding)
+                body.call(absolutePath)
             } finally {
                 invoker.callDeleteDir()
             }

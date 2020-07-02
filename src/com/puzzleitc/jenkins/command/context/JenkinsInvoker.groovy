@@ -42,6 +42,10 @@ def callDeleteDir() {
     deleteDir()
 }
 
+String callWriteFile(String file, String text, String encoding) {
+    writeFile(file: file, text: text, encoding: encoding)
+}
+
 String callPwd() {
     pwd()
 }
