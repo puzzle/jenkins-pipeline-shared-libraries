@@ -78,8 +78,9 @@ String lookupValueFromVault(String path, String key) {
 
 String lookupTokenFromCredentials(String credentialsId) {
     withCredentials([string(credentialsId: credentialsId, variable: 'secretValue')]) {
-        callEcho("secret: ${secretValue}")
+
         def jsonObj = new JsonSlurper().parseText(secretValue)
+        callEcho("secret: ${jsonObj}")
         return new String(jsonObj.token.decodeBase64())
     }
 }
