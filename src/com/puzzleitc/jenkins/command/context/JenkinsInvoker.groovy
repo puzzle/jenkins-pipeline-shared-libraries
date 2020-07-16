@@ -77,13 +77,13 @@ String lookupValueFromVault(String path, String key) {
 }
 
 String lookupTokenFromCredentials(String credentialsId) {
-    withCredentials([string(credentialsId: credentialsId, variable: 'secretValue')]) {  
+    withCredentials([string(credentialsId: credentialsId, variable: 'secretValue')]) {
         try {
             def jsonObj = new JsonSlurper().parseText(secretValue)
             return new String(jsonObj.token.decodeBase64())
         } catch (Exception e) {
-            callEcho("String: ${new String(secretValue)}")
-            return new String(secretValue.decodeBase64())
+            // it's not a json. maybe its a plain token?
+            return secretValue
         }
     }
 }
