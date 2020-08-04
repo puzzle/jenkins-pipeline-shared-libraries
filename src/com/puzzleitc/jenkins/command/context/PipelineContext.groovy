@@ -8,6 +8,10 @@ interface PipelineContext {
 
     Object withEnv(List<String> env, Closure<Object> closure)
 
+    Object withCredentials(List<Object> credentials, Closure<Object> closure)
+
+    Object file(Map map)
+
     String tool(String toolName)
 
     Object getOpenshift()

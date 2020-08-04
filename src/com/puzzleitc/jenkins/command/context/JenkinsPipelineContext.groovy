@@ -25,6 +25,16 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
+    Object withCredentials(List<Object> credentials, Closure<Object> closure) {
+        invoker.callWithCredentials(credentials, closure)
+    }
+
+    @Override
+    Object file(Map map) {
+        invoker.callFile(map)
+    }
+
+    @Override
     String tool(String toolName) {
         invoker.callTool(toolName)
     }

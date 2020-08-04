@@ -26,6 +26,16 @@ Object callWithEnv(List<String> env, Closure<Object> closure) {
     }
 }
 
+Object callWithCredentials(List<Object> credentials, Closure<Object> closure) {
+    withCredentials(credentials) {
+        closure.call()
+    }
+}
+
+Object callFile(Map args) {
+    file(args)
+}
+
 def callAnsiColor(String colorMapName, Closure<Void> closure) {
     ansiColor(colorMapName) {
         closure.call()
