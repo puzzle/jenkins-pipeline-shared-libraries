@@ -1,0 +1,62 @@
+{
+  "data": [
+    {
+      "name": "JDK9",
+      "releases": [
+        {
+          "files": [
+            {
+              "SHA256": "90c4ea877e816e3440862cfa36341bc87d05373d53389ec0f2d54d4e8c95daa2",
+              "filepath": "https://download.oracle.com/otn/java/jdk/9.0.4+11/c2514751926b4512b076cc82f959763f/jdk-9.0.4_linux-x64_bin.tar.gz",
+              "name": "jdk-9.0.4_linux-x64_bin.tar.gz",
+              "title": "Linux"
+            }
+          ],
+          "licpath": "/technetwork/java/javase/terms/license",
+          "lictitle": "Oracle Binary Code License Agreement for Java SE",
+          "name": "jdk-9.0.4-oth-JPR",
+          "title": "Java SE Development Kit 9.0.4"
+        }
+      ]
+    },
+    {
+      "name": "JDK8",
+      "releases": [
+        {
+          "files": [
+            {
+              "MD5": "6f1961691877db56bf124d6f50478956",
+              "SHA256": "6d34ae147fc5564c07b913b467de1411c795e290356538f22502f28b76a323c2",
+              "filepath": "http://download.oracle.com/otn/java/jdk/8u192-b12/750e1c8617c5452694857ad95c3ee230/jdk-8u192-linux-x64.tar.gz",
+              "name": "jdk-8u192-linux-x64.tar.gz",
+              "title": "Linux x64"
+            }
+          ],
+          "licpath": "/technetwork/java/javase/terms/license",
+          "lictitle": "Oracle Binary Code License Agreement for Java SE",
+          "name": "jdk-8u192-oth-JPR",
+          "title": "Java SE Development Kit 8u192"
+        }
+      ]
+    },
+    {
+      "name": "JDK7",
+      "releases": [
+        {
+          "files": [
+            {
+              "filepath": "https://download.oracle.com/otn/java/jdk/7u80-b15/jdk-7u80-macosx-x64.dmg",
+              "name": "jdk-7u80-macosx-x64.dmg",
+              "title": "Mac OS X x64"
+            }
+          ],
+          "licpath": "/technetwork/java/javase/terms/javase7-license-3976698.html",
+          "lictitle": "Oracle Binary Code License Agreement for Java SE",
+          "name": "jdk-7u80-oth-JPR",
+          "title": "Java SE Development Kit 7u80"
+        }
+      ]
+    }
+  ],
+  "version": 2
+}
