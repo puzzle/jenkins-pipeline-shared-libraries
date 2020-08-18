@@ -32,5 +32,6 @@ File: [src/com/puzzleitc/jenkins/DockerHub.groovy](src/com/puzzleitc/jenkins/Doc
 
 ### Unit tests
 
-Tests can be executed with `$ ./gradlew clean test`  
-Documentation for the Testframework can be found here: [https://github.com/ExpediaGroup/jenkins-spock](https://github.com/ExpediaGroup/jenkins-spock)
+Tests can be executed with `./gradlew clean test`
+
+Documentation for the test framework can be found here: <https://github.com/ExpediaGroup/jenkins-spock>

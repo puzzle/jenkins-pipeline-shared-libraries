@@ -80,3 +80,5 @@
         </ul>
     </dd>
 </dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->

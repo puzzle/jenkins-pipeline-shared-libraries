@@ -79,3 +79,5 @@
 <p>
     For further information see documentation on GitHub: https://jeremylong.github.io/DependencyCheck/.
 </p>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->
