@@ -1,7 +1,14 @@
-# Check
-
-## mandatoryParameter
-
-Checks if a parameter with the given name is available.
-
-If not, the build will be aborted with an error message.
+<?xml version="1.0" encoding="UTF-8"?>
+<p>
+    The <code>check</code> variable offers assert methods.
+</p>
+<dl>
+    <dt><code>check.mandatoryParameter()</code></dt>
+    <dd>
+        <p>
+            Checks if a parameter with the given name is available. If not, the build will be aborted with an error message.
+        </p>
+    </dd>
+</dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->
