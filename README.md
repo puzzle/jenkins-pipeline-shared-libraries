@@ -27,3 +27,10 @@ File: [vars/owaspDependencyCheck.groovy](vars/owaspDependencyCheck.groovy)
 This class was implemented to read and delete Docker Images by tag names.
 
 File: [src/com/puzzleitc/jenkins/DockerHub.groovy](src/com/puzzleitc/jenkins/DockerHub.groovy)
+
+## Testing
+
+### Unit tests
+
+Tests can be executed with `$ ./gradlew clean test`  
+Documentation for the Testframework can be found here: [https://github.com/ExpediaGroup/jenkins-spock](https://github.com/ExpediaGroup/jenkins-spock)
