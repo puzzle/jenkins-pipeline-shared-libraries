@@ -29,7 +29,7 @@ class OpenshiftUtilsSpec extends JenkinsPipelineSpecification {
                 env == _arguments[0][0]
             }
             1 * getPipelineMock('sh').call('oc login https://console.appuio.ch/ --insecure-skip-tls-verify=true --token=Mock Generator for [openshift_token]')
-            1 * getPipelineMock('sh').call('oc process -f template.yaml | oc apply -f -')
+            1 * getPipelineMock('sh').call('oc process -f template.yaml | oc apply -n my-appuio-project -f -')
     }
 
     def 'Applys the template with namespace'() {
@@ -38,7 +38,7 @@ class OpenshiftUtilsSpec extends JenkinsPipelineSpecification {
         when:
             openshiftUtils.applyTemplate("https://console.appuio.ch/", "my-appuio-project", "template.yaml", "APPUiO_login_token", true)
         then:
-            1 * getPipelineMock('sh').call('oc process -f template.yaml -p NAMESPACE_NAME=$(oc project -q) | oc apply -f -')
+            1 * getPipelineMock('sh').call('oc process -f template.yaml -p NAMESPACE_NAME=my-appuio-project | oc apply -n my-appuio-project -f -')
     }
 
     def 'Applys the template with envFile and without namespace'() {
@@ -48,7 +48,7 @@ class OpenshiftUtilsSpec extends JenkinsPipelineSpecification {
             openshiftUtils.applyTemplateWithEnvFile("https://console.appuio.ch/", "my-appuio-project", "template.yaml", "APPUiO_login_token", 'envFile.env', false)
         then:
             1 * getPipelineMock('echo').call('environment file: envFile.env')
-            1 * getPipelineMock('sh').call('oc process -f template.yaml --param-file envFile.env | oc apply -f -')
+            1 * getPipelineMock('sh').call('oc process -f template.yaml --param-file envFile.env | oc apply -n my-appuio-project -f -')
     }
 
     def 'Applys the template with namespace and envFile'() {
@@ -57,6 +57,6 @@ class OpenshiftUtilsSpec extends JenkinsPipelineSpecification {
         when:
             openshiftUtils.applyTemplateWithEnvFile("https://console.appuio.ch/", "my-appuio-project", "template.yaml", "APPUiO_login_token", 'envFile.env', true)
         then:
-            1 * getPipelineMock('sh').call('oc process -f template.yaml -p NAMESPACE_NAME=$(oc project -q) --param-file envFile.env | oc apply -f -')
+            1 * getPipelineMock('sh').call('oc process -f template.yaml -p NAMESPACE_NAME=my-appuio-project --param-file envFile.env | oc apply -n my-appuio-project -f -')
     }
 }

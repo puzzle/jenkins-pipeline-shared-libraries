@@ -26,9 +26,9 @@ def void applyTemplate(String ocpUrl, String ocpProject, String templateFile, St
 
             // apply template
             if (namespace) {
-                sh "oc process -f $templateFile -p NAMESPACE_NAME=\$(oc project -q) | oc apply -f -"
+                sh "oc process -f $templateFile -p NAMESPACE_NAME=$ocpProject | oc apply -n $ocpProject -f -"
             } else {
-                sh "oc process -f $templateFile | oc apply -f -"
+                sh "oc process -f $templateFile | oc apply -n $ocpProject -f -"
             }
         }
     }
@@ -64,9 +64,9 @@ def void applyTemplateWithEnvFile(String ocpUrl, String ocpProject, String templ
 
             // apply template
             if (namespace) {
-                sh "oc process -f $templateFile -p NAMESPACE_NAME=\$(oc project -q) --param-file $envFile | oc apply -f -"
+                sh "oc process -f $templateFile -p NAMESPACE_NAME=$ocpProject --param-file $envFile | oc apply -n $ocpProject -f -"
             } else {
-                sh "oc process -f $templateFile --param-file $envFile | oc apply -f -"
+                sh "oc process -f $templateFile --param-file $envFile | oc apply -n $ocpProject -f -"
             }
         }
     }
