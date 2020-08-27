@@ -5,7 +5,6 @@ import com.puzzleitc.jenkins.command.context.PipelineContext
 class GitCryptCommand {
 
     private final PipelineContext ctx
-    private boolean unlocked
 
     GitCryptCommand(PipelineContext ctx) {
         this.ctx = ctx

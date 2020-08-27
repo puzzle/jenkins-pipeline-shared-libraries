@@ -19,7 +19,8 @@ class OpenshiftApplyCommand {
         def project = ctx.stepParams.getRequired("project")
         def cluster = ctx.stepParams.getRequired("cluster")
         def appLabel = ctx.stepParams.getRequired("appLabel") as String
-        def rolloutSelector = ctx.stepParams.getOptional("rolloutSelector", [:]) as Map
+        def rolloutKind = ctx.stepParams.getOptional("waitForRolloutKind", "dc") as String
+        def rolloutSelector = ctx.stepParams.getOptional("waitForRolloutSelector", [:]) as Map
         def credentialId = ctx.stepParams.getOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String
         def saToken = ctx.lookupTokenFromCredentials(credentialId)
         def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
@@ -32,7 +33,7 @@ class OpenshiftApplyCommand {
                         ctx.echo("openshift project: ${ctx.openshift.project()}")
                         ocConvert(configuration)
                         ocApply(configuration, appLabel)
-                        ocRollout(appLabel, rolloutSelector)
+                        ocRollout(appLabel, rolloutKind, rolloutSelector)
                     }
                 }
             }
@@ -55,13 +56,13 @@ class OpenshiftApplyCommand {
         ctx.echo("oc apply output:\n${result.out}")
     }
 
-    private void ocRollout(String app, Map rolloutSelector) {
+    private void ocRollout(String appLabel, String rolloutKind, Map rolloutSelector) {
         if (rolloutSelector.isEmpty()) {
-            ctx.echo("waiting for dc with selector '${app}' to be rolled out")
-            ctx.openshift.selector("dc", app).rollout().status()
+            ctx.echo("waiting for '${rolloutKind}' with selector '${appLabel}' to be rolled out")
+            ctx.openshift.selector(rolloutKind, appLabel).rollout().status()
         } else {
-            ctx.echo("waiting for dc with selector ${rolloutSelector} to be rolled out")
-            ctx.openshift.selector("dc", rolloutSelector).rollout().status()
+            ctx.echo("waiting for '${rolloutKind}' with selector ${rolloutSelector} to be rolled out")
+            ctx.openshift.selector(rolloutKind, rolloutSelector).rollout().status()
         }
     }
 
