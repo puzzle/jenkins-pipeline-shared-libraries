@@ -2,10 +2,11 @@ package com.puzzleitc.jenkins.command
 
 import com.puzzleitc.jenkins.command.context.PipelineContext
 
+import static com.puzzleitc.jenkins.command.Constants.DEFAULT_CREDENTIAL_ID_SUFFIX
+import static com.puzzleitc.jenkins.command.Constants.DEFAULT_OC_TOOL_NAME
+
 class OpenshiftApplyCommand {
 
-    private static final DEFAULT_CREDENTIAL_ID_SUFFIX = "-cicd-deployer"
-    private static final DEFAULT_OC_TOOL_NAME = "oc_3_11"
     private static final VALID_ROLLOUT_KINDS =
             ["deploymentconfig", "dc", "deployment", "deploy", "daemonset", "ds", "statefulset", "sts"]
 
