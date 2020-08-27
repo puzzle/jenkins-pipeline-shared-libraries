@@ -26,7 +26,7 @@ class OpenshiftStartBuildCommand {
                     ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
                     ctx.echo("openshift project: ${ctx.openshift.project()}")
                     def bc = ctx.openshift.selector("bc/${buildConfigName}")
-                    def build = bc.startBuild(createStartBuildParams(fromDir, fromFile, fromRepo))
+                    def build = bc.startBuild(createStartBuildParams(fromDir, fromFile))
                     build.logs("-f")
                     if (build.object().status.phase == 'Failed') {
                         ctx.fail("openshift build ${build.object().metadata.name} failed")
