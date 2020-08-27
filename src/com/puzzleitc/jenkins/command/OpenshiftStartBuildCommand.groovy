@@ -37,7 +37,7 @@ class OpenshiftStartBuildCommand {
         }
     }
 
-    private static String[] createStartBuildParams(String fromDir, String fromFile, String fromRepo) {
+    private String[] createStartBuildParams(String fromDir, String fromFile, String fromRepo) {
         def result = []
         if (fromDir) {
             result << "--from-dir=${fromDir}"
@@ -48,6 +48,7 @@ class OpenshiftStartBuildCommand {
         if (fromDir) {
             result << "--from-repo=${fromRepo}"
         }
+        ctx.echo("params: ${result}")
         return result
     }
 
