@@ -19,7 +19,7 @@ class OpenshiftApplyCommand {
         def project = ctx.stepParams.getRequired("project")
         def cluster = ctx.stepParams.getRequired("cluster")
         def appLabel = ctx.stepParams.getRequired("appLabel") as String
-        def rolloutKind = ctx.stepParams.getOptional("waitForRolloutKind", "dc") as String
+        def rolloutKind = ctx.stepParams.getOptional("waitForRollout", "dc") as String
         def rolloutSelector = ctx.stepParams.getOptional("waitForRolloutSelector", [:]) as Map
         def credentialId = ctx.stepParams.getOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String
         def saToken = ctx.lookupTokenFromCredentials(credentialId)
@@ -57,12 +57,14 @@ class OpenshiftApplyCommand {
     }
 
     private void ocRollout(String appLabel, String rolloutKind, Map rolloutSelector) {
-        if (rolloutSelector.isEmpty()) {
-            ctx.echo("waiting for '${rolloutKind}' with selector '${appLabel}' to be rolled out")
-            ctx.openshift.selector(rolloutKind, appLabel).rollout().status()
-        } else {
-            ctx.echo("waiting for '${rolloutKind}' with selector ${rolloutSelector} to be rolled out")
-            ctx.openshift.selector(rolloutKind, rolloutSelector).rollout().status()
+        if (rolloutKind?.trim()) {
+            if (rolloutSelector.isEmpty()) {
+                ctx.echo("waiting for '${rolloutKind}' with selector '${appLabel}' to be rolled out")
+                ctx.openshift.selector(rolloutKind, appLabel).rollout().status()
+            } else {
+                ctx.echo("waiting for '${rolloutKind}' with selector ${rolloutSelector} to be rolled out")
+                ctx.openshift.selector(rolloutKind, rolloutSelector).rollout().status()
+            }
         }
     }
 
