@@ -19,7 +19,6 @@ class OpenshiftStartBuildCommand {
         def buildConfigName = ctx.stepParams.getRequired("buildConfigName")
         def fromDir = ctx.stepParams.getOptional("fromDir", null) as String
         def fromFile = ctx.stepParams.getOptional("fromFile", null) as String
-        def fromRepo = ctx.stepParams.getOptional("fromRepo", null) as String
         def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
             ctx.openshift.withCluster(cluster) {
@@ -37,18 +36,14 @@ class OpenshiftStartBuildCommand {
         }
     }
 
-    private String[] createStartBuildParams(String fromDir, String fromFile, String fromRepo) {
+    private String[] createStartBuildParams(String fromDir, String fromFile) {
         def result = []
         if (fromDir) {
             result << "--from-dir=${fromDir}"
         }
-        if (fromDir) {
+        if (fromFile) {
             result << "--from-file=${fromFile}"
         }
-        if (fromDir) {
-            result << "--from-repo=${fromRepo}"
-        }
-        ctx.echo("params: ${result}")
         return result
     }
 
