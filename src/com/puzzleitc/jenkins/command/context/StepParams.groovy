@@ -19,7 +19,7 @@ class StepParams {
     }
 
     Object getOptional(String paramName, Object defaultValue) {
-        return params.get(paramName) ?: defaultValue
+        return params.containsKey(paramName) ? params.get(paramName) : defaultValue
     }
 
 }
