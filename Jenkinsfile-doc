@@ -2,7 +2,10 @@
 // vim: ft=groovy
 // code: language=declarative
 
-@Library("jenkins-pipeline-shared-libraries@${BRANCH_NAME}") _
+// @Library("jenkins-pipeline-shared-libraries@${BRANCH_NAME}") _
+libraries {
+  lib("jenkins-pipeline-shared-libraries@${BRANCH_NAME}")
+}
 
 pipeline {
    agent any
