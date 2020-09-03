@@ -1,0 +1,26 @@
+#!/usr/bin/env groovy
+// vim: ft=groovy
+// code: language=declarative
+
+@Library("jenkins-pipeline-shared-libraries@${BRANCH_NAME}") _
+
+pipeline {
+   agent any
+
+   options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+   }
+
+    triggers {
+        pollSCM('H/5 * * * *')
+    }
+
+   stages {
+      stage('docs') {
+         steps {
+            echo "Shared library documentation now available at https://jenkins.puzzle.ch/job/pitc-jenkins/job/build/job/pitc-shared-library-docs/job/${BRANCH_NAME}/pipeline-syntax/globals"
+         }
+      }
+   }
+}
+
