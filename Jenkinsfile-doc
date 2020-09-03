@@ -3,12 +3,13 @@
 // code: language=declarative
 
 // @Library("jenkins-pipeline-shared-libraries@${BRANCH_NAME}") _
-libraries {
-  lib("jenkins-pipeline-shared-libraries@${BRANCH_NAME}")
-}
 
 pipeline {
    agent any
+
+   libraries {
+      lib("jenkins-pipeline-shared-libraries@${BRANCH_NAME}")
+   }
 
    options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
