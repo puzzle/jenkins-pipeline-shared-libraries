@@ -2,14 +2,8 @@
 // vim: ft=groovy
 // code: language=declarative
 
-// @Library("jenkins-pipeline-shared-libraries@${BRANCH_NAME}") _
-
 pipeline {
    agent any
-
-   libraries {
-      lib("jenkins-pipeline-shared-libraries@${BRANCH_NAME}")
-   }
 
    options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
@@ -22,9 +16,9 @@ pipeline {
    stages {
       stage('docs') {
          steps {
+            library changelog: false, identifier: "jenkins-pipeline-shared-libraries-docs@${BRANCH_NAME}", retriever: modernSCM([$class: 'GitSCMSource', credentialsId: '', remote: 'https://github.com/puzzle/jenkins-pipeline-shared-libraries', traits: [gitBranchDiscovery()]])
             echo "Shared library documentation now available at https://jenkins.puzzle.ch/job/pitc-jenkins/job/build/job/pitc-shared-library-docs/job/${BRANCH_NAME}/pipeline-syntax/globals"
          }
       }
    }
 }
-
