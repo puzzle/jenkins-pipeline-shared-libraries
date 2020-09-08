@@ -20,13 +20,20 @@ class OpenshiftApplyCommand {
         ctx.info("-- openshiftApply --")
         def configuration = ctx.stepParams.getRequired("configuration") as String
         def project = ctx.stepParams.getRequired("project")
-        def cluster = ctx.stepParams.getRequired("cluster")
+        def cluster = ctx.stepParams.getOptional("cluster", null)
         def appLabel = ctx.stepParams.getRequired("appLabel") as String
         def waitForRollout = ctx.stepParams.getOptional("waitForRollout", true) as boolean
         def rolloutKind = ctx.stepParams.getOptional("rolloutKind", "dc") as String
         def rolloutSelector = ctx.stepParams.getOptional("rolloutSelector", [:]) as Map
-        def credentialId = ctx.stepParams.getOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String
-        def saToken = ctx.lookupTokenFromCredentials(credentialId)
+        def credentialId = ctx.stepParams.getOptional("credentialId", null) as String
+        def saToken = null as String;
+	if (credentialId == null) {
+            if (System.getenv("KUBERNETES_PORT") == null) {  // Token is only needed when not running on Kubernetes cluster
+                saToken = ctx.lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String;
+            }
+        } else {
+            saToken = ctx.lookupTokenFromCredentials(credentialId) as String;
+        }
         def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
             ctx.openshift.withCluster(cluster) {
