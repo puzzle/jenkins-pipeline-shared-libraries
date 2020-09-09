@@ -7,6 +7,9 @@
         <p>
             Unlocks the Git repository in the current directory with <code>git-crypt</code> for the duration of the scope of the step
             and locks it again afterwards. The repository is also relocked when an error occurs in the scope of the step.
+            The return value is the value returned by (or the value of the last statement within) the scope of the step.
+            If credentialsId is null git-crypt is not called but the passed block/closure is still executed. This can
+            be used to run git-crypt conditionally.
         </p>
         <ul>
             <li>
