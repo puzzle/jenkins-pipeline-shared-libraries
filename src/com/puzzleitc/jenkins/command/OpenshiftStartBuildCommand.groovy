@@ -31,7 +31,9 @@ class OpenshiftStartBuildCommand {
                         ctx.echo("openshift project: ${ctx.openshift.project()}")
                         def bc = ctx.openshift.selector("bc/${buildConfigName}")
                         def build = bc.startBuild(createStartBuildParams(fromDir, fromFile))
-                        build.logs("-f")
+                        def result = build.logs("-f")
+                        ctx.echo("oc startBuild action: ${result.actions[0].cmd}")
+                        ctx.echo("oc startBuild status: ${result.status}")
                         if (build.object().status.phase == 'Failed') {
                             ctx.fail("openshift build ${build.object().metadata.name} failed")
                         }
