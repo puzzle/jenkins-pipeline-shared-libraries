@@ -11,11 +11,10 @@ class StepParams {
     }
 
     Object getRequired(String paramName) {
-        Object value = params.get(paramName)
-        if (!value) {
+        if (!params.containsKey(paramName)) {
             ctx.fail("missing required step parameter: '${paramName}'")
         }
-        return value
+        return params.get(paramName)
     }
 
     Object getOptional(String paramName, Object defaultValue) {
