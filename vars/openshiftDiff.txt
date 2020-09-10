@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dl>
+    <dt>
+        <code>openshiftDiff(configuration:String, project:String, cluster:String, credentialsId:String):void</code>
+    </dt>
+    <dd>
+        <p>
+            Compares the OpenShift configuration/resources given in the <b>configuration</b> argument against the resources
+            in an OpenShift project. The differences are printed in colored unified diff format. Requires the
+            Ansi Color plugin to be installed on the Jenkins server.
+            Returns ...
+        </p>
+        <ul>
+            <li>
+                <b>configuration</b> - The OpenShift configuration/objects to diff against the cluster as a string of YAML or JSON.
+            </li>
+            <li>
+                <b>project</b> - The OpenShift project/namespace to diff against.
+            </li>
+            <li>
+                <b>cluster</b> - The name of an OpenShift clusterName defined in the global configuration OR a String
+                literal URL (e.g. "https://10.13.137.186:8443"). The special protocol "insecure://" may also be used if https is
+                desired but TLS certificate verification should be disabled. This argument can be omitted when Jenkins is running on OpenShift.
+            </li>
+            <li>
+                <b>credentialsId</b> - The credentials id of an OpenShift Auth token stored in the Jenkins credential
+                manager. This argument can be omitted if the given cluster configuration includes
+                a credential or if Jenkins is running on OpenShift.
+            </li>
+        </ul>
+        <p style="margin-bottom: 0em;">
+            Example:
+        </p>
+        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+openshiftDiff(
+    configuration: kustomize("src/kustomize/overlays/$stage"),
+    project: project,
+    cluster: 'OpenShiftCloudscaleProduction'
+)
+        </code></pre>
+    </dd>
+</dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->
