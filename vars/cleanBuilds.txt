@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <p>
+      The <code>cleanBuilds</code> function offers a housekeeeping for the integration pipeline.<br>
+      Every build of the integration pipeline which was deployed on an environment is automatically kept.
+      To prevent a numerous amount of kept builds this variable is cleaning up these jobs. It distinguishes between deployment for every environment.
+  </p>
+  <p>
+      parameters:
+      <ul>
+        <li><code>job</code>(manadatory): identifies the job on which the housekeeping should be done</li>
+        <li><code>maxKeepBuilds</code>(optional, default 10): defines how many deployed builds per environment should be kept (counting from the newest to <i>maxKeepBuilds</i>)</li>
+    </ul>
+  </p>
+  <p>
+      <b>examples</b>:
+      <p style="margin-left: 30px">
+        <code>cleanBuilds job: 'project-a/integration-pipeline'</code><br>
+        <code>cleanBuilds job: 'project-a/integration-pipeline', maxKeepBuilds: 10</code>
+      </p>
+  </p>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->

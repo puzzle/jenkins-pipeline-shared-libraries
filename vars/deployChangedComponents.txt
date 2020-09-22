@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p>
+  This function can be used to deploy a component (or a set of components) from a specific integration pipeline to a distinct environment.<br>
+  It provides multiple features:
+  <ul>
+    <li>checks the version of components that are last deployed on a specific environment</li>
+    <li>checks the version of components that should be deployed on that specific environment</li>
+    <li>deploy the delta set of components on that specific environment</li>
+    <li>add a deployment badge that to the deployment pipeline job to indicate that a deployment was done for that specific environment</li>
+  </ul>
+  The integration pipeline has to provide a valid component-versions.yaml file.<br>
+  <code>deployChangedComponents()</code> has to be called in a parameterized job as it depends on parameters to be set.
+</p>
+  <p>
+      <b>parameters for the containing job</b>:
+      <ul>
+        <li>
+          <code>built_name</code>: integration pipeline that is used to create the component-versions.yaml
+        </li>
+        <li>
+          <code>built_number</code>: build number of the integration pipeline
+        </li>
+        <li>
+          <code>target_env</code>: environment to which the component-versions.yaml should be run against
+        </li>
+      </ul>
+  </p>
+  <p>
+    <div style="background-color:rgb(179, 166, 166);color:rgb(0, 0, 0);padding:20px;">
+      <b>Attention:</b><br>
+      There is no implementation of the actual deployment.<br>
+      The function only prints out the functionality that can be used for the deployment process.
+    </div>
+  </p>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->

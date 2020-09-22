@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p>
+  Adds a deployment link to a specific build.<br>
+  This can be useful if a deploy job should be triggered when a build was successfull.
+</p>
+  <p>
+      <b>parameters</b>:
+      <ul>
+        <li>
+          <code>deployJob</code>: Jobname that should be triggered with the Link
+        </li>
+      </ul>
+  </p>
+  <p>
+      <b>examples</b>:
+      <p style="margin-left: 30px">
+        <code>addDeployLinks deployJob: 'integration-pipeline-deploy'</code>
+      </p>
+  </p>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->
