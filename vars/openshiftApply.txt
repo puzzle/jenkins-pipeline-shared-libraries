@@ -38,7 +38,7 @@
                 <b>rolloutKind</b> (optional) - The OpenShift kind of the selector to be waited for rollout (one of
                 <code>'deploymentconfig'</code>, <code>'dc'</code>, <code>'deployment'</code>, <code>'deploy'</code>,
                 <code>'daemonset'</code>, <code>'ds'</code>, <code>'statefulset'</code>, <code>'sts'</code>).
-                Default: <code>'dc'<code>.
+                Default: <code>'dc'</code>.
             </li>
             <li>
                 <b>rolloutSelector</b> (optional) - The map of labels with which to refine the selector to be waited for
