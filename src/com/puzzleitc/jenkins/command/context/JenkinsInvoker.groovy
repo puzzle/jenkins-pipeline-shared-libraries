@@ -15,7 +15,7 @@ Map getEnvVar() {
 Object callSh(Map args) {
     if (args['script'] && !args['script'].toString().startsWith('#!')) {
         // suppress stdout of shell command by passing custom shebang line
-        args['script'] = "#!/bin/sh -e\n$args['script']"
+        args['script'] = '#!/bin/sh -e\n' + args['script']
     }
     sh(args)
 }
