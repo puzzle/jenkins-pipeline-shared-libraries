@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dl>
+    <dt>
+        <code>openshiftApply(configuration:String, project:String, cluster:String, credentialsId:String,
+        appLabel:String, waitForRollout:boolean, rolloutKind:String, rolloutSelector:Map):void</code>
+    </dt>
+    <dd>
+        <p>
+            Requests OpenShift to apply the given configuration and waits for the rollout to be finished.
+        </p>
+        <ul>
+            <li>
+                <b>configuration</b> (required) - The OpenShift configuration to apply as a YAML or JSON string.
+            </li>
+            <li>
+                <b>project</b> (required) - The name of the target OpenShift project (namespace).
+            </li>
+            <li>
+                <b>cluster</b> (optional) - The name of the target OpenShift cluster as defined in the Jenkins global
+                configuration OR a string literal URL (e.g. "https://10.13.137.186:8443"). The special protocol
+                "insecure://" may also be used if https is desired but TLS certificate verification should be disabled.
+                May be omitted if Jenkins is running within an OpenShift Pod.
+            </li>
+            <li>
+                <b>credentialsId</b> (optional) - The credentials id of an OpenShift service account token stored in the
+                Jenkins credential manager. May be omitted if Jenkins is running on OpenShift. Default: the project name
+                with a <code>'-cicd-deployer'</code> suffix OR a token read from the Jenkins master filesystem if
+                Jenkins is running within an OpenShift Pod.
+            </li>
+            <li>
+                <b>appLabel</b> (required) - The app label to filter on.
+            </li>
+            <li>
+                <b>waitForRollout</b> (optional) - Defines whether to wait for the rollout or not.
+                Default: <code>true</code>.
+            </li>
+            <li>
+                <b>rolloutKind</b> (optional) - The OpenShift kind of the selector to be waited for rollout (one of
+                <code>'deploymentconfig', <code>'dc'</code>, <code>'deployment'</code>, <code>'deploy'</code>,
+                <code>'daemonset'</code>, <code>'ds'</code>, <code>'statefulset'</code>, <code>'sts'</code>).
+                Default: <code>'dc'<code>.
+            </li>
+            <li>
+                <b>rolloutSelector</b> (optional) - The map of labels with which to refine the selector to be waited for
+                rollout. Only resources containing all label pairs will be selected. Default: the app label.
+            </li>
+        </ul>
+        <p style="margin-bottom: 0em;">
+            Example:
+        </p>
+        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+openshiftApply (
+    configuration: kustomize(path: 'openshift/overlays/dev'),
+    cluster: 'OpenShiftCloudscaleProduction',
+    project: 'my-project',
+    appLabel: 'my-app'
+)
+        </code></pre>
+    </dd>
+</dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->

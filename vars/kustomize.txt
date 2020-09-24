@@ -5,18 +5,18 @@
     </dt>
     <dd>
         <p>
-            Generates the customized configuration per contents of a <code>kustomization.yaml</code>.
+            Returns the customized configuration per contents of a <code>kustomization.yaml</code> as a string.
         </p>
         <ul>
             <li>
-                <b>path</b> (required) - Defines the directory containing the <code>kustomization.yaml</code>.
+                <b>path</b> (required) - The directory containing the <code>kustomization.yaml</code>.
             </li>
         </ul>
         <p style="margin-bottom: 0em;">
             Example:
         </p>
         <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
-kustomize(path: 'openshift/postgresql/overlays/dev')
+kustomize(path: 'openshift/overlays/dev')
         </code></pre>
         <p>
             For further information see <a href="https://github.com/kubernetes-sigs/kustomize">kustomize documentation</a>.

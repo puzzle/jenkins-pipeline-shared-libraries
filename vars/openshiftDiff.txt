@@ -12,28 +12,31 @@
         </p>
         <ul>
             <li>
-                <b>configuration</b> - The OpenShift configuration/objects to diff against the cluster as a string of YAML or JSON.
+                <b>configuration</b> (required) - The OpenShift configuration to diff against the cluster as a YAML or
+                JSON string.
             </li>
             <li>
-                <b>project</b> - The OpenShift project/namespace to diff against.
+                <b>project</b> (required) - The name of the target OpenShift project (namespace).
             </li>
             <li>
-                <b>cluster</b> - The name of an OpenShift clusterName defined in the global configuration OR a String
-                literal URL (e.g. "https://10.13.137.186:8443"). The special protocol "insecure://" may also be used if https is
-                desired but TLS certificate verification should be disabled. This argument can be omitted when Jenkins is running on OpenShift.
+                <b>cluster</b> (optional) - The name of the target OpenShift cluster as defined in the Jenkins global
+                configuration OR a string literal URL (e.g. "https://10.13.137.186:8443"). The special protocol
+                "insecure://" may also be used if https is desired but TLS certificate verification should be disabled.
+                May be omitted if Jenkins is running within an OpenShift Pod.
             </li>
             <li>
-                <b>credentialsId</b> - The credentials id of an OpenShift Auth token stored in the Jenkins credential
-                manager. This argument can be omitted if the given cluster configuration includes
-                a credential or if Jenkins is running on OpenShift.
+                <b>credentialsId</b> (optional) - The credentials id of an OpenShift service account token stored in the
+                Jenkins credential manager. May be omitted if Jenkins is running on OpenShift. Default: the project name
+                with a <code>-cicd-deployer</code> suffix OR a token read from the Jenkins master filesystem if Jenkins
+                is running within an OpenShift Pod.
             </li>
         </ul>
         <p style="margin-bottom: 0em;">
             Example:
         </p>
         <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
-openshiftDiff(
-    configuration: kustomize("src/kustomize/overlays/$stage"),
+openshiftDiff (
+    configuration: kustomize(path: 'openshift/overlays/dev'),
     project: project,
     cluster: 'OpenShiftCloudscaleProduction'
 )
