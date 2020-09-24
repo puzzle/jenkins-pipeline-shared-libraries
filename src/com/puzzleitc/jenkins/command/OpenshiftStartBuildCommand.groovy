@@ -14,13 +14,13 @@ class OpenshiftStartBuildCommand {
     }
 
     Object execute() {
-        ctx.info("-- openshiftStartBuild --")
-        def project = ctx.stepParams.getRequired("project")
-        def cluster = ctx.stepParams.getRequired("cluster")
-        def buildConfigName = ctx.stepParams.getRequired("buildConfigName")
-        def fromDir = ctx.stepParams.getOptional("fromDir", null) as String
-        def fromFile = ctx.stepParams.getOptional("fromFile", null) as String
-        def credentialId = ctx.stepParams.getOptional("credentialId", "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String
+        ctx.info('-- openshiftStartBuild --')
+        def project = ctx.stepParams.getRequired('project')
+        def cluster = ctx.stepParams.getRequired('cluster')
+        def buildConfigName = ctx.stepParams.getRequired('buildConfigName')
+        def fromDir = ctx.stepParams.getOptional('fromDir', null) as String
+        def fromFile = ctx.stepParams.getOptional('fromFile', null) as String
+        def credentialId = ctx.stepParams.getOptional('credentialId', "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String
         def saToken = ctx.lookupTokenFromCredentials(credentialId)
         def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
@@ -31,7 +31,7 @@ class OpenshiftStartBuildCommand {
                         ctx.echo("openshift project: ${ctx.openshift.project()}")
                         def bc = ctx.openshift.selector("bc/${buildConfigName}")
                         def build = bc.startBuild(createStartBuildParams(fromDir, fromFile))
-                        def result = build.logs("-f")
+                        def result = build.logs('-f')
                         ctx.echo("oc startBuild action: ${result.actions[0].cmd}")
                         ctx.echo("oc startBuild status: ${result.status}")
                         if (build.object().status.phase == 'Failed') {

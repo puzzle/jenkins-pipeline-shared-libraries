@@ -14,15 +14,15 @@ class OpenshiftDiffCommand {
     }
 
     Object execute() {
-        ctx.info("-- openshiftDiff --")
-        def configuration = ctx.stepParams.getRequired("configuration") as String
-        def project = ctx.stepParams.getRequired("project")
-        def cluster = ctx.stepParams.getOptional("cluster", null)
+        ctx.info('-- openshiftDiff --')
+        def configuration = ctx.stepParams.getRequired('configuration') as String
+        def project = ctx.stepParams.getRequired('project')
+        def cluster = ctx.stepParams.getOptional('cluster', null)
         def openshiftDiffHome = ctx.tool(DEFAULT_OPENSHIFT_DIFF_TOOL_NAME)
-        def credentialId = ctx.stepParams.getOptional("credentialId", null) as String
+        def credentialId = ctx.stepParams.getOptional('credentialId', null) as String
         def saToken = null as String;
         if (credentialId == null) {
-            if (System.getenv("KUBERNETES_PORT") == null) {  // Token is only needed when not running on Kubernetes cluster
+            if (System.getenv('KUBERNETES_PORT') == null) {  // Token is only needed when not running on Kubernetes cluster
                 saToken = ctx.lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String;
             }
         } else {

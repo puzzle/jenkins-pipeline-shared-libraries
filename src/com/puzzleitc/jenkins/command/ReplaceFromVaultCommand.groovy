@@ -4,17 +4,16 @@ import com.puzzleitc.jenkins.command.context.PipelineContext
 
 class ReplaceFromVaultCommand {
 
-    private final String input
     private final PipelineContext ctx
 
-    ReplaceFromVaultCommand(String input, PipelineContext ctx) {
-        this.input = input
+    ReplaceFromVaultCommand(PipelineContext ctx) {
         this.ctx = ctx
     }
 
     Object execute() {
-        ctx.info("-- replaceFromVault --")
-        def result = input
+        ctx.info('-- replaceFromVault --')
+        def text = ctx.stepParams.getRequired('text') as String
+        def result = text
         while (parseVaultLookup(result).size() > 0) {
             def match = parseVaultLookup(result).get(0)
             if (match.path) {

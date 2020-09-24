@@ -8,7 +8,7 @@ import static com.puzzleitc.jenkins.command.Constants.DEFAULT_OC_TOOL_NAME
 class OpenshiftApplyCommand {
 
     private static final VALID_ROLLOUT_KINDS =
-            ["deploymentconfig", "dc", "deployment", "deploy", "daemonset", "ds", "statefulset", "sts"]
+            ['deploymentconfig', 'dc', 'deployment', 'deploy', 'daemonset', 'ds', 'statefulset', 'sts']
 
     private final PipelineContext ctx
 
@@ -17,18 +17,18 @@ class OpenshiftApplyCommand {
     }
 
     Object execute() {
-        ctx.info("-- openshiftApply --")
-        def configuration = ctx.stepParams.getRequired("configuration") as String
-        def project = ctx.stepParams.getRequired("project")
-        def cluster = ctx.stepParams.getOptional("cluster", null)
-        def appLabel = ctx.stepParams.getRequired("appLabel") as String
-        def waitForRollout = ctx.stepParams.getOptional("waitForRollout", true) as boolean
-        def rolloutKind = ctx.stepParams.getOptional("rolloutKind", "dc") as String
-        def rolloutSelector = ctx.stepParams.getOptional("rolloutSelector", [:]) as Map
-        def credentialId = ctx.stepParams.getOptional("credentialId", null) as String
+        ctx.info('-- openshiftApply --')
+        def configuration = ctx.stepParams.getRequired('configuration') as String
+        def project = ctx.stepParams.getRequired('project')
+        def cluster = ctx.stepParams.getOptional('cluster', null)
+        def appLabel = ctx.stepParams.getRequired('appLabel') as String
+        def waitForRollout = ctx.stepParams.getOptional('waitForRollout', true) as boolean
+        def rolloutKind = ctx.stepParams.getOptional('rolloutKind', 'dc') as String
+        def rolloutSelector = ctx.stepParams.getOptional('rolloutSelector', [:]) as Map
+        def credentialId = ctx.stepParams.getOptional('credentialId', null) as String
         def saToken = null as String;
 	if (credentialId == null) {
-            if (System.getenv("KUBERNETES_PORT") == null) {  // Token is only needed when not running on Kubernetes cluster
+            if (System.getenv('KUBERNETES_PORT') == null) {  // Token is only needed when not running on Kubernetes cluster
                 saToken = ctx.lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String;
             }
         } else {
@@ -54,16 +54,16 @@ class OpenshiftApplyCommand {
     }
 
     private void ocConvert(String configuration) {
-        ctx.doWithTemporaryFile(configuration, ".yaml", "UTF-8") {
+        ctx.doWithTemporaryFile(configuration, '.yaml', 'UTF-8') {
             String absolutePath ->
-                def result = ctx.openshift.raw("convert", "-f", absolutePath)
+                def result = ctx.openshift.raw('convert', '-f', absolutePath)
                 ctx.echo("oc convert action: ${result.actions[0].cmd}")
                 ctx.echo("oc convert status: ${result.status}")
         }
     }
 
     private void ocApply(String configuration, String appLabel) {
-        def result = ctx.openshift.apply(configuration, "-l", "app=${appLabel}", "--prune")
+        def result = ctx.openshift.apply(configuration, '-l', "app=${appLabel}", '--prune')
         ctx.echo("oc apply action: ${result.actions[0].cmd}")
         ctx.echo("oc apply status: ${result.status}")
         ctx.echo("oc apply output:\n${result.out}")

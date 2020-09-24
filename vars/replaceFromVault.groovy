@@ -1,7 +1,10 @@
 import com.puzzleitc.jenkins.command.ReplaceFromVaultCommand
 import com.puzzleitc.jenkins.command.context.JenkinsPipelineContext
 
-def call(String input) {
-    ReplaceFromVaultCommand command = new ReplaceFromVaultCommand(input, new JenkinsPipelineContext())
+import static com.puzzleitc.jenkins.Util.parseArgs
+
+def call(Map namedArgs = [:], Object... positionalArgs) {
+    def args = parseArgs(namedArgs, positionalArgs, ['text'])
+    ReplaceFromVaultCommand command = new ReplaceFromVaultCommand(new JenkinsPipelineContext(args))
     return command.execute()
 }

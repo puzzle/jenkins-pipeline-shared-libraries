@@ -46,14 +46,14 @@ class JenkinsPipelineContext implements PipelineContext {
 
     @Override
     void info(String message) {
-        invoker.callAnsiColor("xterm") {
+        invoker.callAnsiColor('xterm') {
             invoker.callEcho("\033[0;34m${message}\033[0m")
         }
     }
 
     @Override
     void warn(String message) {
-        invoker.callAnsiColor("xterm") {
+        invoker.callAnsiColor('xterm') {
             invoker.callEcho("\033[0;33m${message}\033[0m")
         }
     }
@@ -63,7 +63,7 @@ class JenkinsPipelineContext implements PipelineContext {
         invoker.callAnsiColor('xterm') {
             invoker.callEcho("\033[0;31m${message}\033[0m")
         }
-        invoker.callError("Build failed")
+        invoker.callError('Build failed')
     }
 
     @Override

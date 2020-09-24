@@ -16,7 +16,7 @@ class GitCryptCommand {
         def unlocked = false
         try {
             if (credentialsId) {
-                ctx.info("-- git-crypt unlock --")
+                ctx.info('-- git-crypt unlock --')
                 ctx.withCredentials([ctx.file(credentialsId: credentialsId, variable: 'GIT_CRYPT_KEYFILE')]) {
                     ctx.sh script: 'git-crypt unlock $GIT_CRYPT_KEYFILE'
                     unlocked = true
@@ -25,7 +25,7 @@ class GitCryptCommand {
             body()
         } finally {
             if (unlocked) {
-                ctx.info("-- git-crypt lock --")
+                ctx.info('-- git-crypt lock --')
                 ctx.sh script: 'git-crypt lock'
             }
         }
