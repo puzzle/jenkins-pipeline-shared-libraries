@@ -1,1 +1,27 @@
-kustomizeBuild(resource:String)
+<?xml version="1.0" encoding="UTF-8"?>
+<dl>
+    <dt>
+        <code>kustomize(path:String):String</code>
+    </dt>
+    <dd>
+        <p>
+            Generates the customized configuration per contents of a <code>kustomization.yaml</code>.
+        </p>
+        <ul>
+            <li>
+                <b>path</b> (required) - Defines the directory containing the <code>kustomization.yaml</code>.
+            </li>
+        </ul>
+        <p style="margin-bottom: 0em;">
+            Example:
+        </p>
+        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+kustomize(path: 'openshift/postgresql/overlays/dev')
+        </code></pre>
+        <p>
+            For further information see <a href="https://github.com/kubernetes-sigs/kustomize">kustomize documentation</a>.
+        </p>
+    </dd>
+</dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->

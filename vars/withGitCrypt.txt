@@ -27,7 +27,7 @@ withGitCrypt(credentialsId: 'my-git-crypt-keyfile') {
 // files are encrypted again
         </code></pre>
         <p>
-            For further information see <a href="https://github.com/AGWA/git-crypt">git-crypt Documentation</a>.
+            For further information see <a href="https://github.com/AGWA/git-crypt">git-crypt documentation</a>.
         </p>
     </dd>
 </dl>
