@@ -2,7 +2,6 @@ package com.puzzleitc.jenkins.command
 
 import com.puzzleitc.jenkins.command.context.PipelineContext
 
-import static com.puzzleitc.jenkins.command.Constants.DEFAULT_CREDENTIAL_ID_SUFFIX
 import static com.puzzleitc.jenkins.command.Constants.DEFAULT_OC_TOOL_NAME
 
 class OpenshiftApplyCommand {
@@ -27,7 +26,7 @@ class OpenshiftApplyCommand {
         def rolloutSelector = ctx.stepParams.getOptional('rolloutSelector', [:]) as Map
         def credentialId = ctx.stepParams.getOptional('credentialId', null) as String
         def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
-        def saToken = lookupSaToken(credentialId, project)
+        def saToken = ctx.lookupServiceAccountToken(credentialId, project)
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
             ctx.openshift.withCluster(cluster) {
                 ctx.openshift.withProject(project) {
@@ -43,20 +42,6 @@ class OpenshiftApplyCommand {
                     }
                 }
             }
-        }
-    }
-
-    private String lookupSaToken(String credentialId, project) {
-        if (credentialId == null) {
-            // Token is only needed when not running on Kubernetes cluster
-            ctx.echo("KUBERNETES_PORT: ${System.getenv('KUBERNETES_PORT')}")
-            if (System.getenv('KUBERNETES_PORT') == null) {
-                ctx.lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
-            } else {
-                return null
-            }
-        } else {
-            ctx.lookupTokenFromCredentials(credentialId)
         }
     }
 

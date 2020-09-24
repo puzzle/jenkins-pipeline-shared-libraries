@@ -2,7 +2,6 @@ package com.puzzleitc.jenkins.command
 
 import com.puzzleitc.jenkins.command.context.PipelineContext
 
-import static com.puzzleitc.jenkins.command.Constants.DEFAULT_CREDENTIAL_ID_SUFFIX
 import static com.puzzleitc.jenkins.command.Constants.DEFAULT_OC_TOOL_NAME
 
 class OpenshiftStartBuildCommand {
@@ -20,9 +19,9 @@ class OpenshiftStartBuildCommand {
         def buildConfigName = ctx.stepParams.getRequired('buildConfigName')
         def fromDir = ctx.stepParams.getOptional('fromDir', null) as String
         def fromFile = ctx.stepParams.getOptional('fromFile', null) as String
-        def credentialId = ctx.stepParams.getOptional('credentialId', "${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String
-        def saToken = ctx.lookupTokenFromCredentials(credentialId)
+        def credentialId = ctx.stepParams.getOptional('credentialId', null) as String
         def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
+        def saToken = ctx.lookupServiceAccountToken(credentialId, project)
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
             ctx.openshift.withCluster(cluster) {
                 ctx.openshift.withProject(project) {

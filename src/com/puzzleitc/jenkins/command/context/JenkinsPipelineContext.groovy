@@ -2,6 +2,8 @@ package com.puzzleitc.jenkins.command.context
 
 class JenkinsPipelineContext implements PipelineContext {
 
+    private static final DEFAULT_CREDENTIAL_ID_SUFFIX = '-cicd-deployer'
+
     private final JenkinsInvoker invoker = new JenkinsInvoker()
     private final StepParams stepParams
 
@@ -82,8 +84,17 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    String lookupTokenFromCredentials(String credentialsId) {
-        return invoker.lookupTokenFromCredentials(credentialsId)
+    String lookupServiceAccountToken(String credentialId, project) {
+        if (credentialId == null) {
+            // Token is only needed when not running on Kubernetes cluster
+            if (invoker.lookupEnvironmentVariable('KUBERNETES_PORT') == null) {
+                invoker.lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
+            } else {
+                return null
+            }
+        } else {
+            invoker.lookupTokenFromCredentials(credentialId)
+        }
     }
 
     @Override
