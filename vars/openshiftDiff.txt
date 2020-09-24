@@ -26,9 +26,9 @@
             </li>
             <li>
                 <b>credentialsId</b> (optional) - The credentials id of an OpenShift service account token stored in the
-                Jenkins credential manager. May be omitted if Jenkins is running on OpenShift. Default: the project name
-                with a <code>-cicd-deployer</code> suffix OR a token read from the Jenkins master filesystem if Jenkins
-                is running within an OpenShift Pod.
+                Jenkins credential manager. May be omitted if Jenkins is running within an OpenShift Pod.
+                Default: the project name with a <code>'-cicd-deployer'</code> suffix OR a token read from the Jenkins
+                master filesystem if Jenkins is running on OpenShift.
             </li>
         </ul>
         <p style="margin-bottom: 0em;">
@@ -37,8 +37,8 @@
         <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
 openshiftDiff (
     configuration: kustomize(path: 'openshift/overlays/dev'),
-    project: project,
-    cluster: 'OpenShiftCloudscaleProduction'
+    cluster: 'OpenShiftCloudscaleProduction',
+    project: 'my-project'
 )
         </code></pre>
     </dd>
