@@ -47,17 +47,7 @@ class OpenshiftApplyCommand {
     }
 
     private String lookupSaToken(String credentialId, project) {
-        if (credentialId == null) {
-            // Token is only needed when not running on Kubernetes cluster
-            ctx.echo("KUBERNETES_PORT: ${ctx.lookupEnvironmentVariable('KUBERNETES_PORT')}")
-            if (System.getenv('KUBERNETES_PORT') == null) {
-                ctx.lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
-            } else {
-                return null
-            }
-        } else {
-            ctx.lookupTokenFromCredentials(credentialId)
-        }
+        return null
     }
 
     private void ocConvert(String configuration) {
