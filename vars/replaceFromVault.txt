@@ -10,9 +10,10 @@
         <ul>
             <li>
                 <b>text</b> (required) - The String which contains a predefined pattern that should be substituted by
-                secrets from Hashicorp Vault. The String will be scanned for the pattern
-                <code>{{ vault.get("<VAULT_PATH>", "<VAULT_KEY>") }}</code>. For example
-                <code>{{ vault.get("/kv/spaces/outerspace/wekan-secret-test", "mongodb_user") }}</code>.<br/>
+                secrets from Hashicorp Vault. <br/>
+                The String will be scanned for the pattern
+                <code>{{ vault.get("<b>&lt;VAULT_PATH&gt;</b>", "<b>&lt;VAULT_KEY&gt;</b>") }}</code>.<br/>
+                For example <code>{{ vault.get("/kv/spaces/outerspace/wekan-secret-test", "mongodb_user") }}</code>.<br/>
                 <code>VAULT_PATH<code> defines the fully qualified path in Vault of the secret and
                 <code>VAULT_KEY</code> is the Key to lookup of the specified secret.
             </li>
