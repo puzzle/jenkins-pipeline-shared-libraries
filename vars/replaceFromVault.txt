@@ -1,12 +1,12 @@
-<dl>
-    <dt>
-        <code>replaceFromVault.txt(text:String):String</code>
-    </dt>
-    <dd>
-        <p>
-             Substitutes variables in a provided String with secrets retrieved from HashiCorp Vault.
-        </p>
-    </dd>
-</dl>
-<!-- vim: set ft=html : -->
-<!-- code: set language=html : -->
+<p>
+    <dl>
+        <dt>
+            <code>replaceFromVault.txt(text:String):String</code>
+        </dt>
+        <dd>
+            <p>
+                 Substitutes variables in a provided String with secrets retrieved from HashiCorp Vault.
+            </p>
+        </dd>
+    </dl>
+</p>
