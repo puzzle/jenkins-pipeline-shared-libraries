@@ -4,8 +4,7 @@
     </dt>
     <dd>
         <p>
-            The <code>replaceFromVault</code> variable helps to substitute variables with secrets retrieved from
-            HashiCorp Vault.
+             Substitutes variables in a provided String with secrets retrieved from HashiCorp Vault.
         </p>
     </dd>
 </dl>
