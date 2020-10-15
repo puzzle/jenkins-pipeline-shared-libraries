@@ -64,6 +64,10 @@ String callTool(String toolName) {
     tool(toolName)
 }
 
+String callExecutable(String name, String toolName) {
+    executable(name: name, toolName: toolName)
+}
+
 def callEcho(String message) {
     echo message
 }
@@ -76,8 +80,12 @@ def callExit(int status) {
     exit(status)
 }
 
-String lookupEnvironmentVariable(String name) {
+String getEnv(String name) {
     return env[name]
+}
+
+void setEnv(String name, String value) {
+    env[name] = value
 }
 
 String lookupValueFromVault(String path, String key) {

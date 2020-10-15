@@ -14,6 +14,9 @@ interface PipelineContext {
 
     String tool(String toolName)
 
+    String executable(String name, String toolName)
+    String executable(String name)
+
     Object getOpenshift()
 
     void echo(String message)
@@ -25,6 +28,10 @@ interface PipelineContext {
     void fail(String message)
 
     String lookupEnvironmentVariable(String name)
+
+    String getEnv(String name)
+
+    void setEnv(String name, String value)
 
     String lookupValueFromVault(String path, String key)
 

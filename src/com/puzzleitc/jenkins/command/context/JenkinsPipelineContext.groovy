@@ -42,6 +42,16 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
+    String executable(String name, String toolName) {
+        invoker.callExecutable(name, toolName)
+    }
+
+    @Override
+    String executable(String name) {
+        invoker.callExecutable(name, null)
+    }
+
+    @Override
     void echo(String message) {
         invoker.callEcho(message)
     }
@@ -75,7 +85,17 @@ class JenkinsPipelineContext implements PipelineContext {
 
     @Override
     String lookupEnvironmentVariable(String name) {
-        invoker.lookupEnvironmentVariable(name)
+        invoker.getEnv(name)
+    }
+
+    @Override
+    String getEnv(String name) {
+        invoker.getEnv(name)
+    }
+
+    @Override
+    void setEnv(String name, String value) {
+        invoker.setEnv(name, value)
     }
 
     @Override

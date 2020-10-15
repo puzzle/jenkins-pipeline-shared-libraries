@@ -13,11 +13,9 @@ class KustomizeCommand {
     Object execute() {
         ctx.info('-- kustomize --')
         def path = ctx.stepParams.getRequired('path')
-        def kustomizeHome = ctx.tool('kustomize')
+        def kustomizePath = ctx.executable('kustomize')
         ctx.echo("resource: $path")
-        ctx.withEnv(["PATH+KUSTOMIZE_HOME=${kustomizeHome}/bin"]) {
-            ctx.sh(script: "kustomize build ${path}", returnStdout: true)
-        }
+	ctx.sh(script: "${kustomizePath}/kustomize build ${path}", returnStdout: true)
     }
 
 }
