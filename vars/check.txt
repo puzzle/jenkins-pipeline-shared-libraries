@@ -2,6 +2,8 @@
 
 ## mandatoryParameter
 
+This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
+
 Checks if a parameter with the given name is available.
 
 If not, the build will be aborted with an error message.

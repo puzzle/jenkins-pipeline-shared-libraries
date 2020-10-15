@@ -5,7 +5,8 @@
     </dt>
     <dd>
         <p>
-             Substitutes variables in a provided String with secrets retrieved from HashiCorp Vault.
+            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
+            Substitutes variables in a provided String with secrets retrieved from HashiCorp Vault.
         </p>
         <ul>
             <li>

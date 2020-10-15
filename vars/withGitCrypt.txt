@@ -5,6 +5,7 @@
     </dt>
     <dd>
         <p>
+            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
             Unlocks the Git repository in the current directory with <code>git-crypt</code> for the duration of the scope of the step
             and locks it again afterwards. The repository is also relocked when an error occurs in the scope of the step.
             The return value is the value returned by (or the value of the last statement within) the scope of the step.

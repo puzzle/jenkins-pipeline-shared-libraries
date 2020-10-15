@@ -5,6 +5,7 @@
     </dt>
     <dd>
         <p>
+            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
             Returns the customized configuration per contents of a <code>kustomization.yaml</code> as a string.
         </p>
         <ul>

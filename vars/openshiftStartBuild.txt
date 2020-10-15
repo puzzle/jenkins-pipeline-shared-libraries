@@ -6,6 +6,7 @@
     </dt>
     <dd>
         <p>
+            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
             Requests OpenShift to start build from the specified build config and waits for the build to be finished.
         </p>
         <ul>
