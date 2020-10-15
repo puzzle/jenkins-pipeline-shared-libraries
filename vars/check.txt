@@ -10,5 +10,8 @@
         </p>
     </dd>
 </dl>
+<p>
+    This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
+</p>
 <!-- vim: set ft=html : -->
 <!-- code: set language=html : -->

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <p>
     The <code>openshiftUtils</code> variable offers some OpenShift utility methods.
+    This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
 </p>
 <p>
     The methods are implemented using the OpenShift CLI Tool (oc tool).

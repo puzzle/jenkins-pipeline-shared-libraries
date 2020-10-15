@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dl>
+    <dt>
+        <code>openshiftDiff(configuration:String, project:String, cluster:String, credentialsId:String):void</code>
+    </dt>
+    <dd>
+        <p>
+            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
+            Compares the OpenShift configuration/resources given in the <b>configuration</b> argument against the resources
+            in an OpenShift project. The differences are printed in colored unified diff format. Requires the
+            Ansi Color plugin to be installed on the Jenkins server.
+            Returns ...
+        </p>
+        <ul>
+            <li>
+                <b>configuration</b> (required) - The OpenShift configuration to diff against the cluster as a YAML or
+                JSON string.
+            </li>
+            <li>
+                <b>project</b> (required) - The name of the target OpenShift project (namespace).
+            </li>
+            <li>
+                <b>cluster</b> (optional) - The name of the target OpenShift cluster as defined in the Jenkins global
+                configuration OR a string literal URL (e.g. "https://10.13.137.186:8443"). The special protocol
+                "insecure://" may also be used if https is desired but TLS certificate verification should be disabled.
+                May be omitted if Jenkins is running within an OpenShift Pod.
+            </li>
+            <li>
+                <b>credentialsId</b> (optional) - The credentials id of an OpenShift service account token stored in the
+                Jenkins credential manager. May be omitted if Jenkins is running within an OpenShift Pod.
+                Default: the project name with a <code>'-cicd-deployer'</code> suffix OR a token read from the Jenkins
+                master filesystem if Jenkins is running on OpenShift.
+            </li>
+        </ul>
+        <p style="margin-bottom: 0em;">
+            Example:
+        </p>
+        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+openshiftDiff (
+    configuration: kustomize(path: 'openshift/overlays/dev'),
+    cluster: 'OpenShiftCloudscaleProduction',
+    project: 'my-project'
+)
+        </code></pre>
+    </dd>
+</dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->

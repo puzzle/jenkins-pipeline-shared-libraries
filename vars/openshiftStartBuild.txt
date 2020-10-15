@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dl>
+    <dt>
+        <code>openshiftStartBuild(buildConfigName:String, project:String, cluster:String, credentialsId:String,
+        fromDir:String, fromFile:String):void</code>
+    </dt>
+    <dd>
+        <p>
+            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
+            Requests OpenShift to start build from the specified build config and waits for the build to be finished.
+        </p>
+        <ul>
+            <li>
+                <b>buildConfigName</b> (required) - The name of the OpenShift build config to start build from.
+            </li>
+            <li>
+                <b>project</b> (required) - The name of the target OpenShift project (namespace).
+            </li>
+            <li>
+                <b>cluster</b> (optional) - The name of the target OpenShift cluster as defined in the Jenkins global
+                configuration OR a string literal URL (e.g. "https://10.13.137.186:8443"). The special protocol
+                "insecure://" may also be used if https is desired but TLS certificate verification should be disabled.
+                May be omitted if Jenkins is running within an OpenShift Pod.
+            </li>
+            <li>
+                <b>credentialsId</b> (optional) - The credentials id of an OpenShift service account token stored in the
+                Jenkins credential manager. May be omitted if Jenkins is running within an OpenShift Pod.
+                Default: the project name with a <code>'-cicd-deployer'</code> suffix OR a token read from the Jenkins
+                master filesystem if Jenkins is running on OpenShift.
+            </li>
+            <li>
+                <b>fromDir</b> (optional) - A directory to archive and use as the binary input for a build.
+            </li>
+            <li>
+                <b>fromFile</b> (optional) - A file to use as the binary input for the build; example a pom.xml or
+                Dockerfile. Will be the only file in the build source.
+            </li>
+        </ul>
+        <p style="margin-bottom: 0em;">
+            Example:
+        </p>
+        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+openshiftStartBuild (
+    buildConfigName: 'my-app',
+    cluster: 'OpenShiftCloudscaleProduction',
+    project: 'my-project',
+    fromDir: 'target/image'
+)
+        </code></pre>
+    </dd>
+</dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->
