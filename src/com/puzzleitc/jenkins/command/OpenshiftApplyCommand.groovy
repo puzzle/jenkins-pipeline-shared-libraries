@@ -34,7 +34,6 @@ class OpenshiftApplyCommand {
             saToken = ctx.lookupTokenFromCredentials(credentialId) as String;
         }
         def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
-        def saToken = ctx.lookupServiceAccountToken(credentialId, project)
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
             ctx.openshift.withCluster(cluster) {
                 ctx.openshift.withProject(project) {
