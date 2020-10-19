@@ -29,7 +29,7 @@
                 <b>templateFile</b> - Path to the OpenShift template file.
             </li>
             <li>
-                <b>credentialsId</b> - The credentialId of an OpenShift Auth token stored in the Jenkins credential
+                <b>credentialsId</b> - The credentialsId of an OpenShift Auth token stored in the Jenkins credential
                 manager with which to authenticate. Type of Credential is Secret text.
             </li>
             <li>
@@ -68,7 +68,7 @@
                 <b>templateFile</b> - Path to the OpenShift template file.
             </li>
             <li>
-                <b>credentialsId</b> - The credentialId of an OpenShift Auth token stored in the Jenkins credential
+                <b>credentialsId</b> - The credentialsId of an OpenShift Auth token stored in the Jenkins credential
                 manager with which to authenticate. Type of Credential is Secret text.
             </li>
             <li>

@@ -19,14 +19,7 @@ class OpenshiftDiffCommand {
         def cluster = ctx.stepParams.getOptional('cluster', null)
         def openshiftDiffPath = ctx.executable(DEFAULT_OPENSHIFT_DIFF_EXECUTABLE)
         def credentialsId = ctx.stepParams.getOptional('credentialsId', null) as String
-        def saToken = null as String;
-        if (credentialsId == null) {
-            if (System.getenv('KUBERNETES_PORT') == null) {  // Token is only needed when not running on Kubernetes cluster
-                saToken = ctx.lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}") as String;
-            }
-        } else {
-            saToken = ctx.lookupTokenFromCredentials(credentialsId) as String;
-        }
+        def saToken = ctx.lookupServiceAccountToken(credentialsId, project)
         ctx.openshift.withCluster(cluster) {
             ctx.openshift.withProject(project) {
                 ctx.openshift.withCredentials(saToken) {
