@@ -1,6 +1,7 @@
 package com.puzzleitc.jenkins.command
 
 import com.puzzleitc.jenkins.command.context.PipelineContext
+import io.prometheus.client.Counter
 
 import static com.puzzleitc.jenkins.command.Constants.DEFAULT_OC_TOOL_NAME
 
@@ -8,6 +9,10 @@ class OpenshiftApplyCommand {
 
     private static final VALID_ROLLOUT_KINDS =
             ['deploymentconfig', 'dc', 'deployment', 'deploy', 'daemonset', 'ds', 'statefulset', 'sts']
+
+    private final Counter stepCounter = Counter.build()
+            .name("shared_library_step_executions_total")
+            .register()
 
     private final PipelineContext ctx
 
@@ -17,6 +22,7 @@ class OpenshiftApplyCommand {
 
     Object execute() {
         ctx.info('-- openshiftApply --')
+        stepCounter.inc()
         def configuration = ctx.stepParams.getRequired('configuration') as String
         def project = ctx.stepParams.getRequired('project')
         def cluster = ctx.stepParams.getOptional('cluster', null)
