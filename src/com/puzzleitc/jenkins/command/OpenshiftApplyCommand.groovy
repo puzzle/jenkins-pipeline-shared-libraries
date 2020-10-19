@@ -10,7 +10,7 @@ class OpenshiftApplyCommand {
     private static final VALID_ROLLOUT_KINDS =
             ['deploymentconfig', 'dc', 'deployment', 'deploy', 'daemonset', 'ds', 'statefulset', 'sts']
 
-    private final Counter stepCounter = Counter.build()
+    private static final Counter STEP_COUNTER = Counter.build()
             .name('shared_library_step_executions_total')
             .help('The total number of step executions in jenkins-pipeline-shared-libraries')
             .register()
@@ -23,7 +23,7 @@ class OpenshiftApplyCommand {
 
     Object execute() {
         ctx.info('-- openshiftApply --')
-        stepCounter.inc()
+        STEP_COUNTER.inc()
         def configuration = ctx.stepParams.getRequired('configuration') as String
         def project = ctx.stepParams.getRequired('project')
         def cluster = ctx.stepParams.getOptional('cluster', null)
