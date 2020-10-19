@@ -1,12 +1,6 @@
 package com.puzzleitc.jenkins.command.context
 
 import groovy.json.JsonSlurper
-import io.prometheus.client.Counter
-
-stepCounter = Counter.build()
-        .name('shared_library_step_executions_total')
-        .help('The total number of step executions in jenkins-pipeline-shared-libraries')
-        .register()
 
 /** this is deliberately not a real class, otherwise the build-in methods of Jenkins do not work */
 
@@ -110,8 +104,4 @@ String lookupTokenFromCredentials(String credentialsId) {
             return secretValue
         }
     }
-}
-
-void incrementStepCounter(String stepName) {
-    stepCounter.inc()
 }

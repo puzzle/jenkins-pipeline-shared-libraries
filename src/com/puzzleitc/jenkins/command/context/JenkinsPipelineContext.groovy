@@ -134,7 +134,7 @@ class JenkinsPipelineContext implements PipelineContext {
 
     @Override
     void incrementStepCounter(String stepName) {
-        invoker.incrementStepCounter(stepName)
+        Metrics.STEP_COUNTER.inc()
     }
 
 }
