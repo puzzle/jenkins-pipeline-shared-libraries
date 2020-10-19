@@ -7,7 +7,8 @@
     <dd>
         <p>
             This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
-            Requests OpenShift to start build from the specified build config and waits for the build to be finished.
+            Requests OpenShift to start a build from the specified build config and waits for the build to finish.
+            Aborts the Jenkins job when the OpenShift builds fails.
         </p>
         <ul>
             <li>
