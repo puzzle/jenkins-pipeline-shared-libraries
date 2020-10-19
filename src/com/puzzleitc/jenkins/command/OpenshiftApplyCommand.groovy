@@ -11,7 +11,8 @@ class OpenshiftApplyCommand {
             ['deploymentconfig', 'dc', 'deployment', 'deploy', 'daemonset', 'ds', 'statefulset', 'sts']
 
     private final Counter stepCounter = Counter.build()
-            .name("shared_library_step_executions_total")
+            .name('shared_library_step_executions_total')
+            .help('The total number of step executions in jenkins-pipeline-shared-libraries')
             .register()
 
     private final PipelineContext ctx
