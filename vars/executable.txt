@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dl>
+    <dt>
+        <code>executable(name:String, toolName:String):String {…}</code>
+    </dt>
+    <dd>
+        <p>
+            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
+        </p>
+        <p>
+            Ensures that the given executable is available on the current Jenkins agent, installing
+            it with a Jenkins tool installer if necessary. Contrary to the <code>tool</code> step the
+            <code>executable</code> step doesn't install the tool if the given binary is already available
+            in the PATH. Additionally the given tool installer is never called more than once in the same build.
+            This is useful for implementing Pipelines and custom steps which run on agents with different
+            tool availability, e.g. containerized agents. And to reduce tool installer messages
+            in build logs when installing required tools in custom steps.
+        </p>
+        Parameters:
+        <ul>
+            <li>
+                <b>name (required)</b> - Name of the required executable.
+            </li>
+            <li>
+                <b>toolName (optional)</b> - Name of the Jenkins tool installer to use when the given
+                executable is not available in the PATH. Defaults to the value of <b>name</b>.
+            </li>
+        </ul>
+        Returns:
+        <ul>
+            <li>
+                The path to given binary. Note the difference to the <code>tool</code> step, which returns
+                the home directory of the installed tool.
+            </li>
+        </ul>
+
+        <p style="margin-bottom: 0em;">
+            Example:
+        </p>
+        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+environment {
+    KUSTOMIZE_PATH = executable('kustomize')
+    PATH = "$PATH:$KUSTOMIZE_PATH"
+}
+        </code></pre>
+    </dd>
+</dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->
