@@ -1,6 +1,9 @@
 package com.puzzleitc.jenkins.command.context
 
 import groovy.json.JsonSlurper
+import io.prometheus.client.Counter
+
+def counter = Counter.build().name('my_test_counter').help('"This is my test counter!').labelNames('language', 'developer').register()
 
 /** this is deliberately not a real class, otherwise the build-in methods of Jenkins do not work */
 

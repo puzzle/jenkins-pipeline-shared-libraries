@@ -1,7 +1,6 @@
 package com.puzzleitc.jenkins.command
 
 import com.puzzleitc.jenkins.command.context.PipelineContext
-import com.puzzleitc.jenkins.command.context.StepCounter
 
 import static com.puzzleitc.jenkins.command.Constants.DEFAULT_OC_TOOL_NAME
 
@@ -18,7 +17,6 @@ class OpenshiftApplyCommand {
 
     Object execute() {
         ctx.info('-- openshiftApply --')
-        StepCounter.inc()
         def configuration = ctx.stepParams.getRequired('configuration') as String
         def project = ctx.stepParams.getRequired('project')
         def cluster = ctx.stepParams.getOptional('cluster', null)
