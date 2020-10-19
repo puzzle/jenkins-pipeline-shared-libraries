@@ -17,6 +17,7 @@ class OpenshiftApplyCommand {
 
     Object execute() {
         ctx.info('-- openshiftApply --')
+        ctx.incrementStepCounter('openshiftApply')
         def configuration = ctx.stepParams.getRequired('configuration') as String
         def project = ctx.stepParams.getRequired('project')
         def cluster = ctx.stepParams.getOptional('cluster', null)

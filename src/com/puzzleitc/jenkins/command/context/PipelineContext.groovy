@@ -39,4 +39,6 @@ interface PipelineContext {
 
     void doWithTemporaryFile(String content, String fileSuffix, String encoding, Closure body)
 
+    void incrementStepCounter(String stepName)
+
 }
