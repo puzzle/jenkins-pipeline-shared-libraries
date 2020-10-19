@@ -8,7 +8,7 @@ class JenkinsPrometheusInvoker {
 
     void incrementStepExecutionCounter(String stepName) {
         Counter counter = findOrCreateCounter('shared_library_step_executions_total')
-        counter.inc()
+        counter.labelNames('stepName').labels(stepName).inc()
     }
 
     private Counter findOrCreateCounter(String name) {
