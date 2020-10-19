@@ -6,10 +6,12 @@ import io.prometheus.client.Counter
 
 class JenkinsPrometheusInvoker {
 
-    private static final Counter STEP_EXECUTION_COUNTER =
-            findOrCreateCounter('shared_library_step_executions_total')
+    void incrementStepExecutionCounter(String stepName) {
+        Counter counter = findOrCreateCounter('shared_library_step_executions_total')
+        counter.inc()
+    }
 
-    private static Counter findOrCreateCounter(String name) {
+    private Counter findOrCreateCounter(String name) {
         Counter counter = findCounter(name)
         if (counter == null) {
             return Counter.build().name(name).register()
@@ -18,7 +20,7 @@ class JenkinsPrometheusInvoker {
         }
     }
 
-    private static Counter findCounter(String name) {
+    private Counter findCounter(String name) {
         Set<Collector> collectors = CollectorRegistry.defaultRegistry.collectors()
         for (Collector collector : collectors) {
             if (collector instanceof Counter) {
@@ -29,10 +31,6 @@ class JenkinsPrometheusInvoker {
             }
         }
         return null
-    }
-
-    static void incrementStepExecutionCounter(String stepName) {
-        STEP_EXECUTION_COUNTER.inc()
     }
 
 }

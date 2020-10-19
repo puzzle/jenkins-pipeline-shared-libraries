@@ -5,6 +5,7 @@ class JenkinsPipelineContext implements PipelineContext {
     private static final DEFAULT_CREDENTIAL_ID_SUFFIX = '-cicd-deployer'
 
     private final JenkinsInvoker invoker = new JenkinsInvoker()
+    private final JenkinsPrometheusInvoker prometheusInvoker  = new JenkinsPrometheusInvoker()
     private final StepParams stepParams
 
     JenkinsPipelineContext(Map params = [:]) {
@@ -134,7 +135,7 @@ class JenkinsPipelineContext implements PipelineContext {
 
     @Override
     void incrementStepExecutionCounter(String stepName) {
-        JenkinsPrometheusInvoker.incrementStepExecutionCounter(stepName)
+        prometheusInvoker.incrementStepExecutionCounter(stepName)
     }
 
 }
