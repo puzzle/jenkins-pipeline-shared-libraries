@@ -104,8 +104,8 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    String lookupServiceAccountToken(String credentialId, project) {
-        if (credentialId == null) {
+    String lookupServiceAccountToken(String credentialsId, project) {
+        if (credentialsId == null) {
             // Token is only needed when not running on Kubernetes cluster
             if (invoker.getEnv('KUBERNETES_PORT') == null) {
                 invoker.lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
@@ -113,7 +113,7 @@ class JenkinsPipelineContext implements PipelineContext {
                 return null
             }
         } else {
-            invoker.lookupTokenFromCredentials(credentialId)
+            invoker.lookupTokenFromCredentials(credentialsId)
         }
     }
 

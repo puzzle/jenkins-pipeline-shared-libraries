@@ -35,7 +35,7 @@ interface PipelineContext {
 
     String lookupValueFromVault(String path, String key)
 
-    String lookupServiceAccountToken(String credentialId, project)
+    String lookupServiceAccountToken(String credentialsId, project)
 
     void doWithTemporaryFile(String content, String fileSuffix, String encoding, Closure body)
 
