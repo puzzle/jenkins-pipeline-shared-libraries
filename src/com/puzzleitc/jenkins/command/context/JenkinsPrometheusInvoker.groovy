@@ -4,7 +4,7 @@ import io.prometheus.client.Collector
 import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.Counter
 
-class StepMetrics {
+class JenkinsPrometheusInvoker {
 
     private static final Counter STEP_EXECUTION_COUNTER =
             findOrCreateCounter('shared_library_step_executions_total')
@@ -31,7 +31,7 @@ class StepMetrics {
         return null
     }
 
-    void incrementStepExecutionCounter(String stepName) {
+    static void incrementStepExecutionCounter(String stepName) {
         STEP_EXECUTION_COUNTER.inc()
     }
 
