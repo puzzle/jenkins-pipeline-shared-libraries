@@ -19,9 +19,9 @@ class OpenshiftStartBuildCommand {
         def buildConfigName = ctx.stepParams.getRequired('buildConfigName')
         def fromDir = ctx.stepParams.getOptional('fromDir', null) as String
         def fromFile = ctx.stepParams.getOptional('fromFile', null) as String
-        def credentialId = ctx.stepParams.getOptional('credentialId', null) as String
+        def credentialsId = ctx.stepParams.getOptional('credentialsId', null) as String
         def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
-        def saToken = ctx.lookupServiceAccountToken(credentialId, project)
+        def saToken = ctx.lookupServiceAccountToken(credentialsId, project)
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
             ctx.openshift.withCluster(cluster) {
                 ctx.openshift.withProject(project) {
@@ -42,7 +42,7 @@ class OpenshiftStartBuildCommand {
         }
     }
 
-    private String[] createStartBuildParams(String fromDir, String fromFile) {
+    private static String[] createStartBuildParams(String fromDir, String fromFile) {
         def result = []
         if (fromDir) {
             result << "--from-dir=${fromDir}"
