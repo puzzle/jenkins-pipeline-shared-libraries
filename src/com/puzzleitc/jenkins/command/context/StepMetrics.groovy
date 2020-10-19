@@ -6,7 +6,7 @@ import io.prometheus.client.Counter
 
 class StepMetrics {
 
-    private static final STEP_EXECUTION_COUNTER =
+    private static final Counter STEP_EXECUTION_COUNTER =
             findOrCreateCounter('shared_library_step_executions_total')
 
     private static Counter findOrCreateCounter(String name) {
