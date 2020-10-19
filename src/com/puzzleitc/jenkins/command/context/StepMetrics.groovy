@@ -9,7 +9,7 @@ class StepMetrics {
 
     private final JenkinsInvoker invoker = new JenkinsInvoker()
 
-    StepMetrics() {
+    void increment() {
         invoker.callEcho('Gugus')
 
         Set<Collector> collectors = CollectorRegistry.defaultRegistry.collectors()
