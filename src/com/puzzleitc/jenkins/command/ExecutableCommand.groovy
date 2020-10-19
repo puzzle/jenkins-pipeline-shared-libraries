@@ -40,7 +40,7 @@ class ExecutableCommand {
         String toolName = ctx.stepParams.getRequired("toolName")
 
         // Was executable found/installed in earlier invocation?
-        String exePath = ctx.getEnv("${executable}_PATH")
+        String exePath = ctx.getEnv("executable_${executable}_path")
         if (exePath) {
             return exePath
         }
@@ -60,7 +60,7 @@ class ExecutableCommand {
         }
 
         // Store path for later invocations
-        ctx.setEnv("${executable}_PATH", exePath)
+        ctx.setEnv("executable_${executable}_path", exePath)
 
         return exePath
     }
