@@ -14,10 +14,14 @@ pipeline {
     }
 
    stages {
-      stage('docs') {
+      stage('checkout') {
+         when { not { branch 'master' } }
          steps {
             library changelog: false, identifier: "jenkins-pipeline-shared-libraries-docs@${BRANCH_NAME}", retriever: modernSCM([$class: 'GitSCMSource', credentialsId: '', remote: 'https://github.com/puzzle/jenkins-pipeline-shared-libraries', traits: [gitBranchDiscovery()]])
-            checkout scm
+         }
+      }
+      stage('info') {
+         steps {
             echo "Shared library documentation now available at https://jenkins.puzzle.ch/job/pitc-jenkins/job/build/job/pitc-shared-library-docs/job/${BRANCH_NAME}/pipeline-syntax/globals"
          }
       }
