@@ -17,7 +17,7 @@ pipeline {
       stage('checkout') {
          when { not { branch 'master' } }
          steps {
-            library changelog: false, identifier: "jenkins-pipeline-shared-libraries-docs@${BRANCH_NAME}", retriever: modernSCM([$class: 'GitSCMSource', credentialsId: '', remote: 'https://github.com/puzzle/jenkins-pipeline-shared-libraries', traits: [gitBranchDiscovery()]])
+            library changelog: false, identifier: "jenkins-pipeline-shared-libraries-docs@${BRANCH_NAME}", retriever: modernSCM([$class: 'GitSCMSource', credentialsId: '', remote: 'https://github.com/puzzle/jenkins-pipeline-shared-libraries.git', traits: [gitBranchDiscovery()]])
          }
       }
       stage('info') {
