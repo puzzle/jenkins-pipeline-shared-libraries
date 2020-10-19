@@ -15,7 +15,7 @@ class StepMetrics {
         Set<Collector> collectors = CollectorRegistry.defaultRegistry.collectors()
         for (Collector collector : collectors) {
             if (collector instanceof Collector.Describable) {
-                List<Collector.MetricFamilySamples> mfs = ((Collector.Describable) m).describe()
+                List<Collector.MetricFamilySamples> mfs = ((Collector.Describable) collector).describe()
                 for (Collector.MetricFamilySamples family : mfs) {
                     invoker.callEcho("Collector: ${family.name}")
                 }
