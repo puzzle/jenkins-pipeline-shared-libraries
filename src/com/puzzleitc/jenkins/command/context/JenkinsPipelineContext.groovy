@@ -5,6 +5,7 @@ class JenkinsPipelineContext implements PipelineContext {
     private static final DEFAULT_CREDENTIAL_ID_SUFFIX = '-cicd-deployer'
 
     private final JenkinsInvoker invoker = new JenkinsInvoker()
+    private final StepMetrics stepMetrics = new StepMetrics()
     private final StepParams stepParams
 
     JenkinsPipelineContext(Map params = [:]) {
@@ -134,7 +135,6 @@ class JenkinsPipelineContext implements PipelineContext {
 
     @Override
     void incrementStepCounter(String stepName) {
-        Metrics.STEP_COUNTER.inc()
     }
 
 }
