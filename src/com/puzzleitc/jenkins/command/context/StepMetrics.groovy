@@ -1,23 +1,15 @@
 package com.puzzleitc.jenkins.command.context
 
-import io.prometheus.client.Counter
 import io.prometheus.client.Collector
 import io.prometheus.client.CollectorRegistry
-import java.util.List
+import io.prometheus.client.Counter
 
 class StepMetrics {
 
-    private final JenkinsInvoker invoker = new JenkinsInvoker()
+    private static final STEP_EXECUTION_COUNTER =
+            findOrCreateCounter('shared_library_step_executions_total')
 
-    void increment() {
-
-        Counter counter = findCounter('shared_library_step_executions_total')
-        counter.inc()
-
-        invoker.callEcho('Successfully incremented counter')
-    }
-
-    private Counter findOrCreateCounter(String name) {
+    private static Counter findOrCreateCounter(String name) {
         Counter counter = findCounter(name)
         if (counter == null) {
             return Counter.build().name(name).register()
@@ -26,7 +18,7 @@ class StepMetrics {
         }
     }
 
-    private Counter findCounter(String name) {
+    private static Counter findCounter(String name) {
         Set<Collector> collectors = CollectorRegistry.defaultRegistry.collectors()
         for (Collector collector : collectors) {
             if (collector instanceof Counter) {
@@ -37,6 +29,10 @@ class StepMetrics {
             }
         }
         return null
+    }
+
+    void incrementStepExecutionCounter(String stepName) {
+        STEP_EXECUTION_COUNTER.inc()
     }
 
 }
