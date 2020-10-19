@@ -3,7 +3,7 @@ package com.puzzleitc.jenkins.command.context
 import groovy.json.JsonSlurper
 import io.prometheus.client.Counter
 
-def stepCounter = Counter.build()
+stepCounter = Counter.build()
         .name('shared_library_step_executions_total')
         .help('The total number of step executions in jenkins-pipeline-shared-libraries')
         .register()
