@@ -23,48 +23,34 @@
             </li>
             <li>
                 <b>extraArgs</b> (optional) - Additional arguments with which the the OWASP Dependency Check is called.
-                For a full list of available arguments see: https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html.
+                For a full list of available arguments see <a href="https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html">dependency-check command line arguments</a>.
                 Some important arguments are:
-                <dl>
-                  <dt><code>--enableExperimental</code></dt>
-                  <dd>
-                      <p>
-                          Enable the experimental analyzers. If not set the analyzers marked as experimental below will not be
-                          loaded or used. File Type and Experimental Analyzers:
-                          https://jeremylong.github.io/DependencyCheck/analyzers/index.html
-                      </p>
-                  </dd>
-                  <dt><code>--exclude <pattern></code></dt>
-                  <dd>
-                      <p>
-                          The path patterns to exclude from the scan - this option can be specified multiple times. This
-                          accepts Ant style path patterns (e.g. /exclude/).
-                      </p>
-                  </dd>
-                  <dt><code>--failOnCVSS</code></dt>
-                  <dd>
-                      <p>
-                          If the score set between 0 and 10 the exit code from dependency-check will indicate if a
-                          vulnerability with a CVSS score equal to or higher was identified.
-                      </p>
-                  </dd>
-                  <dt><code>--suppression <files></code></dt>
-                  <dd>
-                      <p>
-                          The file paths to the suppression XML files; used to suppress false positives. This can be specified
-                          more than once to utilize multiple suppression files. The argument can be a local file path, a URL
-                          to a suppression file, or even a reference to a file on the class path (see
-                          https://github.com/jeremylong/DependencyCheck/issues/1878#issuecomment-487533799). For further
-                          information see: https://jeremylong.github.io/DependencyCheck/general/suppression.html.
-                      </p>
-                  </dd>
-                  <dt><code>--project <files></code></dt>
-                  <dd>
-                      <p>
-                          The name of the project being scanned. This project name is displayed as a heading in the report.
-                      </p>
-                  </dd>
-                </dl>
+                <ul>
+                    <li>
+                        <code>--enableExperimental</code> - Enable the experimental analyzers. If not set the analyzers
+                        marked as experimental below will not be loaded or used. File Type and Experimental Analyzers:
+                        https://jeremylong.github.io/DependencyCheck/analyzers/index.html
+                    </li>
+                    <li>
+                        <code>--exclude <pattern></code> - The path patterns to exclude from the scan - this option can
+                        be specified multiple times. This accepts Ant style path patterns (e.g. /exclude/).
+                    </li>
+                    <li>
+                        <code></code> - If the score set between 0 and 10 the exit code from dependency-check will
+                        indicate if a vulnerability with a CVSS score equal to or higher was identified.
+                    </li>
+                    <li>
+                        <code>--suppression <files></code> - The file paths to the suppression XML files; used to
+                        suppress false positives. This can be specified more than once to utilize multiple suppression
+                        files. The argument can be a local file path, a URL to a suppression file, or even a reference
+                        to a file on the class path (see https://github.com/jeremylong/DependencyCheck/issues/1878#issuecomment-487533799).
+                        For further information see: https://jeremylong.github.io/DependencyCheck/general/suppression.html.
+                    </li>
+                    <li>
+                        <code>--project <files></code> - The name of the project being scanned. This project name is
+                        displayed as a heading in the report.
+                    </li>
+                </ul>
             </li>
         </ul>
         <p style="margin-bottom: 0em;">
@@ -74,14 +60,9 @@
 owaspDependencyCheck "app", "api", tool: "owasp-dependency-check-5.2.4", extraArgs: "--enableExperimental --suppression dependency-check-suppression.xml --failOnCVSS 7 --exclude exclude"
         </code></pre>
         <p>
-            For further information see <a href="https://github.com/kubernetes-sigs/kustomize">kustomize documentation</a>.
+            For further information see <a href="https://jeremylong.github.io/DependencyCheck/">dependency-check documentation</a>.
         </p>
     </dd>
 </dl>
-<!-- vim: set ft=html : -->
-<!-- code: set language=html : -->
-<p>
-    For further information see documentation on GitHub: https://jeremylong.github.io/DependencyCheck/.
-</p>
 <!-- vim: set ft=html : -->
 <!-- code: set language=html : -->
