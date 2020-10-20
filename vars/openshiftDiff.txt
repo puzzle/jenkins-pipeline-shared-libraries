@@ -6,6 +6,8 @@
     <dd>
         <p>
             This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
+        </p>
+        <p>
             Compares the OpenShift configuration/resources given in the <b>configuration</b> argument against the resources
             in an OpenShift project. The differences are printed in colored unified diff format. Requires the
             Ansi Color plugin to be installed on the Jenkins server.
