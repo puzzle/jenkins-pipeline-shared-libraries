@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
+<p>
     The <code>check</code> variable offers assert methods.
 </p>
 <dl>
@@ -10,8 +13,5 @@
         </p>
     </dd>
 </dl>
-<p>
-    This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
-</p>
 <!-- vim: set ft=html : -->
 <!-- code: set language=html : -->

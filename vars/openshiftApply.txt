@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
 <dl>
     <dt>
         <code>openshiftApply(configuration:String, project:String, cluster:String, credentialsId:String,
         appLabel:String, waitForRollout:boolean, rolloutKind:String, rolloutSelector:Map):void</code>
     </dt>
     <dd>
-        <p>
-            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
-        </p>
         <p>
             Requests OpenShift to apply the given configuration and waits for the rollout to be finished.
         </p>

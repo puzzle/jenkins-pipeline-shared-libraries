@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
 <dl>
     <dt>
         <code>openshiftDiff(configuration:String, project:String, cluster:String, credentialsId:String):void</code>
     </dt>
     <dd>
-        <p>
-            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
-        </p>
         <p>
             Compares the OpenShift configuration/resources given in the <b>configuration</b> argument against the resources
             in an OpenShift project. The differences are printed in colored unified diff format. Requires the

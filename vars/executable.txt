@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
 <dl>
     <dt>
         <code>executable(name:String, toolName:String):String {…}</code>
     </dt>
     <dd>
-        <p>
-            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
-        </p>
         <p>
             Ensures that the given executable is available on the current Jenkins agent, installing
             it with a Jenkins tool installer if necessary. Contrary to the <code>tool</code> step the

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
+<p>
     The <code>owaspDependencyCheck</code> variable offers access to the OWASP Dependency Check.
-    This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
 </p>
 <p>
     The generated reports (<code>--format 'ALL'</code>) dependency-check-junit.xml, dependency-check-report.csv,

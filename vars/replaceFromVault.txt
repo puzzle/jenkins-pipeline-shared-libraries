@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
 <dl>
     <dt>
         <code>replaceFromVault(text:String):String</code>
     </dt>
     <dd>
         <p>
-            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
             Substitutes variables in a provided String with secrets retrieved from HashiCorp Vault.
         </p>
         <ul>
