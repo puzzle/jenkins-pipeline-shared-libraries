@@ -1,5 +1,7 @@
 package com.puzzleitc.jenkins.command.context
 
+@Grab('io.prometheus:simpleclient:0.9.0')
+
 import io.prometheus.client.Collector
 import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.Counter
@@ -8,13 +10,13 @@ class JenkinsPrometheusInvoker {
 
     void incrementStepExecutionCounter(String stepName) {
         Counter counter = findOrCreateCounter('shared_library_step_executions_total')
-        counter.labelNames('stepName').labels(stepName).inc()
+        counter.labels(stepName).inc()
     }
 
     private Counter findOrCreateCounter(String name) {
         Counter counter = findCounter(name)
         if (counter == null) {
-            return Counter.build().name(name).register()
+            return Counter.build().name(name).labelNames('stepName').register()
         } else {
             return counter
         }
