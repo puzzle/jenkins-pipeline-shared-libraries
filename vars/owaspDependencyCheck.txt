@@ -27,24 +27,24 @@
                 Some important arguments are:
                 <ul>
                     <li>
-                        <code>--enableExperimental</code> - Enable the experimental analyzers. If not set the analyzers
-                        marked as experimental below will not be loaded or used. File Type and Experimental Analyzers:
-                        https://jeremylong.github.io/DependencyCheck/analyzers/index.html
+                        <code>--enableExperimental</code> Enables the experimental analyzers. If not set, the analyzers
+                        marked as experimental below will not be loaded or used.
+                        See <a href="File Type and Experimental Analyzers">https://jeremylong.github.io/DependencyCheck/analyzers/index.html</a>.
                     </li>
                     <li>
-                        <code>--exclude <pattern></code> - The path patterns to exclude from the scan - this option can
+                        <code>--exclude <pattern></code> The path patterns to exclude from the scan - this option can
                         be specified multiple times. This accepts Ant style path patterns (e.g. /exclude/).
                     </li>
                     <li>
-                        <code></code> - If the score set between 0 and 10 the exit code from dependency-check will
-                        indicate if a vulnerability with a CVSS score equal to or higher was identified.
+                        <code>--failOnCVSS</code> If the score set between 0 and 10 the exit code from dependency-check
+                        will indicate if a vulnerability with a CVSS score equal to or higher was identified.
                     </li>
                     <li>
-                        <code>--suppression <files></code> - The file paths to the suppression XML files; used to
+                        <code>--suppression <files></code> The file paths to the suppression XML files; used to
                         suppress false positives. This can be specified more than once to utilize multiple suppression
                         files. The argument can be a local file path, a URL to a suppression file, or even a reference
-                        to a file on the class path (see https://github.com/jeremylong/DependencyCheck/issues/1878#issuecomment-487533799).
-                        For further information see: https://jeremylong.github.io/DependencyCheck/general/suppression.html.
+                        to a file on the class path (https://github.com/jeremylong/DependencyCheck/issues/1878#issuecomment-487533799).
+                        See: <a href="https://jeremylong.github.io/DependencyCheck/general/suppression.html">Suppressing False Positives</a>.
                     </li>
                     <li>
                         <code>--project <files></code> - The name of the project being scanned. This project name is
