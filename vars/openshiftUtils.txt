@@ -2,17 +2,14 @@
 <p>
     Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
 </p>
-<p>
-    The <code>openshiftUtils</code> variable offers some OpenShift utility methods.
-</p>
-<p>
-    The methods are implemented using the OpenShift CLI Tool (oc tool).
-</p>
 <dl>
     <dt>
         <code id="openshiftUtils_applyTemplate">openshiftUtils.applyTemplate(ocpUrl:String, ocpProject:String, templateFile:String, credentialsId:String, namespace:Boolean):void</code>
     </dt>
     <dd>
+        <p style="color:red">
+            Deprecated: Use the openshiftApply() step.
+        </p>
         <p>
             OpenShift resource update by applying a template.
             <br />
@@ -44,6 +41,9 @@
         <code id="openshiftUtils_applyTemplateWithEnvFile">openshiftUtils.applyTemplateWithEnvFile(ocpUrl:String, ocpProject:String, templateFile:String, credentialsId:String, envFile:String, namespace:Boolean):void</code>
     </dt>
     <dd>
+        <p style="color:red">
+            Deprecated: Use the openshiftApply() step.
+        </p>
         <p>
             OpenShift resource update by applying a template with parameter from an environment file.
         </p>
