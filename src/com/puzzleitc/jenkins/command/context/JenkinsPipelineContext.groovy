@@ -134,7 +134,7 @@ class JenkinsPipelineContext implements PipelineContext {
     @Override
     String lookupValueFromVault(String path, String key) {
         script.withVault(vaultSecrets: [[path: path, engineVersion: 2, secretValues: [[envVar: 'secretValue', vaultKey: key]]]]) {
-            return secretValue
+            return script.secretValue
         }
     }
 
