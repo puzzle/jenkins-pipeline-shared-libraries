@@ -68,8 +68,8 @@ String callTool(String toolName) {
     tool(toolName)
 }
 
-String callExecutable(String name, String toolName) {
-    executable(name: name, toolName: toolName)
+String callExecutable(Map args) {
+    executable(args)
 }
 
 def callEcho(String message) {

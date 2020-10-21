@@ -53,12 +53,12 @@ class JenkinsPipelineContext implements PipelineContext {
 
     @Override
     String executable(String name, String toolName) {
-        invoker.callExecutable(name, toolName)
+        invoker.callExecutable(name: name, toolName: toolName)
     }
 
     @Override
     String executable(String name) {
-        invoker.callExecutable(name, null)
+        invoker.callExecutable(name: name)
     }
 
     @Override
