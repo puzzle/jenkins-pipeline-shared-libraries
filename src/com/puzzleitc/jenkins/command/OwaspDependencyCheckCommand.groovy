@@ -30,7 +30,7 @@ class OwaspDependencyCheckCommand {
     private String createDependencyCheckArgs(StepParams stepParams) {
         StringBuilder result = new StringBuilder()
         result.append(stepParams.getRequired('scan').collect { "--scan '$it'" }.join(' '))
-        result.append(' --format ALL --out report')
+        result.append(" --format 'ALL' --out 'report'")
         if (stepParams.contains('suppression')) {
             def suppression = ensureList(stepParams.getOptional('suppression'))
             result.append(suppression.collect { " --suppression '$it'" }.join(''))
