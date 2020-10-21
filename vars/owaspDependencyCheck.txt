@@ -47,7 +47,7 @@
                 See <a href="https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html">Command Line Arguments</a>.
             </li>
             <li>
-                <b>tool</b> (optional) - The name of the OWASP Dependency Check tool in the global configuration to use.
+                <b>tool</b> (optional) - The name of the OWASP dependency-check tool in the global configuration to use.
                 Default: <code>'owasp-dependency-check-5.2.4'</code>.
             </li>
         </ul>

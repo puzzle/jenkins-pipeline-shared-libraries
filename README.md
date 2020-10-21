@@ -8,59 +8,40 @@ Documentation: <https://jenkins.io/doc/book/pipeline/shared-libraries/>
 
 ## global variables
 
+### executable
+
+Ensures that the given executable is available on the current Jenkins agent, installing it with a Jenkins tool installer 
+if necessary.
+
 ### kustomize
 
-Custom step to execute <code>kustomize</code>. See it's [documentation](vars/kustomize.txt)
-
-Source: [vars/kustomize.groovy](vars/kustomize.groovy)
+Returns the customized configuration per contents of a kustomization.yaml as a string.
 
 ### openshiftApply
 
-Requests OpenShift to apply the given configuration and waits for the rollout to be finished. See it's
-[documentation](vars/openshiftApply.txt)
-
-Source: [vars/openshiftApply.groovy](vars/openshiftApply.groovy)
+Requests OpenShift to apply the given configuration and waits for the rollout to be finished.
 
 ### openshiftDiff
 
 Compares the OpenShift configuration/resources given in the <b>configuration</b> argument against the resources in an
- OpenShift project. [documentation](vars/openshiftDiff.txt)
-
-Source: [vars/openshiftDiff.groovy](vars/openshiftDiff.groovy)
+OpenShift project.
 
 ### openshiftStartBuild
 
-Requests OpenShift to start build from the specified build config and waits for the build to be finished. See it's
-[documentation](vars/openshiftStartBuild.txt)
-
-Source: [vars/openshiftStartBuild.groovy](vars/openshiftStartBuild.groovy)
-
-### openshiftUtils
-
-Functionality to interact with an OpenShift cluster. See it's [documentation](vars/openshiftUtils.txt)
-
-Source: [vars/openshiftUtils.groovy](vars/openshiftUtils.groovy)
+Requests OpenShift to start build from the specified build config and waits for the build to be finished.
 
 ### owaspDependencyCheck
 
-Custom step to execute the OWASP Dependency Check. See it's [documentation](vars/owaspDependencyCheck.txt)
-
-Source: [vars/owaspDependencyCheck.groovy](vars/owaspDependencyCheck.groovy)
+Runs the OWASP dependency-check tool.
 
 ### replaceFromVault
 
-Substitutes variables in a provided String with secrets retrieved from HashiCorp Vault. 
-See it's [documentation](vars/replaceFromVault.txt)
-
-Source: [vars/replaceFromVault.groovy](vars/replaceFromVault.groovy)
+Substitutes variables in a provided String with secrets retrieved from HashiCorp Vault.
 
 ### withGitCrypt
 
 Unlocks the Git repository in the current directory with <code>git-crypt</code> for the duration of the scope of the
- step and locks it again afterwards. See it's [documentation](vars/withGitCrypt.txt)
-
-Source: [vars/withGitCrypt.groovy](vars/withGitCrypt.groovy)
-
+ step and locks it again afterwards.
 
 ## Groovy source files
 
