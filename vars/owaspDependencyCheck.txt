@@ -4,8 +4,8 @@
 </p>
 <dl>
     <dt>
-        <code>owaspDependencyCheck(scan:List, project:String, failOnCVSS:boolean, enableExperimental:int, exclude:List,
-        suppression:List, extraArgs:String, tool:String):void</code>
+        <code>owaspDependencyCheck(scan:List, project:String, failOnCVSS:Boolean, enableExperimental:Integer,
+        exclude:List, suppression:List, extraArgs:String, tool:String):void</code>
     </dt>
     <dd>
         <p>

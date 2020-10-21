@@ -14,15 +14,15 @@
             in the PATH. Additionally the given tool installer is never called more than once in the same build.
             This is useful for implementing Pipelines and custom steps which run on agents with different
             tool availability, e.g. containerized agents. And to reduce tool installer messages
-            in build logs when installing required tools in custom steps. Return the path to given binary. Note the
+            in build logs when installing required tools in custom steps. Returns the path to given binary. Note the
             difference to the <code>tool</code> step, which returns the home directory of the installed tool.
         </p>
         <ul>
             <li>
-                <b>name</b> (required) - Name of the required executable.
+                <b>name</b> (required) - The name of the required executable.
             </li>
             <li>
-                <b>toolName</b> (optional) - Name of the Jenkins tool installer to use when the given
+                <b>toolName</b> (optional) - The name of the Jenkins tool installer to use when the given
                 executable is not available in the PATH. Defaults to the value of <b>name</b>.
             </li>
         </ul>

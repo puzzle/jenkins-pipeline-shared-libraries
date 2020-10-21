@@ -5,7 +5,7 @@
 <dl>
     <dt>
         <code>openshiftApply(configuration:String, project:String, cluster:String, credentialsId:String,
-        appLabel:String, waitForRollout:boolean, rolloutKind:String, rolloutSelector:Map):void</code>
+        appLabel:String, waitForRollout:Boolean, rolloutKind:String, rolloutSelector:Map):void</code>
     </dt>
     <dd>
         <p>
