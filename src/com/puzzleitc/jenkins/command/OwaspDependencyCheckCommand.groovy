@@ -31,20 +31,30 @@ class OwaspDependencyCheckCommand {
         StringBuilder result = new StringBuilder()
         result.append(stepParams.getRequired('scan').collect { "--scan '$it'" }.join(' '))
         result.append(' --format ALL --out report')
-        result.append(stepParams.getOptional('suppression', []).collect { " --suppression '$it'" }.join(''))
-        result.append(stepParams.getOptional('exclude', []).collect { " --exclude '$it'" }.join(''))
+        if (stepParams.contains('suppression')) {
+            def suppression = ensureList(stepParams.contains('suppression'))
+            result.append(suppression.collect { " --suppression '$it'" }.join(''))
+        }
+        if (stepParams.contains('exclude')) {
+            def exclude = ensureList(stepParams.contains('exclude'))
+            result.append(exclude.collect { " --exclude '$it'" }.join(''))
+        }
         if (stepParams.getOptional('enableExperimental', false)) {
             result.append(' --enableExperimental')
         }
         if (stepParams.contains('failOnCVSS')) {
-            result.append(' --failOnCVSS ').append(stepParams.getOptional('failOnCVSS'))
+            result.append(" --failOnCVSS ${stepParams.getOptional('failOnCVSS')}")
         }
         if (stepParams.contains('project')) {
-            result.append(' --project ').append(stepParams.getOptional('project'))
+            result.append(" --project '${stepParams.getOptional('project')}'")
         }
         if (stepParams.contains('extraArgs')) {
-            result.append(' ').append(stepParams.getOptional('extraArgs'))
+            result.append(" ${stepParams.getOptional('extraArgs')}")
         }
         return result.toString()
+    }
+
+    private List ensureList(Object object) {
+        return object instanceof List ? object : [object]
     }
 }
