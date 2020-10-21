@@ -15,7 +15,7 @@ class OpenshiftApplyCommand {
         this.ctx = ctx
     }
 
-    Object execute() {
+    void execute() {
         ctx.info('-- openshiftApply --')
         def configuration = ctx.stepParams.getRequired('configuration') as String
         def project = ctx.stepParams.getRequired('project')

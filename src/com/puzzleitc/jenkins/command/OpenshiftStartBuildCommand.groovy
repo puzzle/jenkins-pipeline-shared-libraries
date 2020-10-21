@@ -12,7 +12,7 @@ class OpenshiftStartBuildCommand {
         this.ctx = ctx
     }
 
-    Object execute() {
+    void execute() {
         ctx.info('-- openshiftStartBuild --')
         def project = ctx.stepParams.getRequired('project')
         def cluster = ctx.stepParams.getRequired('cluster')
