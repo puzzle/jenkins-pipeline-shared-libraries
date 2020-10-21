@@ -1,10 +1,8 @@
 package com.puzzleitc.jenkins.command
 
-import java.util.stream.Stream
-import java.util.regex.Pattern
-import java.nio.file.Paths
-import java.nio.file.Files
 import com.puzzleitc.jenkins.command.context.PipelineContext
+
+import java.util.regex.Pattern
 
 class ExecutableCommand {
 
@@ -26,18 +24,17 @@ class ExecutableCommand {
     // Search executable in PATH of current Jenkins node
     String searchInPath(String executable) {
         Node node = getCurrentNode()
-        for (def path: ctx.getEnv("PATH").split(Pattern.quote(File.pathSeparator))) {
+        for (def path : ctx.getEnv('PATH').split(Pattern.quote(File.pathSeparator))) {
             if (node.createPath(path).child(executable).exists()) {
                 return path
             }
         }
-
         return null
     }
 
     Object execute() {
-        String executable = ctx.stepParams.getRequired("name")
-        String toolName = ctx.stepParams.getRequired("toolName")
+        String executable = ctx.stepParams.getRequired('name')
+        String toolName = ctx.stepParams.getOptional('toolName', executable)
 
         // Was executable found/installed in earlier invocation?
         String exePath = ctx.getEnv("executable_${executable}_path")
@@ -50,7 +47,7 @@ class ExecutableCommand {
 
         // Executable not found, install via tool
         if (!exePath) {
-            def toolHome = ctx.tool(toolName ? toolName : executable)
+            def toolHome = ctx.tool(toolName)
             Node node = getCurrentNode()
             if (node.createPath(toolHome).child('bin').child(executable).exists()) {
                 exePath = "${toolHome}/bin"
