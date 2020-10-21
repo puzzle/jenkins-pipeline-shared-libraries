@@ -16,7 +16,7 @@ class OwaspDependencyCheckCommand {
     void execute() {
         ctx.info('-- owaspDependencyCheck --')
         def dcTool = ctx.stepParams.getOptional('tool', DEFAULT_DC_TOOL_NAME) as String
-        def dcPath = ctx.executable(dcTool)
+        def dcPath = ctx.executable('dependency-check.sh', dcTool)
         def dcArgs = createDependencyCheckArgs(ctx.stepParams)
         ctx.echo("tool: ${dcTool}")
         ctx.echo("arguments: ${dcArgs}")
