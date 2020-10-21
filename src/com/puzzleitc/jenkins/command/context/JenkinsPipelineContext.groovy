@@ -94,11 +94,6 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    String lookupEnvironmentVariable(String name) {
-        invoker.getEnv(name)
-    }
-
-    @Override
     void dependencyCheckPublisher(Map args) {
         invoker.callDependencyCheckPublisherPlugin(args)
     }
