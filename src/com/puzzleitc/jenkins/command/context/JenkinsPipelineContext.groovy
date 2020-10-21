@@ -153,7 +153,7 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     private String lookupTokenFromCredentials(String credentialsId) {
-        withCredentials([string(credentialsId: credentialsId, variable: 'secretValue')]) {
+        withCredentials([script.string(credentialsId: credentialsId, variable: 'secretValue')]) {
             try {
                 def jsonObj = new JsonSlurper().parseText(secretValue)
                 return new String(jsonObj.token.decodeBase64())
