@@ -8,13 +8,11 @@
     </dt>
     <dd>
         <p>
-            Substitutes variables in a provided string with secrets retrieved from HashiCorp Vault. The string will be
-            scanned for the pattern <code>{{ vault.get("&lt;VAULT_PATH&gt;", "&lt;VAULT_KEY&gt;") }}</code>, where
-            <code>VAULT_PATH</code> defines the fully qualified path in vault of the secret and <code>VAULT_KEY</code>
-            the key to lookup of the specified secret.
-        </p>
-        <p>
-            Example pattern: <code>{{ vault.get("/kv/spaces/outerspace/wekan-secret-test", "mongodb_user") }}</code>.
+            Substitutes variables the a provided string with the secrets retrieved from HashiCorp Vault. The string
+            will be scanned for the pattern <code>{{ vault.get("&lt;VAULT_PATH&gt;", "&lt;VAULT_KEY&gt;") }}</code>,
+            where <code>VAULT_PATH</code> defines the fully qualified path in vault of the secret and
+            <code>VAULT_KEY</code> the key to lookup of the specified secret. Example pattern:
+            <code>{{ vault.get("/kv/spaces/outerspace/wekan-secret-test", "mongodb_user") }}</code>.
         </p>
         <ul>
             <li>

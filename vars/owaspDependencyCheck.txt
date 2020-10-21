@@ -9,10 +9,10 @@
     </dt>
     <dd>
         <p>
-            Offers access to the OWASP Dependency Check. The generated reports (<code>--format 'ALL'</code>)
-            dependency-check-junit.xml, dependency-check-report.csv, dependency-check-report.html,
-            dependency-check-report.json and dependency-check-report.xml are written to the folder report
-            (<code>--out report</code>) in the current workspace.
+            Runs the OWASP dependency-check tool. The generated reports (<code>dependency-check-junit.xml</code>,
+            <code>dependency-check-report.csv</code>, <code>dependency-check-report.html</code>,
+            <code>dependency-check-report.json</code> and <code>dependency-check-report.xml</code> are written to the
+            <code>report</code> directory in the current workspace.
         </p>
         <ul>
             <li>
@@ -29,7 +29,7 @@
             <li>
                 <b>enableExperimental</b> (optional) - Enables the experimental analyzers. If false or not set,
                 the analyzers marked as experimental will not be loaded or used.
-                See: <a href="https://jeremylong.github.io/DependencyCheck/analyzers/index.html">File Type and Experimental Analyzers</a>.
+                See <a href="https://jeremylong.github.io/DependencyCheck/analyzers/index.html">File Type and Experimental Analyzers</a>.
             </li>
            <li>
                 <b>exclude</b> (optional) - The list of path patterns to exclude from the scan. This accepts
@@ -40,11 +40,11 @@
                 suppress false positives. This can be specified more than once to utilize multiple suppression
                 files. The argument can be a local file path, a URL to a suppression file, or even a reference
                 to a file on the class path.
-                See: <a href="https://jeremylong.github.io/DependencyCheck/general/suppression.html">Suppressing False Positives</a>.
+                See <a href="https://jeremylong.github.io/DependencyCheck/general/suppression.html">Suppressing False Positives</a>.
             </li>
             <li>
                 <b>extraArgs</b> (optional) - Additional arguments with which the the OWASP Dependency Check is called.
-                See: <a href="https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html">Command Line Arguments</a>.
+                See <a href="https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html">Command Line Arguments</a>.
             </li>
             <li>
                 <b>tool</b> (optional) - The name of the OWASP Dependency Check tool in the global configuration to use.
