@@ -26,8 +26,7 @@ class OpenshiftApplyCommand {
         def rolloutSelector = ctx.stepParams.getOptional('rolloutSelector', [:]) as Map
         def credentialsId = ctx.stepParams.getOptional('credentialsId') as String
         def saToken = ctx.lookupServiceAccountToken(credentialsId, project)
-        def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
-        ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {
+        ctx.withEnv(["PATH+OC=${ctx.executable('oc', DEFAULT_OC_TOOL_NAME)}"]) {
             ctx.openshift.withCluster(cluster) {
                 ctx.openshift.withProject(project) {
                     ctx.openshift.withCredentials(saToken) {
