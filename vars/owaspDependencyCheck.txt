@@ -19,7 +19,7 @@
                 <b>scan</b> (required) - The application directories to be scanned.
             </li>
             <li>
-                <b>project<b> (optional) - The name of the project being scanned. This project name is displayed as a
+                <b>project</b> (optional) - The name of the project being scanned. This project name is displayed as a
                 heading in the report.
             </li>
             <li>
