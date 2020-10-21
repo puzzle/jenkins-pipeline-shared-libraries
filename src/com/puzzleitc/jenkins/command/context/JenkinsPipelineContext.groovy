@@ -22,6 +22,16 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
+    String getEnv(String name) {
+        invoker.getEnv(name)
+    }
+
+    @Override
+    void setEnv(String name, String value) {
+        invoker.setEnv(name, value)
+    }
+
+    @Override
     Object withEnv(List<String> env, Closure<Object> closure) {
         invoker.callWithEnv(env, closure)
     }
@@ -89,13 +99,8 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    String getEnv(String name) {
-        invoker.getEnv(name)
-    }
-
-    @Override
-    void setEnv(String name, String value) {
-        invoker.setEnv(name, value)
+    void dependencyCheckPublisher(Map args) {
+        invoker.callDependencyCheckPublisherPlugin(args)
     }
 
     @Override

@@ -23,13 +23,13 @@
             </li>
             <li>
                 <b>extraArgs</b> (optional) - Additional arguments with which the the OWASP Dependency Check is called.
-                For a full list of available arguments see <a href="https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html">dependency-check command line arguments</a>.
+                For a full list of available arguments see <a href="https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html">Command Line Arguments</a>.
                 Some important arguments are:
                 <ul>
                     <li>
                         <code>--enableExperimental</code> Enables the experimental analyzers. If not set, the analyzers
                         marked as experimental below will not be loaded or used.
-                        See <a href="File Type and Experimental Analyzers">https://jeremylong.github.io/DependencyCheck/analyzers/index.html</a>.
+                        See <a href="https://jeremylong.github.io/DependencyCheck/analyzers/index.html">File Type and Experimental Analyzers</a>.
                     </li>
                     <li>
                         <code>--exclude <pattern></code> The path patterns to exclude from the scan - this option can

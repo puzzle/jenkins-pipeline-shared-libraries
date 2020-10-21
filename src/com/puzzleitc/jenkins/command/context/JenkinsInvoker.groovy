@@ -8,8 +8,12 @@ Object getOpenshiftVar() {
     return openshift
 }
 
-Map getEnvVar() {
-    return env
+String getEnv(String name) {
+    return env[name]
+}
+
+void setEnv(String name, String value) {
+    env[name] = value
 }
 
 Object callSh(Map args) {
@@ -76,16 +80,8 @@ def callError(String message) {
     error(message)
 }
 
-def callExit(int status) {
-    exit(status)
-}
-
-String getEnv(String name) {
-    return env[name]
-}
-
-void setEnv(String name, String value) {
-    env[name] = value
+def callDependencyCheckPublisherPlugin(Map args) {
+    dependencyCheckPublisher(args)
 }
 
 String lookupValueFromVault(String path, String key) {
