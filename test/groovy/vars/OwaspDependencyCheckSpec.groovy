@@ -4,24 +4,48 @@ import com.homeaway.devtools.jenkins.testing.JenkinsPipelineSpecification
 
 class OwaspDependencyCheckSpec extends JenkinsPipelineSpecification {
 
-    def owaspCheck = null
+    def owaspDependencyCheck = null
 
     def setup() {
-        owaspCheck = loadPipelineScriptForTest('vars/owaspDependencyCheck.groovy')
+        owaspDependencyCheck = loadPipelineScriptForTest('vars/owaspDependencyCheck.groovy')
+        explicitlyMockPipelineStep('ansiColor')
+        explicitlyMockPipelineStep('dependencyCheckPublisher')
     }
 
-    def 'it calls the dependency check' () {
-        setup:
-            explicitlyMockPipelineStep('dependencyCheckPublisher')
+    def 'it should calls the dependency-check tool'() {
+
         when:
-            owaspCheck.call('app', 'api', tool: 'owasp-dependency-check-5.2.4', extraArgs: '--enableExperimental --suppression dependency-check-suppression.xml --failOnCVSS 7 --exclude exclude')
+        owaspDependencyCheck.call(
+                scan: ['app', 'api'],
+                project: 'My Project',
+                failOnCVSS: 5,
+                enableExperimental: true,
+                suppression: ['dependency-check-suppression.xml'],
+                tool: 'owasp-dependency-check-5.2.5')
+
         then:
-            1 * getPipelineMock('tool').call(_) >> '/owasp-dependency-check-5.2.4'
-            1 * getPipelineMock('withEnv').call(_) >> { _arguments ->
-                def envArgs = ['PATH+DC=/owasp-dependency-check-5.2.4/bin']
-                assert envArgs == _arguments[0][0]
-            }
-            1 * getPipelineMock('sh').call('mkdir -p data report')
-            1 * getPipelineMock('sh').call('dependency-check.sh --scan \'app\' --scan \'api\' --format \'ALL\' --out report --enableExperimental --suppression dependency-check-suppression.xml --failOnCVSS 7 --exclude exclude')
+        1 * getPipelineMock('tool').call('owasp-dependency-check-5.2.5') >> '/path/to/dependency-check'
+        1 * getPipelineMock('withEnv').call(_) >> { _arguments ->
+            assert ['PATH+DC_HOME=/path/to/dependency-check/bin'] == _arguments[0][0]
+        }
+        1 * getPipelineMock('sh').call({ it['script'].endsWith('mkdir -p data report') })
+        1 * getPipelineMock('sh').call({ it['script'].endsWith('dependency-check.sh --scan \'app\' --scan \'api\' --format \'ALL\' --out \'report\' --suppression \'dependency-check-suppression.xml\' --enableExperimental --failOnCVSS 5 --project \'My Project\'') })
+
     }
+
+    def 'it should be backward compatible'() {
+
+        when:
+        owaspDependencyCheck.call('app', 'api', tool: 'owasp-dependency-check-5.2.4', extraArgs: '--enableExperimental --suppression dependency-check-suppression.xml --failOnCVSS 7 --exclude exclude')
+
+        then:
+        1 * getPipelineMock('tool').call('owasp-dependency-check-5.2.4') >> '/path/to/dependency-check'
+        1 * getPipelineMock('withEnv').call(_) >> { _arguments ->
+            assert ['PATH+DC_HOME=/path/to/dependency-check/bin'] == _arguments[0][0]
+        }
+        1 * getPipelineMock('sh').call({ it['script'].endsWith('mkdir -p data report') })
+        1 * getPipelineMock('sh').call({ it['script'].endsWith('dependency-check.sh --scan \'app\' --scan \'api\' --format \'ALL\' --out \'report\' --enableExperimental --suppression dependency-check-suppression.xml --failOnCVSS 7 --exclude exclude') })
+
+    }
+
 }

@@ -16,6 +16,14 @@ interface PipelineContext {
 
     Object file(Map map)
 
+    void dir(String path, Closure closure)
+
+    void deleteDir()
+
+    String writeFile(String file, String text, String encoding)
+
+    String pwd()
+
     String tool(String toolName)
 
     String executable(String name, String toolName)

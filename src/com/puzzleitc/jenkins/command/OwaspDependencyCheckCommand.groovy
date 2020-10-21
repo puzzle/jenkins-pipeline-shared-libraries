@@ -16,13 +16,15 @@ class OwaspDependencyCheckCommand {
     void execute() {
         ctx.info('-- owaspDependencyCheck --')
         def dcTool = ctx.stepParams.getOptional('tool', DEFAULT_DC_TOOL_NAME) as String
-        def dcPath = ctx.executable('dependency-check.sh', dcTool)
         def dcArgs = createDependencyCheckArgs(ctx.stepParams)
+        def dcHome = ctx.tool(dcTool)
         ctx.echo("tool: ${dcTool}")
         ctx.echo("arguments: ${dcArgs}")
-        ctx.sh(script: 'mkdir -p data report')
-        ctx.sh(script: "${dcPath}/dependency-check.sh ${dcArgs}")
-        ctx.dependencyCheckPublisher(pattern: 'report/dependency-check-report.xml')
+        ctx.withEnv(["PATH+DC_HOME=${dcHome}/bin"]) {
+            ctx.sh(script: 'mkdir -p data report')
+            ctx.sh(script: "dependency-check.sh ${dcArgs}")
+            ctx.dependencyCheckPublisher(pattern: 'report/dependency-check-report.xml')
+        }
     }
 
     private String createDependencyCheckArgs(StepParams stepParams) {

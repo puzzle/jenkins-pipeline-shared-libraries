@@ -4,6 +4,6 @@ import static com.puzzleitc.jenkins.Util.parseArgs
 
 def call(Map namedArgs = [:], Object... positionalArgs) {
     def args = parseArgs(namedArgs, positionalArgs, ["name"], ["toolName": null])
-    ExecutableCommand command = new ExecutableCommand(new JenkinsPipelineContext(args))
+    ExecutableCommand command = new ExecutableCommand(new JenkinsPipelineContext(this, args))
     command.execute()
 }
