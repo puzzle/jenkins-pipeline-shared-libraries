@@ -34,7 +34,7 @@ class ExecutableCommand {
 
     Object execute() {
         String executable = ctx.stepParams.getRequired('name')
-        String toolName = ctx.stepParams.getOptional('toolName', executable)
+        String toolName = ctx.stepParams.getOptional('toolName')
 
         // Was executable found/installed in earlier invocation?
         String exePath = ctx.getEnv("executable_${executable}_path")
@@ -47,7 +47,7 @@ class ExecutableCommand {
 
         // Executable not found, install via tool
         if (!exePath) {
-            def toolHome = ctx.tool(toolName)
+            def toolHome = ctx.tool(toolName ? toolName : executable)
             Node node = getCurrentNode()
             if (node.createPath(toolHome).child('bin').child(executable).exists()) {
                 exePath = "${toolHome}/bin"
