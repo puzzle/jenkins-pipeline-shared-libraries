@@ -19,12 +19,12 @@ class OpenshiftApplyCommand {
         ctx.info('-- openshiftApply --')
         def configuration = ctx.stepParams.getRequired('configuration') as String
         def project = ctx.stepParams.getRequired('project')
-        def cluster = ctx.stepParams.getOptional('cluster', null)
+        def cluster = ctx.stepParams.getOptional('cluster')
         def appLabel = ctx.stepParams.getRequired('appLabel') as String
         def waitForRollout = ctx.stepParams.getOptional('waitForRollout', true) as boolean
         def rolloutKind = ctx.stepParams.getOptional('rolloutKind', 'dc') as String
         def rolloutSelector = ctx.stepParams.getOptional('rolloutSelector', [:]) as Map
-        def credentialsId = ctx.stepParams.getOptional('credentialsId', null) as String
+        def credentialsId = ctx.stepParams.getOptional('credentialsId') as String
         def saToken = ctx.lookupServiceAccountToken(credentialsId, project)
         def ocHome = ctx.tool(DEFAULT_OC_TOOL_NAME)
         ctx.withEnv(["PATH+OC_HOME=${ocHome}/bin"]) {

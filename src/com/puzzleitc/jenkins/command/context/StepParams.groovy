@@ -17,8 +17,16 @@ class StepParams {
         return params.get(paramName)
     }
 
+    Object getOptional(String paramName) {
+        return getOptional(paramName, null)
+    }
+
     Object getOptional(String paramName, Object defaultValue) {
         return params.containsKey(paramName) ? params.get(paramName) : defaultValue
+    }
+
+    boolean contains(String paramName) {
+        return params.containsKey(paramName)
     }
 
 }

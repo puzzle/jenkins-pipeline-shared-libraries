@@ -18,8 +18,8 @@ class OwaspDependencyCheckCommand {
         def dcTool = ctx.stepParams.getOptional('tool', DEFAULT_DC_TOOL_NAME) as String
         def dcHome = ctx.tool(dcTool)
         def dcArgs = createDependencyCheckArgs(ctx.stepParams)
-        ctx.echo("dependency-check tool: $dcTool")
-        ctx.echo("dependency-check arguments: $dcArgs")
+        ctx.echo("tool: $dcTool")
+        ctx.echo("arguments: $dcArgs")
         ctx.withEnv(["PATH+DC_HOME=${dcHome}/bin"]) {
             ctx.sh(script: 'mkdir -p data report')
             ctx.sh(script: "dependency-check.sh $dcArgs")
@@ -28,9 +28,23 @@ class OwaspDependencyCheckCommand {
     }
 
     private String createDependencyCheckArgs(StepParams stepParams) {
-        def result = stepParams.getRequired('scanDirs').collect { "--scan '$it'" }.join(' ')
-        result << ' --format ALL --out report'
-        result << " ${stepParams.getOptional('extraArgs', '')}"
-        return result
+        StringBuilder result = new StringBuilder()
+        result.append(stepParams.getRequired('scanDirs').collect { "--scan '$it'" }.join(' '))
+        result.append(' --format ALL --out report')
+        result.append(stepParams.getOptional('suppression', []).collect { " --suppression '$it'" }.join(''))
+        result.append(stepParams.getOptional('exclude', []).collect { " --exclude '$it'" }.join(''))
+        if (stepParams.getOptional('enableExperimental', false)) {
+            result.append(' --enableExperimental')
+        }
+        if (stepParams.contains('failOnCVSS')) {
+            result.append(' --failOnCVSS ').append(stepParams.getOptional('failOnCVSS'))
+        }
+        if (stepParams.contains('project')) {
+            result.append(' --project ').append(stepParams.getOptional('project'))
+        }
+        if (stepParams.contains('extraArgs')) {
+            result.append(' ').append(stepParams.getOptional('extraArgs'))
+        }
+        return result.toString()
     }
 }
