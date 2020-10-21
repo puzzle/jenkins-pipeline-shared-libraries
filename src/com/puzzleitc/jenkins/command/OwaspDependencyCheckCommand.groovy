@@ -29,7 +29,7 @@ class OwaspDependencyCheckCommand {
 
     private String createDependencyCheckArgs(StepParams stepParams) {
         StringBuilder result = new StringBuilder()
-        result.append(stepParams.getRequired('scanDirs').collect { "--scan '$it'" }.join(' '))
+        result.append(stepParams.getRequired('scan').collect { "--scan '$it'" }.join(' '))
         result.append(' --format ALL --out report')
         result.append(stepParams.getOptional('suppression', []).collect { " --suppression '$it'" }.join(''))
         result.append(stepParams.getOptional('exclude', []).collect { " --exclude '$it'" }.join(''))

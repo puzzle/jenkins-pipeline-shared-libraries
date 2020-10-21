@@ -15,7 +15,7 @@
         </p>
         <ul>
             <li>
-                <b>scanDirs</b> (required) - The application directories to be scanned.
+                <b>scan</b> (required) - The application directories to be scanned.
             </li>
             <li>
                 <b>tool</b> (optional) - The name of the OWASP Dependency Check tool in the global configuration.
