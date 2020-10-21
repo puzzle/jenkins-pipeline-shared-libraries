@@ -48,10 +48,10 @@
                 rollout. Only resources containing all label pairs will be selected. Default: the app label.
             </li>
         </ul>
-        <p style="margin-bottom: 0em;">
+        <p>
             Example:
         </p>
-        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+        <pre style="margin-top: 0em; color:#657383;"><code>
 openshiftApply (
     configuration: kustomize(path: 'openshift/overlays/dev'),
     cluster: 'OpenShiftCloudscaleProduction',

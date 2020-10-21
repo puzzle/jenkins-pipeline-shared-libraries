@@ -8,28 +8,25 @@
     </dt>
     <dd>
         <p>
-            Substitutes variables in a provided String with secrets retrieved from HashiCorp Vault.
+            Substitutes variables in a provided string with secrets retrieved from HashiCorp Vault. The string will be
+            scanned for the pattern <code>{{ vault.get("&lt;VAULT_PATH&gt;", "&lt;VAULT_KEY&gt;") }}</code>, where
+            <code>VAULT_PATH</code> defines the fully qualified path in vault of the secret and <code>VAULT_KEY</code>
+            the key to lookup of the specified secret.
+        </p>
+        <p>
+            Example pattern: <code>{{ vault.get("/kv/spaces/outerspace/wekan-secret-test", "mongodb_user") }}</code>.
         </p>
         <ul>
             <li>
-                <b>text</b> (required) - The String which contains a predefined pattern that should be substituted by
-                secrets from Hashicorp Vault. <br/>
-                The String will be scanned for the pattern
-                <code>{{ vault.get("<b>&lt;VAULT_PATH&gt;</b>", "<b>&lt;VAULT_KEY&gt;</b>") }}</code>.<br/>
-                For example <code>{{ vault.get("/kv/spaces/outerspace/wekan-secret-test", "mongodb_user") }}</code>.<br/>
-                <code>VAULT_PATH</code> defines the fully qualified path in Vault of the secret and
-                <code>VAULT_KEY</code> is the Key to lookup of the specified secret.
+                <b>text</b> (required) - The string which contains a predefined pattern that should be substituted by
+                secrets from Hashicorp Vault.
             </li>
         </ul>
-        <p style="margin-bottom: 0em;">
+        <p>
             Example:
         </p>
-        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
-input = '''
-database-user: '{{ vault.get("/kv/spaces/outerspace/wekan-secret-test", "mongodb_user") }}'
-database-password: '{{ vault.get("/kv/spaces/outerspace/wekan-secret-test", "mongodb_password") }}'
-'''
-echo replaceFromVault(input);
+        <pre style="margin-top: 0em; color:#657383;"><code>
+replaceFromVault(text: kustomize(path: 'openshift/postgresql/overlays/dev'))
         </code></pre>
     </dd>
 </dl>

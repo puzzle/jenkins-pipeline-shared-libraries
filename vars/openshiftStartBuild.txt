@@ -39,10 +39,10 @@
                 Dockerfile. Will be the only file in the build source.
             </li>
         </ul>
-        <p style="margin-bottom: 0em;">
+        <p>
             Example:
         </p>
-        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+        <pre style="margin-top: 0em; color:#657383;"><code>
 openshiftStartBuild (
     buildConfigName: 'my-app',
     cluster: 'OpenShiftCloudscaleProduction',

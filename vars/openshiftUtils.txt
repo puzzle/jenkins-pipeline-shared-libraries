@@ -7,7 +7,7 @@
         <code id="openshiftUtils_applyTemplate">openshiftUtils.applyTemplate(ocpUrl:String, ocpProject:String, templateFile:String, credentialsId:String, namespace:Boolean):void</code>
     </dt>
     <dd>
-        <p style="color:red">
+        <p style="color: #657383; font-weight: bold;">
             Deprecated: Use the openshiftApply() step.
         </p>
         <p>
@@ -41,7 +41,7 @@
         <code id="openshiftUtils_applyTemplateWithEnvFile">openshiftUtils.applyTemplateWithEnvFile(ocpUrl:String, ocpProject:String, templateFile:String, credentialsId:String, envFile:String, namespace:Boolean):void</code>
     </dt>
     <dd>
-        <p style="color:red">
+        <p style="color: #657383; font-weight: bold;">
             Deprecated: Use the openshiftApply() step.
         </p>
         <p>

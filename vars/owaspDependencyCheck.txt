@@ -51,10 +51,10 @@
                 Default: <code>'owasp-dependency-check-5.2.4'</code>.
             </li>
         </ul>
-        <p style="margin-bottom: 0em;">
+        <p>
             Example:
         </p>
-        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+        <pre style="margin-top: 0em; color:#657383;"><code>
 owaspDependencyCheck (
     scan: ['app', 'api'],
     project: 'My Project',

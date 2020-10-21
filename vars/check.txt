@@ -5,7 +5,7 @@
 <dl>
     <dt><code>check.mandatoryParameter()</code></dt>
     <dd>
-        <p style="color:red">
+        <p style="color: #657383; font-weight: bold;">
             Deprecated: Will be implemented as a step.
         </p>
         <p>

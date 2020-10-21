@@ -20,10 +20,10 @@
                 manager.
             </li>
         </ul>
-        <p style="margin-bottom: 0em;">
+        <p>
             Example:
         </p>
-        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+        <pre style="margin-top: 0em; color:#657383;"><code>
 withGitCrypt(credentialsId: 'my-git-crypt-keyfile') {
     // work with decrypted files
 }
