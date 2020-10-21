@@ -32,11 +32,11 @@ class OwaspDependencyCheckCommand {
         result.append(stepParams.getRequired('scan').collect { "--scan '$it'" }.join(' '))
         result.append(' --format ALL --out report')
         if (stepParams.contains('suppression')) {
-            def suppression = ensureList(stepParams.contains('suppression'))
+            def suppression = ensureList(stepParams.getOptional('suppression'))
             result.append(suppression.collect { " --suppression '$it'" }.join(''))
         }
         if (stepParams.contains('exclude')) {
-            def exclude = ensureList(stepParams.contains('exclude'))
+            def exclude = ensureList(stepParams.getOptional('exclude'))
             result.append(exclude.collect { " --exclude '$it'" }.join(''))
         }
         if (stepParams.getOptional('enableExperimental', false)) {
