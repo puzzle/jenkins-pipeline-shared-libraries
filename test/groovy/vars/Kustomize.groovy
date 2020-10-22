@@ -4,7 +4,7 @@ import com.homeaway.devtools.jenkins.testing.JenkinsPipelineSpecification
 
 class KustomizeSpec extends JenkinsPipelineSpecification {
 
-    def kustomize  = loadPipelineScriptForTest('vars/kustomize.groovy')
+    def kustomize = loadPipelineScriptForTest('vars/kustomize.groovy')
 
     def setup() {
         explicitlyMockPipelineStep('ansiColor')
@@ -17,7 +17,7 @@ class KustomizeSpec extends JenkinsPipelineSpecification {
         def result = kustomize.call(args)
 
         then:
-        1 * getPipelineMock('executable').call(['name':'kustomize']) >> '/path/bin'
+        1 * getPipelineMock('executable').call(['name': 'kustomize']) >> '/path/bin'
         1 * getPipelineMock('sh').call({ it['script'].endsWith('/path/bin/kustomize build openshift/overlays/dev') && it['returnStdout'] }) >> 'kustomized output'
         result == 'kustomized output'
 
