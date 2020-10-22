@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
 <dl>
     <dt>
         <code>openshiftApply(configuration:String, project:String, cluster:String, credentialsId:String,
-        appLabel:String, waitForRollout:boolean, rolloutKind:String, rolloutSelector:Map):void</code>
+        appLabel:String, waitForRollout:Boolean, rolloutKind:String, rolloutSelector:Map):void</code>
     </dt>
     <dd>
         <p>
-            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
             Requests OpenShift to apply the given configuration and waits for the rollout to be finished.
         </p>
         <ul>
@@ -46,10 +48,10 @@
                 rollout. Only resources containing all label pairs will be selected. Default: the app label.
             </li>
         </ul>
-        <p style="margin-bottom: 0em;">
+        <p>
             Example:
         </p>
-        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+        <pre style="margin-top: 0em; color:#657383;"><code>
 openshiftApply (
     configuration: kustomize(path: 'openshift/overlays/dev'),
     cluster: 'OpenShiftCloudscaleProduction',

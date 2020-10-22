@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
 <dl>
     <dt>
         <code>kustomize(path:String):String</code>
     </dt>
     <dd>
         <p>
-            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
             Returns the customized configuration per contents of a <code>kustomization.yaml</code> as a string.
         </p>
         <ul>
@@ -13,10 +15,10 @@
                 <b>path</b> (required) - The directory containing the <code>kustomization.yaml</code>.
             </li>
         </ul>
-        <p style="margin-bottom: 0em;">
+        <p>
             Example:
         </p>
-        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+        <pre style="margin-top: 0em; color:#657383;"><code>
 kustomize(path: 'openshift/overlays/dev')
         </code></pre>
         <p>

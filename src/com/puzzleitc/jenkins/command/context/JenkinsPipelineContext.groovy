@@ -1,14 +1,17 @@
 package com.puzzleitc.jenkins.command.context
 
+import groovy.json.JsonSlurper
+
 class JenkinsPipelineContext implements PipelineContext {
 
     private static final DEFAULT_CREDENTIAL_ID_SUFFIX = '-cicd-deployer'
 
-    private final JenkinsInvoker invoker = new JenkinsInvoker()
+    private final Object script
     private final StepParams stepParams
 
-    JenkinsPipelineContext(Map params = [:]) {
+    JenkinsPipelineContext(Object script, Map params = [:]) {
         this.stepParams = new StepParams(params, this)
+        this.script = script
     }
 
     @Override
@@ -17,117 +20,161 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    Object sh(Map map) {
-        invoker.callSh(map)
+    Object sh(Map args) {
+        if (args['script'] && !args['script'].toString().startsWith('#!')) {
+            // suppress stdout of shell command by passing custom shebang line
+            args['script'] = '#!/bin/sh -e\n' + args['script']
+        }
+        script.sh(args)
+    }
+
+    @Override
+    String getEnv(String name) {
+        return script.env[name]
+    }
+
+    @Override
+    void setEnv(String name, String value) {
+        script.env[name] = value
     }
 
     @Override
     Object withEnv(List<String> env, Closure<Object> closure) {
-        invoker.callWithEnv(env, closure)
+        script.withEnv(env) {
+            closure.call()
+        }
     }
 
     @Override
     Object withCredentials(List<Object> credentials, Closure<Object> closure) {
-        invoker.callWithCredentials(credentials, closure)
+        script.withCredentials(credentials) {
+            closure.call()
+        }
     }
 
     @Override
-    Object file(Map map) {
-        invoker.callFile(map)
+    Object file(Map args) {
+        script.file(args)
+    }
+
+    @Override
+    void dir(String path, Closure closure) {
+        script.dir(path) {
+            closure.call()
+        }
+    }
+
+    @Override
+    void deleteDir() {
+        script.deleteDir()
+    }
+
+    @Override
+    String writeFile(String file, String text, String encoding) {
+        script.writeFile(file: file, text: text, encoding: encoding)
+    }
+
+    @Override
+    String pwd() {
+        script.pwd()
     }
 
     @Override
     String tool(String toolName) {
-        invoker.callTool(toolName)
+        script.tool(toolName)
     }
 
     @Override
     String executable(String name, String toolName) {
-        invoker.callExecutable(name, toolName)
+        script.executable(name: name, toolName: toolName)
     }
 
     @Override
     String executable(String name) {
-        invoker.callExecutable(name, null)
+        script.executable(name: name)
     }
 
     @Override
     void echo(String message) {
-        invoker.callEcho(message)
+        script.echo(message)
     }
 
     @Override
     void info(String message) {
-        invoker.callAnsiColor('xterm') {
-            invoker.callEcho("\033[0;34m${message}\033[0m")
+        script.ansiColor('xterm') {
+            script.echo("\033[0;34m${message}\033[0m")
         }
     }
 
     @Override
     void warn(String message) {
-        invoker.callAnsiColor('xterm') {
-            invoker.callEcho("\033[0;33m${message}\033[0m")
+        script.ansiColor('xterm') {
+            script.echo("\033[0;33m${message}\033[0m")
         }
     }
 
     @Override
     void fail(String message) {
-        invoker.callAnsiColor('xterm') {
-            invoker.callEcho("\033[0;31m${message}\033[0m")
+        script.ansiColor('xterm') {
+            script.echo("\033[0;31m${message}\033[0m")
         }
-        invoker.callError('Build failed')
+        script.error('Build failed')
     }
 
     @Override
     Object getOpenshift() {
-        return invoker.openshiftVar
+        return script.openshift
     }
 
     @Override
-    String lookupEnvironmentVariable(String name) {
-        invoker.getEnv(name)
-    }
-
-    @Override
-    String getEnv(String name) {
-        invoker.getEnv(name)
-    }
-
-    @Override
-    void setEnv(String name, String value) {
-        invoker.setEnv(name, value)
+    void dependencyCheckPublisher(Map args) {
+        script.dependencyCheckPublisher(args)
     }
 
     @Override
     String lookupValueFromVault(String path, String key) {
-        invoker.lookupValueFromVault(path, key)
+        script.withVault(vaultSecrets: [[path: path, engineVersion: 2, secretValues: [[envVar: 'secretValue', vaultKey: key]]]]) {
+            return script.secretValue
+        }
     }
 
     @Override
     String lookupServiceAccountToken(String credentialsId, project) {
         if (credentialsId == null) {
             // Token is only needed when not running on Kubernetes cluster
-            if (invoker.getEnv('KUBERNETES_PORT') == null) {
-                invoker.lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
+            if (getEnv('KUBERNETES_PORT') == null) {
+                lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
             } else {
                 return null
             }
         } else {
-            invoker.lookupTokenFromCredentials(credentialsId)
+            lookupTokenFromCredentials(credentialsId)
+        }
+    }
+
+    private String lookupTokenFromCredentials(String credentialsId) {
+        withCredentials([script.string(credentialsId: credentialsId, variable: 'secretValue')]) {
+            try {
+                def jsonObj = new JsonSlurper().parseText(script.secretValue)
+                return new String(jsonObj.token.decodeBase64())
+            } catch (Exception e) {
+                // it's not a json. maybe its a plain token?
+                return script.secretValue
+            }
         }
     }
 
     @Override
     void doWithTemporaryFile(String content, String fileSuffix, String encoding, Closure body) {
-        invoker.callDir("${System.currentTimeMillis()}") {
+        dir("${System.currentTimeMillis()}") {
             try {
                 def fileName = "temp${fileSuffix}"
-                def absolutePath = "${invoker.callPwd()}/${fileName}"
-                invoker.callWriteFile(fileName, content, encoding)
-                invoker.callEcho("wrote temporary file: ${absolutePath}")
+                def absolutePath = "${pwd()}/${fileName}"
+                writeFile(fileName, content, encoding)
+                echo("wrote temporary file: ${absolutePath}")
                 body.call(absolutePath)
             } finally {
-                invoker.callDeleteDir()
+                deleteDir()
             }
         }
     }

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
 <dl>
     <dt>
         <code>openshiftDiff(configuration:String, project:String, cluster:String, credentialsId:String):void</code>
     </dt>
     <dd>
         <p>
-            This variable is part of <code>@Library('jenkins-pipeline-shared-libraries')</code>.
             Compares the OpenShift configuration/resources given in the <b>configuration</b> argument against the resources
             in an OpenShift project. The differences are printed in colored unified diff format. Requires the
             Ansi Color plugin to be installed on the Jenkins server.
@@ -32,10 +34,10 @@
                 master filesystem if Jenkins is running on OpenShift.
             </li>
         </ul>
-        <p style="margin-bottom: 0em;">
+        <p>
             Example:
         </p>
-        <pre style="margin-top: 0em; margin-left: 2em; color:#657383;"><code>
+        <pre style="margin-top: 0em; color:#657383;"><code>
 openshiftDiff (
     configuration: kustomize(path: 'openshift/overlays/dev'),
     cluster: 'OpenShiftCloudscaleProduction',

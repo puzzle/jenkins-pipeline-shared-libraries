@@ -6,15 +6,28 @@ interface PipelineContext {
 
     Object sh(Map map)
 
+    String getEnv(String name)
+
+    void setEnv(String name, String value)
+
     Object withEnv(List<String> env, Closure<Object> closure)
 
     Object withCredentials(List<Object> credentials, Closure<Object> closure)
 
     Object file(Map map)
 
+    void dir(String path, Closure closure)
+
+    void deleteDir()
+
+    String writeFile(String file, String text, String encoding)
+
+    String pwd()
+
     String tool(String toolName)
 
     String executable(String name, String toolName)
+
     String executable(String name)
 
     Object getOpenshift()
@@ -27,11 +40,7 @@ interface PipelineContext {
 
     void fail(String message)
 
-    String lookupEnvironmentVariable(String name)
-
-    String getEnv(String name)
-
-    void setEnv(String name, String value)
+    void dependencyCheckPublisher(Map args)
 
     String lookupValueFromVault(String path, String key)
 
