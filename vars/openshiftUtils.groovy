@@ -1,3 +1,5 @@
+// Deprecated: Use the openshiftApply() step.
+
 //
 // OpenShift resource update by applying a template.
 //
