@@ -3,11 +3,8 @@ package groovy.vars
 import com.homeaway.devtools.jenkins.testing.JenkinsPipelineSpecification
 
 class OpenshiftUtilsSpec extends JenkinsPipelineSpecification {
-    def openshiftUtils = null
 
-    def setup() {
-        openshiftUtils = loadPipelineScriptForTest('vars/openshiftUtils.groovy')
-    }
+    def openshiftUtils = loadPipelineScriptForTest('vars/openshiftUtils.groovy')
 
     def 'Applys the template without namespace'() {
         setup:
