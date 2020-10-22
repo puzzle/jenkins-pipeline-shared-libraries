@@ -16,7 +16,6 @@ sourceSets {
     }
 }
 
-
 sourceCompatibility = 1.8
 
 project.buildDir = 'target'
@@ -31,7 +30,8 @@ dependencies {
     def withoutIcu = { exclude group: 'com.ibm.icu', module: 'icu4j' }
 
     // mandatory dependencies for using Spock
-    implementation "org.codehaus.groovy:groovy-all:2.5.8"
+    // note: please use same Groovy version as on Jenkins
+    implementation "org.codehaus.groovy:groovy-all:2.4.12"
     implementation "com.cloudbees:groovy-cps:1.31@jar", withoutIcu
 
     implementation "org.slf4j:jcl-over-slf4j:1.7.25"
@@ -42,7 +42,7 @@ dependencies {
     testImplementation "ch.qos.logback:logback-classic:1.2.3"
     testImplementation "com.google.guava:guava:20.0"
 
-    testImplementation "org.spockframework:spock-core:1.3-groovy-2.5@jar"
+    testImplementation "org.spockframework:spock-core:1.3-groovy-2.4@jar"
 
     // Jenkins related
     testImplementation "com.homeaway.devtools.jenkins:jenkins-spock:2.1.4"

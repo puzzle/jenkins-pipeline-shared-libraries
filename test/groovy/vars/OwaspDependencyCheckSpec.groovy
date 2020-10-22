@@ -4,10 +4,9 @@ import com.homeaway.devtools.jenkins.testing.JenkinsPipelineSpecification
 
 class OwaspDependencyCheckSpec extends JenkinsPipelineSpecification {
 
-    def owaspDependencyCheck = null
+    def owaspDependencyCheck = loadPipelineScriptForTest('vars/owaspDependencyCheck.groovy')
 
     def setup() {
-        owaspDependencyCheck = loadPipelineScriptForTest('vars/owaspDependencyCheck.groovy')
         explicitlyMockPipelineStep('ansiColor')
         explicitlyMockPipelineStep('dependencyCheckPublisher')
         explicitlyMockPipelineStep('executable')
@@ -25,7 +24,7 @@ class OwaspDependencyCheckSpec extends JenkinsPipelineSpecification {
                 tool: 'owasp-dependency-check-5.2.5')
 
         then:
-        1 * getPipelineMock('executable').call({ it['name'] == 'dependency-check.sh' && it['toolName'] == 'owasp-dependency-check-5.2.5' }) >> '/path/bin'
+        1 * getPipelineMock('executable').call(['name':'dependency-check.sh','toolName':'owasp-dependency-check-5.2.5']) >> '/path/bin'
         1 * getPipelineMock('sh').call({ it['script'].endsWith('mkdir -p data report') })
         1 * getPipelineMock('sh').call({ it['script'].endsWith('/path/bin/dependency-check.sh --scan \'app\' --scan \'api\' --format \'ALL\' --out \'report\' --suppression \'dependency-check-suppression.xml\' --enableExperimental --failOnCVSS 5 --project \'My Project\'') })
 

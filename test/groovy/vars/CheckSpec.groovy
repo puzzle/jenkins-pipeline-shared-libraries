@@ -4,11 +4,7 @@ import com.homeaway.devtools.jenkins.testing.JenkinsPipelineSpecification
 
 class CheckSpec extends JenkinsPipelineSpecification {
 
-    def check = null
-
-    def setup() {
-        check = loadPipelineScriptForTest('vars/check.groovy')
-    }
+    def check = loadPipelineScriptForTest('vars/check.groovy')
 
     def 'It aborts the pipline' () {
         setup:
