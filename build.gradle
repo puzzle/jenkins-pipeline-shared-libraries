@@ -58,6 +58,7 @@ dependencies {
     testImplementation "org.jenkins-ci.plugins.workflow:workflow-scm-step:2.11@jar" // provides checkout()
     testImplementation "org.jenkins-ci.plugins:credentials-binding:1.20@jar" // provides withCredentials() step
     testImplementation "org.jenkins-ci.plugins:script-security:1.68@jar"
+    testImplementation "org.jenkins-ci.plugins:badge:1.8@jar"
 }
 
 // this is needed for spock to find all the source code in the var directory
