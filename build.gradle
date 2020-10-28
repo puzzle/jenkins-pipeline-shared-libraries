@@ -33,6 +33,8 @@ dependencies {
     // note: please use same Groovy version as on Jenkins
     implementation "org.codehaus.groovy:groovy-all:2.4.12"
     implementation "com.cloudbees:groovy-cps:1.31@jar", withoutIcu
+    implementation "org.jenkins-ci.main:jenkins-core:2.225", withoutIcu
+    implementation "org.jenkins-ci.plugins:badge:1.8@jar"
 
     implementation "org.slf4j:jcl-over-slf4j:1.7.25"
     testImplementation "org.slf4j:log4j-over-slf4j:1.7.25"
@@ -58,7 +60,6 @@ dependencies {
     testImplementation "org.jenkins-ci.plugins.workflow:workflow-scm-step:2.11@jar" // provides checkout()
     testImplementation "org.jenkins-ci.plugins:credentials-binding:1.20@jar" // provides withCredentials() step
     testImplementation "org.jenkins-ci.plugins:script-security:1.68@jar"
-    testImplementation "org.jenkins-ci.plugins:badge:1.8@jar"
 }
 
 // this is needed for spock to find all the source code in the var directory

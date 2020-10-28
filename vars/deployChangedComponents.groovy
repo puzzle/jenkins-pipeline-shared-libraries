@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 
+import hudson.model.Run
 import com.jenkinsci.plugins.badge.action.AbstractAction
 import com.jenkinsci.plugins.badge.action.BadgeAction
 import com.jenkinsci.plugins.badge.action.BadgeSummaryAction

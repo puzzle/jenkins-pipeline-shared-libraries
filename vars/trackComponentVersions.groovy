@@ -1,6 +1,5 @@
 #!/usr/bin/env groovy
-
-import org.jenkinsci.plugins.pipeline.maven.publishers.MavenReport
+import hudson.model.Cause
 
 Map readComponentVersionsFromArtifact(String job, Object selector, String file) {
   try {
