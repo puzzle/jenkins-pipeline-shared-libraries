@@ -22,14 +22,12 @@ class OpenshiftDiffCommand {
         def credentialsId = ctx.stepParams.getOptional('credentialsId', null) as String
         def saToken = ctx.lookupServiceAccountToken(credentialsId, project)
         ctx.withEnv(["PATH+OPENSHIFT_DIFF=${ocPath}:${openshiftDiffPath}"]) {
-            ctx.openshift.withCluster(cluster) {
+            ctx.openshift.withCluster(cluster, saToken) {
                 ctx.openshift.withProject(project) {
-                    ctx.openshift.withCredentials(saToken) {
-                        ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
-                        ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
-                        ctx.echo("openshift project: ${ctx.openshift.project()}")
-                        ctx.sh(script: "openshift-diff -n ${project} <<< '${configuration}'")
-                    }
+                    ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
+                    ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
+                    ctx.echo("openshift project: ${project}")
+                    ctx.sh(script: "openshift-diff --server=${ctx.openshift.cluster()} --token=${saToken} -n ${project} <<< '${configuration}'")
                 }
             }
         }
