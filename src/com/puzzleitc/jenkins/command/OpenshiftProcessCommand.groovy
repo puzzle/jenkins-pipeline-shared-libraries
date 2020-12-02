@@ -16,9 +16,17 @@ class OpenshiftProcessCommand {
         ctx.info('-- openshiftProcess --')
         def template = ctx.stepParams.getRequired('template') as String
         def params = ctx.stepParams.getOptional('params')
+        def paramFile = ctx.stepParams.getOptional('paramFile') as String
         ctx.echo("template file: ${template}")
         ctx.withEnv(["PATH+OC=${ctx.executable('oc', DEFAULT_OC_TOOL_NAME)}"]) {
-            def processScript = 'oc process ' + params.join(' ')   + ' -f ' + template + ' --local=true'
+            def processScript = 'oc process'
+            if (params) {
+                processScript = processScript + ' ' + params.join(' ') 
+            }
+            if (paramFile) {
+                processScript = processScript + ' --param-file ' + paramFile
+            }
+            processScript = processScript + ' -f ' + template + ' --local=true'
             def result = ctx.sh(script: processScript, returnStdout: true)
             ctx.echo("oc Process Template output:\n${result}")
             return result
