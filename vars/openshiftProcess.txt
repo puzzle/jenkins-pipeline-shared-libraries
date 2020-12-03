@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
+<dl>
+    <dt>
+        <code>openshiftProcess(template:String, params:List, paramFile:String):String</code>
+    </dt>
+    <dd>
+        <p>
+            Processes the given OpenShift template by replacing the parameters. Result is a configuration that can be applied to a OpenShift project (namespace).
+        </p>
+        <ul>
+            <li>
+                <b>template</b> (required) - The path of the template file.
+            </li>
+            <li>
+                <b>params</b> (optional) - A list with key-value pairs (Strings, eg. "KEY=value").
+            </li>
+            <li>
+                <b>paramFile</b> (optional) - The path of the parameter file. This is a yaml file containing key-value definitions.
+            </li>
+        </ul>
+        <p>
+            The parameters <i>params</i> and <i>paramFile</i> could be used together.
+        </p>
+        <p>
+            Example with params:
+        </p>
+        <pre style="margin-top: 0em; color:#657383;"><code>
+openshiftProcess(
+    template: 'openshift/templates/dev-template.yaml',
+    params: [ 'KEY1=value1', 'KEY2=value2' ]
+)
+        </code></pre>
+        <p>
+            Example with paramFile:
+        </p>
+        <pre style="margin-top: 0em; color:#657383;"><code>
+openshiftProcess(
+    template: 'openshift/templates/dev-template.yaml',
+    paramFile: 'openshift/environments/dev.yaml'
+)
+
+# dev.yaml
+KEY1: value1
+KEY2: value2
+        </code></pre>
+    </dd>
+</dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->

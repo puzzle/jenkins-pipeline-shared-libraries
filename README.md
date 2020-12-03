@@ -26,6 +26,10 @@ Requests OpenShift to apply the given configuration and waits for the rollout to
 Compares the OpenShift configuration/resources given in the <b>configuration</b> argument against the resources in an
 OpenShift project.
 
+### openshiftProcess
+
+Processes an OpenShift template to get the final configuration. Use the output with **openshiftApply** to apply the configuration against your project.
+
 ### openshiftStartBuild
 
 Requests OpenShift to start build from the specified build config and waits for the build to be finished.
