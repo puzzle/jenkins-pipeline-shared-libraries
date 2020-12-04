@@ -1,13 +1,7 @@
-#!/usr/bin/env groovy
+import com.puzzleitc.jenkins.command.AddDeployLinksCommand
+import com.puzzleitc.jenkins.command.context.JenkinsPipelineContext
 
-def call(Map args) {
-  if (args?.deployJob) {
-    def deploymentJob = Jenkins.instance.getItemByFullName(args.deployJob)
-    if (!deploymentJob) {
-      error(getClass().getName() + ": can't find job '${args.deploymentJob}'!" )
-    }
-    addHtmlBadge html:"<a href=\"/${deploymentJob.getUrl()}parambuild?delay=0sec&built_name=${env.JOB_NAME}&built_number=${env.BUILD_NUMBER}\">Deploy</a> "
-  } else {
-    error(getClass().getName() + ': No deploymentJob found. Must be specified!')
-  }
+def call(Map params = [:]) {
+    AddDeployLinksCommand command = new AddDeployLinksCommand(new JenkinsPipelineContext(this, params))
+    command.execute()
 }
