@@ -6,30 +6,51 @@ import static com.puzzleitc.jenkins.command.Constants.DEFAULT_OC_TOOL_NAME
 
 class OpenshiftProcessCommand {
 
+    private static final VALID_OUTPUT_FORMAT = ['json', 'yaml']
+
     private final PipelineContext ctx
 
     OpenshiftProcessCommand(PipelineContext ctx) {
         this.ctx = ctx
     }
 
-    String execute() {
+    Object execute() {
         ctx.info('-- openshiftProcess --')
-        def template = ctx.stepParams.getRequired('template') as String
+        def result = null
+        def templateFilePath = ctx.stepParams.getRequired('templateFilePath')
         def params = ctx.stepParams.getOptional('params')
         def paramFile = ctx.stepParams.getOptional('paramFile') as String
-        ctx.echo("template file: ${template}")
+        def ignoreUnknownParameters = ctx.stepParams.getOptional('ignoreUnknownParameters', false) as Boolean
+        def labels = ctx.stepParams.getOptional('labels')
+        def output = ctx.stepParams.getOptional('output', 'json') as String
+
+        validateOutputFormat(output)
+        ctx.echo("template file: ${templateFilePath}")
         ctx.withEnv(["PATH+OC=${ctx.executable('oc', DEFAULT_OC_TOOL_NAME)}"]) {
-            def processScript = 'oc process'
+
+            def processScript = 'oc process' + ' ' + '-f ' + templateFilePath
             if (params) {
                 processScript = processScript + ' ' + params.join(' ') 
             }
-            if (paramFile) {
-                processScript = processScript + ' --param-file ' + paramFile
+            if (labels) {
+                processScript = processScript + ' -l ' + labels.join(' -l ') 
             }
-            processScript = processScript + ' -f ' + template + ' --local=true'
-            def result = ctx.sh(script: processScript, returnStdout: true)
-            ctx.echo("oc Process Template output:\n${result}")
-            return result
+            if (paramFile) {
+                processScript = processScript + ' ' + '--param-file=' + paramFile
+            }
+            processScript = processScript + ' ' +
+                '--local=true' + ' ' +
+                '--ignore-unknown-parameters=' + ignoreUnknownParameters + ' ' +
+                '--output=' + output
+            result = ctx.sh(script: processScript, returnStdout: true)
+        }
+
+        return result
+    }
+
+    private void validateOutputFormat(String validateOutput) {
+        if (!VALID_OUTPUT_FORMAT.contains(validateOutput?.toLowerCase())) {
+            ctx.fail("Unsupported output format: ${validateOutput}")
         }
     }
 
