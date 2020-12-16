@@ -30,10 +30,10 @@ class OpenshiftProcessCommand {
 
             def processScript = 'oc process' + ' ' + '-f ' + templateFilePath
             if (params) {
-                processScript = processScript + ' ' + params.join(' ') 
+                processScript = processScript + ' ' + params.join(' ')
             }
             if (labels) {
-                processScript = processScript + ' -l ' + labels.join(' -l ') 
+                processScript = processScript + ' -l ' + labels.join(' -l ')
             }
             if (paramFile) {
                 processScript = processScript + ' ' + '--param-file=' + paramFile
