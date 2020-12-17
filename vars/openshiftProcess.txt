@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
+<dl>
+    <dt>
+        <code>openshiftProcess(templateFilePath:String, params:List, paramFile:String, ignoreUnknownParameters:boolean, labels:List, output:String):String</code>
+    </dt>
+    <dd>
+        <p>
+            Processes the given OpenShift template by replacing the parameters. Result is a configuration that can be applied to a OpenShift project (namespace).
+        </p>
+        <ul>
+            <li>
+                <b>templateFilePath</b> (required) - The path of the template file.
+            </li>
+            <li>
+                <b>params</b> (optional) - A list with key-value pairs (Strings, eg. "KEY=value") to set/override a parameter value in the template.
+            </li>
+            <li>
+                <b>paramFile</b> (optional) - The path of the parameter file. This is a file containing key-value definitions to set/override parameter values in the template.
+            </li>
+            <li>
+                <b>ignoreUnknownParameters</b> (optional) - If true, will not stop processing if a provided parameter does not exist in the template.
+            </li>
+            <li>
+                <b>labels</b> (optional) - List of labels to set in all resources for this template.
+            </li>
+            <li>
+                <b>output</b> (optional) - Output format. One of json or yaml allowed.
+            </li>
+        </ul>
+        <p>
+            The parameters <i>params</i> and <i>paramFile</i> could be used together.
+        </p>
+        <p>
+            Example with params:
+        </p>
+        <pre style="margin-top: 0em; color:#657383;"><code>
+openshiftProcess(
+    templateFilePath: 'openshift/templates/dev-template.yaml',
+    params: [ 'KEY1=value1', 'KEY2=value2' ]
+)
+        </code></pre>
+        <p>
+            Example with paramFile:
+        </p>
+        <pre style="margin-top: 0em; color:#657383;"><code>
+openshiftProcess(
+    templateFilePath: 'openshift/templates/dev-template.yaml',
+    paramFile: 'openshift/environments/dev.yaml'
+)
+
+# dev.yaml
+KEY1: value1
+KEY2: value2
+        </code></pre>
+        <p>
+            Full example:
+        </p>
+        <pre style="margin-top: 0em; color:#657383;"><code>
+openshiftProcess(
+    templateFilePath: 'openshift/templates/dev-template.yaml',
+    params: [ 'KEY1=value1', 'KEY2=value2' ],
+    paramFile: 'openshift/environments/dev.yaml',
+    ignoreUnknownParameters: true,
+    labels: [ 'app=my-app', 'foo=bar' ],
+    output: 'yaml',
+)
+        </code></pre>
+    </dd>
+</dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->
