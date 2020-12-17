@@ -20,7 +20,7 @@ class OpenshiftProcessCommand {
         def templateFilePath = ctx.stepParams.getRequired('templateFilePath')
         def params = ctx.stepParams.getOptional('params')
         def paramFile = ctx.stepParams.getOptional('paramFile') as String
-        def ignoreUnknownParameters = ctx.stepParams.getOptional('ignoreUnknownParameters', false) as Boolean
+        def ignoreUnknownParameters = ctx.stepParams.getOptional('ignoreUnknownParameters', false) as boolean
         def labels = ctx.stepParams.getOptional('labels')
         def output = ctx.stepParams.getOptional('output', 'json') as String
 

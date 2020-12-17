@@ -4,7 +4,7 @@
 </p>
 <dl>
     <dt>
-        <code>openshiftProcess(templateFilePath:String, params:List, paramFile:String, ignoreUnknownParameters:Boolean, labels:List, output:String):String</code>
+        <code>openshiftProcess(templateFilePath:String, params:List, paramFile:String, ignoreUnknownParameters:boolean, labels:List, output:String):String</code>
     </dt>
     <dd>
         <p>
