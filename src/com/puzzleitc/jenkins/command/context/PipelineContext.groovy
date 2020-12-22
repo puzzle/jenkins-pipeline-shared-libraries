@@ -42,6 +42,8 @@ interface PipelineContext {
 
     void dependencyCheckPublisher(Map args)
 
+    void addHtmlBadge(Map args)
+
     String lookupValueFromVault(String path, String key)
 
     String lookupServiceAccountToken(String credentialsId, project)

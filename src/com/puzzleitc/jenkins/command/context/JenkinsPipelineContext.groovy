@@ -132,6 +132,11 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
+    void addHtmlBadge(Map args) {
+        script.addHtmlBadge(args)
+    }
+
+    @Override
     String lookupValueFromVault(String path, String key) {
         script.withVault(vaultSecrets: [[path: path, engineVersion: 2, secretValues: [[envVar: 'secretValue', vaultKey: key]]]]) {
             return script.secretValue
