@@ -2,6 +2,8 @@ import com.puzzleitc.jenkins.command.OpenshiftDiffCommand
 import com.puzzleitc.jenkins.command.context.JenkinsPipelineContext
 
 def call(Map params = [:]) {
-    OpenshiftDiffCommand command = new OpenshiftDiffCommand(new JenkinsPipelineContext(this, params))
+    def ctx = new JenkinsPipelineContext(this, params)
+    ctx.echo(params)
+    OpenshiftDiffCommand command = new OpenshiftDiffCommand(ctx)
     command.execute()
 }
