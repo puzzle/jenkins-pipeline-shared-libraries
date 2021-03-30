@@ -25,6 +25,7 @@ class JenkinsPipelineContext implements PipelineContext {
             // suppress stdout of shell command by passing custom shebang line
             args['script'] = '#!/bin/sh -e\n' + args['script']
         }
+        script.echo(args['script'])
         script.sh(args)
     }
 
