@@ -33,7 +33,7 @@ class OpenshiftApplyCommand {
                         ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
                         ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
                         ctx.echo("openshift project: ${ctx.openshift.project()}")
-                        validate(configuration)
+                        validateTemplate(configuration)
                         ocApply(configuration, appLabel)
                         if (waitForRollout) {
                             ocWaitForRollout(appLabel, rolloutKind, rolloutSelector)
@@ -44,31 +44,17 @@ class OpenshiftApplyCommand {
         }
     }
 
-    private void validate(String configuration) {
-        if (isOc4()) {
-            ocDryRun(configuration)
-        } else {
-            ocConvert(configuration)
-        }
-    }
-
-    private void ocDryRun(String configuration) {
+    private void validateTemplate(String configuration) {
         ctx.doWithTemporaryFile(configuration, '.yaml', 'UTF-8') {
             String absolutePath ->
-                ctx.sh(script: "oc version")
-                def result = ctx.openshift.raw('apply', '-f', absolutePath, '--dry-run=server')
-                ctx.echo("oc apply action: ${result.actions[0].cmd}")
-                ctx.echo("oc apply status: ${result.status}")
-        }
-    }
-
-    private void ocConvert(String configuration) {
-        ctx.doWithTemporaryFile(configuration, '.yaml', 'UTF-8') {
-            String absolutePath ->
-                ctx.sh(script: "oc version")
-                def result = ctx.openshift.raw('convert', '-f', absolutePath)
-                ctx.echo("oc convert action: ${result.actions[0].cmd}")
-                ctx.echo("oc convert status: ${result.status}")
+				def result
+				if (isOc4()) {
+					result = ctx.openshift.raw('apply', '-f', absolutePath, '--dry-run=server')
+				} else {
+					result = ctx.openshift.raw('convert', '-f', absolutePath)
+				}
+                ctx.echo("validate action: ${result.actions[0].cmd}")
+                ctx.echo("validate status: ${result.status}")
         }
     }
 
@@ -97,7 +83,7 @@ class OpenshiftApplyCommand {
     }
 
     private boolean isOc4() {
-        def status = ctx.sh(script: 'oc version -o json', returnStatus: true)
+        int status = ctx.sh(script: 'oc version -o json', returnStatus: true)
         return status == 0
     }
 
