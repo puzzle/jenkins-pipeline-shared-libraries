@@ -47,12 +47,12 @@ class OpenshiftApplyCommand {
     private void validateTemplate(String configuration) {
         ctx.doWithTemporaryFile(configuration, '.yaml', 'UTF-8') {
             String absolutePath ->
-				def result
-				if (isOc4()) {
-					result = ctx.openshift.raw('apply', '-f', absolutePath, '--dry-run=server')
-				} else {
-					result = ctx.openshift.raw('convert', '-f', absolutePath)
-				}
+                def result
+                if (isOc4()) {
+                    result = ctx.openshift.raw('apply', '-f', absolutePath, '--dry-run=server')
+                } else {
+                    result = ctx.openshift.raw('convert', '-f', absolutePath)
+                }
                 ctx.echo("validate action: ${result.actions[0].cmd}")
                 ctx.echo("validate status: ${result.status}")
         }
