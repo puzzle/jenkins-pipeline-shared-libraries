@@ -83,8 +83,13 @@ class OpenshiftApplyCommand {
     }
 
     private boolean isOc4() {
-        int status = ctx.sh(script: 'oc version -o json', returnStatus: true)
-        return status == 0
+        try {
+            int status = ctx.sh(script: 'oc version -o json', returnStatus: true)
+            return status == 0
+        } catch (Exception e) {
+            // oc v3 fails with -o flag
+            return false
+        }
     }
 
 }
