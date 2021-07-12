@@ -2,6 +2,8 @@ package com.puzzleitc.jenkins.command.context
 
 import groovy.json.JsonSlurper
 
+import static com.puzzleitc.jenkins.command.Constants.DEFAULT_OC_TOOL_NAME
+
 class JenkinsPipelineContext implements PipelineContext {
 
     private static final DEFAULT_CREDENTIAL_ID_SUFFIX = '-cicd-deployer'
@@ -82,6 +84,16 @@ class JenkinsPipelineContext implements PipelineContext {
     @Override
     String tool(String toolName) {
         script.tool(toolName)
+    }
+
+    @Override
+    void ensureOcInstallation() {
+        int status = sh(script: 'command -v oc', returnStatus: true)
+        if (status != 0) {
+            def oc_home = executable('oc', DEFAULT_OC_TOOL_NAME)
+            def path_value = getEnv('PATH')
+            setEnv('PATH', "${oc_home}:${path_value}")
+        }
     }
 
     @Override
