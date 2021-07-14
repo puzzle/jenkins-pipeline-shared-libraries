@@ -2,8 +2,6 @@ package com.puzzleitc.jenkins.command
 
 import com.puzzleitc.jenkins.command.context.PipelineContext
 
-import static com.puzzleitc.jenkins.command.Constants.DEFAULT_OC_TOOL_NAME
-
 class OpenshiftApplyCommand {
 
     private static final VALID_ROLLOUT_KINDS =
@@ -26,18 +24,17 @@ class OpenshiftApplyCommand {
         def rolloutSelector = ctx.stepParams.getOptional('rolloutSelector', [:]) as Map
         def credentialsId = ctx.stepParams.getOptional('credentialsId') as String
         def saToken = ctx.lookupServiceAccountToken(credentialsId, project)
-        ctx.withEnv(["PATH+OC=${ctx.executable('oc', DEFAULT_OC_TOOL_NAME)}"]) {
-            ctx.openshift.withCluster(cluster) {
-                ctx.openshift.withProject(project) {
-                    ctx.openshift.withCredentials(saToken) {
-                        ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
-                        ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
-                        ctx.echo("openshift project: ${ctx.openshift.project()}")
-                        validateTemplate(configuration)
-                        ocApply(configuration, appLabel)
-                        if (waitForRollout) {
-                            ocWaitForRollout(appLabel, rolloutKind, rolloutSelector)
-                        }
+        ctx.ensureOcInstallation()
+        ctx.openshift.withCluster(cluster) {
+            ctx.openshift.withProject(project) {
+                ctx.openshift.withCredentials(saToken) {
+                    ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
+                    ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
+                    ctx.echo("openshift project: ${ctx.openshift.project()}")
+                    validateTemplate(configuration)
+                    ocApply(configuration, appLabel)
+                    if (waitForRollout) {
+                        ocWaitForRollout(appLabel, rolloutKind, rolloutSelector)
                     }
                 }
             }
@@ -83,8 +80,13 @@ class OpenshiftApplyCommand {
     }
 
     private boolean isOc4() {
-        int status = ctx.sh(script: 'oc version -o json', returnStatus: true)
-        return status == 0
+        try {
+            int status = ctx.sh(script: 'oc version -o json', returnStatus: true)
+            return status == 0
+        } catch (Exception e) {
+            // oc v3 fails with -o flag
+            return false
+        }
     }
 
 }

@@ -2,8 +2,6 @@ package com.puzzleitc.jenkins.command
 
 import com.puzzleitc.jenkins.command.context.PipelineContext
 
-import static com.puzzleitc.jenkins.command.Constants.DEFAULT_OC_TOOL_NAME
-
 class OpenshiftProcessCommand {
 
     private static final VALID_OUTPUT_FORMAT = ['json', 'yaml']
@@ -26,24 +24,23 @@ class OpenshiftProcessCommand {
 
         validateOutputFormat(output)
         ctx.echo("template file: ${templateFilePath}")
-        ctx.withEnv(["PATH+OC=${ctx.executable('oc', DEFAULT_OC_TOOL_NAME)}"]) {
+        ctx.ensureOcInstallation()
 
-            def processScript = 'oc process' + ' ' + '-f ' + templateFilePath
-            if (params) {
-                processScript = processScript + ' ' + params.join(' ')
-            }
-            if (labels) {
-                processScript = processScript + ' -l ' + labels.join(' -l ')
-            }
-            if (paramFile) {
-                processScript = processScript + ' ' + '--param-file=' + paramFile
-            }
-            processScript = processScript + ' ' +
-                '--local=true' + ' ' +
-                '--ignore-unknown-parameters=' + ignoreUnknownParameters + ' ' +
-                '--output=' + output
-            result = ctx.sh(script: processScript, returnStdout: true)
+        def processScript = 'oc process' + ' ' + '-f ' + templateFilePath
+        if (params) {
+            processScript = processScript + ' ' + params.join(' ')
         }
+        if (labels) {
+            processScript = processScript + ' -l ' + labels.join(' -l ')
+        }
+        if (paramFile) {
+            processScript = processScript + ' ' + '--param-file=' + paramFile
+        }
+        processScript = processScript + ' ' +
+            '--local=true' + ' ' +
+            '--ignore-unknown-parameters=' + ignoreUnknownParameters + ' ' +
+            '--output=' + output
+        result = ctx.sh(script: processScript, returnStdout: true)
 
         return result
     }
