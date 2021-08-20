@@ -19,8 +19,11 @@ class OpenshiftDiffCommand {
         def cluster = ctx.stepParams.getOptional('cluster')
         def ocPath = ctx.executable('oc')
         def openshiftDiffPath = ctx.executable('openshift-diff', DEFAULT_OPENSHIFT_DIFF_TOOL)
-        def credentialsId = ctx.stepParams.getOptional('credentialsId', null) as String
-        def saToken = ctx.lookupServiceAccountToken(credentialsId, project)
+        def saToken = ctx.stepParams.getOptional('token') as String
+        if (!saToken) {
+            def credentialsId = ctx.stepParams.getOptional('credentialsId') as String
+            saToken = ctx.lookupServiceAccountToken(credentialsId, project)
+        }
         ctx.withEnv(["PATH+OPENSHIFT_DIFF=${ocPath}:${openshiftDiffPath}"]) {
             ctx.openshift.withCluster(cluster, saToken) {
                 ctx.openshift.withProject(project) {

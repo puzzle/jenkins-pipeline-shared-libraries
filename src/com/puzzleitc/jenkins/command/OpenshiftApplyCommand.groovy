@@ -22,8 +22,11 @@ class OpenshiftApplyCommand {
         def waitForRollout = ctx.stepParams.getOptional('waitForRollout', true) as boolean
         def rolloutKind = ctx.stepParams.getOptional('rolloutKind', 'dc') as String
         def rolloutSelector = ctx.stepParams.getOptional('rolloutSelector', [:]) as Map
-        def credentialsId = ctx.stepParams.getOptional('credentialsId') as String
-        def saToken = ctx.lookupServiceAccountToken(credentialsId, project)
+        def saToken = ctx.stepParams.getOptional('token') as String
+        if (!saToken) {
+            def credentialsId = ctx.stepParams.getOptional('credentialsId') as String
+            saToken = ctx.lookupServiceAccountToken(credentialsId, project)
+        }
         ctx.ensureOcInstallation()
         ctx.openshift.withCluster(cluster) {
             ctx.openshift.withProject(project) {
@@ -81,7 +84,7 @@ class OpenshiftApplyCommand {
 
     private boolean isOc4() {
         try {
-            int status = ctx.sh(script: 'oc version -o json', returnStatus: true)
+            int status = ctx.sh(script: 'oc version -o json >/dev/null 2>&1', returnStatus: true)
             return status == 0
         } catch (Exception e) {
             // oc v3 fails with -o flag
