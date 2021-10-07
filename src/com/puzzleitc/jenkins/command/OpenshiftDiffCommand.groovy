@@ -19,6 +19,7 @@ class OpenshiftDiffCommand {
         def cluster = ctx.stepParams.getOptional('cluster')
         def ocPath = ctx.executable('oc')
         def openshiftDiffPath = ctx.executable('openshift-diff', DEFAULT_OPENSHIFT_DIFF_TOOL)
+        def insecureSkipTlsVerify = ctx.stepParams.getOptional("insecureSkipTlsVerify")
         def saToken = ctx.stepParams.getOptional('token') as String
         if (!saToken) {
             def credentialsId = ctx.stepParams.getOptional('credentialsId') as String
@@ -30,7 +31,7 @@ class OpenshiftDiffCommand {
                     ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
                     ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
                     ctx.echo("openshift project: ${project}")
-                    ctx.sh(script: "openshift-diff --server=${ctx.openshift.cluster()} ${saToken ? '--token=' + saToken : ''} -n ${project} <<< '${configuration}'")
+                    ctx.sh(script: "openshift-diff --server=${ctx.openshift.cluster()} ${insecureSkipTlsVerify ? '--insecure-skip-tls-verify': '' } ${saToken ? '--token=' + saToken : ''} -n ${project} <<< '${configuration}'")
                 }
             }
         }
