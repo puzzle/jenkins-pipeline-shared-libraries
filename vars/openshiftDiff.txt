@@ -33,6 +33,13 @@
                 Default: the project name with a <code>'-cicd-deployer'</code> suffix OR a token read from the Jenkins
                 master filesystem if Jenkins is running on OpenShift.
             </li>
+            <li>
+                <b>token</b> (optional) - A raw bearer token for logging into the cluster. The <b>credentialsId</b>
+                parameter is ignored if <b>token</b> is specified.
+            </li>
+            <li>
+                <b>insecureSkipTlsVerify</b> (optional) - Disables TLS certificate verification.
+            </li>
         </ul>
         <p>
             Example:

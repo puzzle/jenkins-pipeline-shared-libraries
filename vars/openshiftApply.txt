@@ -29,9 +29,14 @@
             </li>
             <li>
                 <b>credentialsId</b> (optional) - The credentials id of an OpenShift service account token stored in the
-                Jenkins credential manager. May be omitted if Jenkins is running within an OpenShift Pod.
+                Jenkins credential manager. May be omitted if Jenkins is running within an OpenShift Pod. Alternatively
+                a raw token can be specified via the <b>token</b> parameter.
                 Default: the project name with a <code>'-cicd-deployer'</code> suffix OR a token read from the Jenkins
                 master filesystem if Jenkins is running on OpenShift.
+            </li>
+            <li>
+                <b>token</b> (optional) - A raw bearer token for logging into the cluster. The <b>credentialsId</b>
+                parameter is ignored if <b>token</b> is specified.
             </li>
             <li>
                 <b>appLabel</b> (required) - The app label to filter on.
