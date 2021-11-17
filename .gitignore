@@ -1,4 +1,8 @@
 .idea/
 .gradle
 target
+bin
+.classpath
+.settings
+.project
 jenkins-pipeline-shared-libraries.iml

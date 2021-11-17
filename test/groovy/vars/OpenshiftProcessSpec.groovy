@@ -7,9 +7,7 @@ class OpenshiftProcessSpec extends JenkinsPipelineSpecification {
     def openshiftProcess = loadPipelineScriptForTest('vars/openshiftProcess.groovy')
 
     def setup() {
-        explicitlyMockPipelineStep('ansiColor')
         explicitlyMockPipelineStep('executable')
-        explicitlyMockPipelineStep('fail')
     }
 
     def 'it should fail when templateFilePath is not set'() {
