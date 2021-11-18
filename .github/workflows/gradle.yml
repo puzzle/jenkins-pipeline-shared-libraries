@@ -21,3 +21,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew clean build
+    - name: docker test
+      run: docker info
+    - name: docker-compose test
+      run: docker-compose version
