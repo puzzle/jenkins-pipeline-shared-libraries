@@ -17,6 +17,7 @@ class OpenshiftDiffCommand {
         def configuration = ctx.stepParams.getRequired('configuration') as String
         def project = ctx.stepParams.getRequired('project')
         def cluster = ctx.stepParams.getOptional('cluster')
+        def appLabel = ctx.stepParams.getOptional('appLabel') as String
         def ocPath = ctx.executable('oc')
         def openshiftDiffPath = ctx.executable('openshift-diff', DEFAULT_OPENSHIFT_DIFF_TOOL)
         def insecureSkipTlsVerify = ctx.stepParams.getOptional("insecureSkipTlsVerify")
