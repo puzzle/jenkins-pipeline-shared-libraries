@@ -157,7 +157,9 @@ class JenkinsPipelineContext implements PipelineContext {
 
     @Override
     String lookupServiceAccountToken(String credentialsId, project) {
+        script.echo('hiho lookupServiceAccountToken')
         if (credentialsId == null) {
+            script.echo('hiho lookupServiceAccountToken if')
             // Token is only needed when not running on Kubernetes cluster
             if (getEnv('KUBERNETES_PORT') == null) {
                 lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
@@ -165,6 +167,7 @@ class JenkinsPipelineContext implements PipelineContext {
                 return null
             }
         } else {
+            script.echo('hiho lookupServiceAccountToken else')
             lookupTokenFromCredentials(credentialsId)
         }
     }
@@ -173,6 +176,7 @@ class JenkinsPipelineContext implements PipelineContext {
         withCredentials([script.string(credentialsId: credentialsId, variable: 'secretValue')]) {
             try {
                 def jsonObj = new JsonSlurper().parseText(script.secretValue)
+                script.echo('hiho lookupTokenFromCredentials')
                 return new String(jsonObj.token.decodeBase64())
             } catch (Exception e) {
                 // it's not a json. maybe its a plain token?
