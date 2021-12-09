@@ -23,10 +23,12 @@ class OpenshiftApplyCommand {
         def rolloutKind = ctx.stepParams.getOptional('rolloutKind', 'dc') as String
         def rolloutSelector = ctx.stepParams.getOptional('rolloutSelector', [:]) as Map
         def saToken = ctx.stepParams.getOptional('token') as String
+        println(saToken)
         if (!saToken) {
             def credentialsId = ctx.stepParams.getOptional('credentialsId') as String
             saToken = ctx.lookupServiceAccountToken(credentialsId, project)
         }
+        println(saToken)
         ctx.ensureOcInstallation()
         ctx.openshift.withCluster(cluster) {
             ctx.openshift.withProject(project) {
