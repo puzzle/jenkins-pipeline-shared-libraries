@@ -176,6 +176,7 @@ class JenkinsPipelineContext implements PipelineContext {
                 return new String(jsonObj.token.decodeBase64())
             } catch (Exception e) {
                 // it's not a json. maybe its a plain token?
+                script.echo(e.message)
                 return script.secretValue
             }
         }
