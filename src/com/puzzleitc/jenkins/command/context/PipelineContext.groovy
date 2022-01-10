@@ -26,7 +26,11 @@ interface PipelineContext {
 
     String tool(String toolName)
 
+    String defaultOcInstallation()
+
     void ensureOcInstallation()
+
+    Boolean needsOcInstallation()
 
     String executable(String name, String toolName)
 

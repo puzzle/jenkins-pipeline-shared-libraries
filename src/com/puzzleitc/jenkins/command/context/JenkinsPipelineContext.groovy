@@ -94,6 +94,20 @@ Use 'withEnv(...) {...}' instead.""")
     }
 
     @Override
+    Boolean needsOcInstallation() {
+        int status = sh(script: 'command -v oc', returnStatus: true)
+        if (status == 0) {
+            return false
+        }
+        return true
+    }
+
+    @Override
+    String defaultOcInstallation() {
+        return executable('oc', DEFAULT_OC_TOOL_NAME)
+    }
+
+    @Override
     void ensureOcInstallation() {
         int status = sh(script: 'command -v oc', returnStatus: true)
         if (status != 0) {
