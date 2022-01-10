@@ -6,7 +6,7 @@ class CheckSpec extends JenkinsPipelineSpecification {
 
     def check = loadPipelineScriptForTest('vars/check.groovy')
 
-    def 'It aborts the pipline' () {
+    def 'It aborts the pipeline' () {
         setup:
             check.getBinding().setVariable('currentBuild', [:])
         when:
@@ -16,7 +16,7 @@ class CheckSpec extends JenkinsPipelineSpecification {
             1 * getPipelineMock("error").call('missing parameter: hallo')
     }
 
-    def 'It doesn\'t abort the pipline' () {
+    def 'It doesn\'t abort the pipeline' () {
         setup:
             check.getBinding().setVariable('currentBuild', [result: 'null'])
             check.getBinding().setVariable('params', [hallo: 'test'])

@@ -4,7 +4,7 @@ import groovy.mock.interceptor.MockFor
 import spock.lang.*
 import com.puzzleitc.jenkins.AvailableJDKs
 
-class AvaiableJDKsSpec extends Specification {
+class AvailableJDKsSpec extends Specification {
 
     def 'it reads all available jdk versions' () {
         setup:
