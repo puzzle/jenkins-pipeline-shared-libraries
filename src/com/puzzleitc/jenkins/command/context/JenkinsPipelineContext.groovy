@@ -38,6 +38,13 @@ class JenkinsPipelineContext implements PipelineContext {
     @Override
     void setEnv(String name, String value) {
         script.env[name] = value
+
+        if (script.env[name] != value) {
+            script.error("""
+setEnv of ${name} failure!
+Variables defined inside 'environment {...}' cannot be overwritten!
+Use 'withEnv(...) {...}' instead.""")
+        }
     }
 
     @Override
