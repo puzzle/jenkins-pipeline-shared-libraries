@@ -23,9 +23,29 @@ class JenkinsPipelineContextSpec extends JenkinsPipelineSpecification {
         then:
         script.env[newEnvName] == newEnvValue
     }
+
+    /* TODO:
+    def 'It cannot update an env variable defined inside environment {...}' () {
+        setup:
+        def newEnvName = 'TEST'
+        def newEnvValue = 'test'
+        script.env[newEnvName] = 'uppps'
+        when:
+        jenkinsPipelineContext.setEnv(newEnvName, newEnvValue)
+        then:
+        1 * script.error("""
+setEnv of TEST failure!
+Variables defined inside 'environment {...}' cannot be overwritten!
+Use 'withEnv(...) {...}' instead.""")
+        script.env[newEnvName] == newEnvValue
+    }
+    */
+
 }
 
 // Class used to mock Script
 class Script {
     def env = [:]
+    def error() {
+    }
 }
