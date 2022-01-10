@@ -193,7 +193,6 @@ class OpenshiftApplySpec extends JenkinsPipelineSpecification {
                  ]]
     }
 
-
 }
 
 // Interface used to mock openshift Selector
