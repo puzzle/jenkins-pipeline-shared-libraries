@@ -49,6 +49,9 @@ class OpenshiftApplySpec extends JenkinsPipelineSpecification {
         then:
         2 * getPipelineMock('sh').call({ ['script': 'command -v oc', 'returnStatus': 'true'] }) >> 1
         1 * getPipelineMock('executable').call(['name': 'oc', 'toolName': 'oc_3_11']) >> '/path/bin'
+        1 * getPipelineMock('openshift.withCluster')(_)
+        1 * getPipelineMock('openshift.withProject')(_)
+        1 * getPipelineMock('openshift.withCredentials')(_)
         1 * getPipelineMock('openshift.raw').call('whoami') >> [out: "jenkins"]
         1 * getPipelineMock('openshift.raw').call(['convert', '-f', 'null/temp.yaml']) >> [actions: [[cmd: "oc --server=https://openshift.puzzle.ch --insecure-skip-tls-verify --namespace=pitc-jenkinscicd-prod --token=XXXXX  convert -f /var/lib/jenkins/workspace/sgilgen/shared-library-test/1636550271093/temp.yaml"]]]
         1 * getPipelineMock('openshift.apply').call([args.configuration, '-l', 'app=label', '--prune']) >> output
@@ -81,6 +84,9 @@ class OpenshiftApplySpec extends JenkinsPipelineSpecification {
             assert true == _arguments[0]['returnStatus']
             return 0
         }
+        1 * getPipelineMock('openshift.withCluster')(_)
+        1 * getPipelineMock('openshift.withProject')(_)
+        1 * getPipelineMock('openshift.withCredentials')(_)
         1 * getPipelineMock('openshift.raw').call('whoami') >> [out: "jenkins"]
         1 * getPipelineMock('openshift.raw')(_) >> { _arguments ->
             assert 'apply' == _arguments[0][0]
@@ -126,6 +132,9 @@ class OpenshiftApplySpec extends JenkinsPipelineSpecification {
             assert true == _arguments[0]['returnStatus']
             return 0
         }
+        1 * getPipelineMock('openshift.withCluster')(_)
+        1 * getPipelineMock('openshift.withProject')(_)
+        1 * getPipelineMock('openshift.withCredentials')(_)
         1 * getPipelineMock('openshift.raw').call('whoami') >> [out: "jenkins"]
         1 * getPipelineMock('openshift.raw').call(['apply', '-f', 'null/temp.yaml', '--dry-run=server']) >> [actions: [[cmd: "oc --server=https://openshift.openshift.com --insecure-skip-tls-verify --namespace=myproject --token=XXXXX  apply -f /temp.yaml"]]]
         1 * getPipelineMock('openshift.apply').call([args.configuration, '-l', 'app=label', '--prune']) >> output
@@ -172,6 +181,9 @@ class OpenshiftApplySpec extends JenkinsPipelineSpecification {
             assert true == _arguments[0]['returnStatus']
             return 0
         }
+        1 * getPipelineMock('openshift.withCluster')(_)
+        1 * getPipelineMock('openshift.withProject')(_)
+        1 * getPipelineMock('openshift.withCredentials')(_)
         1 * getPipelineMock('openshift.raw').call('whoami') >> [out: "jenkins"]
         1 * getPipelineMock('openshift.raw').call(['apply', '-f', 'null/temp.yaml', '--dry-run=server']) >> [actions: [[cmd: "oc --server=https://openshift.openshift.com --insecure-skip-tls-verify --namespace=myproject --token=XXXXX  apply -f /temp.yaml"]]]
         1 * getPipelineMock('openshift.apply').call([args.configuration, '-l', 'app=label', '--prune']) >> output
@@ -193,14 +205,4 @@ class OpenshiftApplySpec extends JenkinsPipelineSpecification {
                  ]]
     }
 
-}
-
-// Interface used to mock openshift Selector
-interface Selector {
-    def rollout()
-}
-
-// Interface used to mock openshift RolloutManager
-interface RolloutManager {
-    def status()
 }

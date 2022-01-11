@@ -23,6 +23,7 @@ class OpenshiftStartBuildCommand {
         ctx.openshift.withCluster(cluster) {
             ctx.openshift.withProject(project) {
                 ctx.openshift.withCredentials(saToken) {
+                    ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
                     ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
                     ctx.echo("openshift project: ${ctx.openshift.project()}")
                     def bc = ctx.openshift.selector("bc/${buildConfigName}")
