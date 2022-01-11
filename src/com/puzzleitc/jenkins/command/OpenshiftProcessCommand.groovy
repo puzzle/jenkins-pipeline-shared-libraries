@@ -40,15 +40,9 @@ class OpenshiftProcessCommand {
             '--ignore-unknown-parameters=' + ignoreUnknownParameters + ' ' +
             '--output=' + output
 
-        if (ctx.needsOcInstallation()) {
-            def oc_home = ctx.defaultOcInstallation()
-            ctx.withEnv(["PATH+OC=${oc_home}"]) {
-                result = executeOC(processScript)
-            }
-        } else {
+        ctx.withOc() {
             result = executeOC(processScript)
         }
-
         return result
     }
 

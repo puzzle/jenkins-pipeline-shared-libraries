@@ -94,7 +94,18 @@ Use 'withEnv(...) {...}' instead.""")
     }
 
     @Override
-    Boolean needsOcInstallation() {
+    void withOc(Closure body) {
+        if (this.needsOcInstallation()) {
+            def oc_home = this.defaultOcInstallation()
+            this.withEnv(["PATH+OC=${oc_home}"]) {
+                body()
+            }
+        } else {
+            body()
+        }
+    }
+
+    private Boolean needsOcInstallation() {
         int status = sh(script: 'command -v oc', returnStatus: true)
         if (status == 0) {
             return false
@@ -102,8 +113,7 @@ Use 'withEnv(...) {...}' instead.""")
         return true
     }
 
-    @Override
-    String defaultOcInstallation() {
+    private String defaultOcInstallation() {
         return executable('oc', DEFAULT_OC_TOOL_NAME)
     }
 
@@ -206,5 +216,4 @@ Use 'withEnv(...) {...}' instead.""")
             }
         }
     }
-
 }

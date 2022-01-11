@@ -27,17 +27,12 @@ class OpenshiftApplyCommand {
             def credentialsId = ctx.stepParams.getOptional('credentialsId') as String
             saToken = ctx.lookupServiceAccountToken(credentialsId, project)
         }
-        if (ctx.needsOcInstallation()) {
-            def oc_home = ctx.defaultOcInstallation()
-            ctx.withEnv(["PATH+OC=${oc_home}"]) {
-                executeOC(cluster, project, saToken, configuration, appLabel, rolloutKind, rolloutSelector, waitForRollout)
-            }
-        } else {
+        ctx.withOc() {
             executeOC(cluster, project, saToken, configuration, appLabel, rolloutKind, rolloutSelector, waitForRollout)
         }
     }
 
-    private void executeOC(String cluster, project, saToken, configuration, appLabel, rolloutKind, rolloutSelector, waitForRollout) {
+    private void executeOC(cluster, project, saToken, configuration, appLabel, rolloutKind, rolloutSelector, waitForRollout) {
         ctx.openshift.withCluster(cluster) {
             ctx.openshift.withProject(project) {
                 ctx.openshift.withCredentials(saToken) {
