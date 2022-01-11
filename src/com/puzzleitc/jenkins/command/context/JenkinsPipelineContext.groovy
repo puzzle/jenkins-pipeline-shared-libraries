@@ -108,16 +108,6 @@ Use 'withEnv(...) {...}' instead.""")
     }
 
     @Override
-    void ensureOcInstallation() {
-        int status = sh(script: 'command -v oc', returnStatus: true)
-        if (status != 0) {
-            def oc_home = executable('oc', DEFAULT_OC_TOOL_NAME)
-            def path_value = getEnv('PATH')
-            setEnv('PATH', "${oc_home}:${path_value}")
-        }
-    }
-
-    @Override
     String executable(String name, String toolName) {
         script.executable(name: name, toolName: toolName)
     }
