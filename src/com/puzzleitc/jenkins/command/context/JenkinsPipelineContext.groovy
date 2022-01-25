@@ -38,6 +38,13 @@ class JenkinsPipelineContext implements PipelineContext {
     @Override
     void setEnv(String name, String value) {
         script.env[name] = value
+
+        if (script.env[name] != value) {
+            script.error("""
+setEnv of ${name} failure!
+Variables defined inside 'environment {...}' cannot be overwritten!
+Use 'withEnv(...) {...}' instead.""")
+        }
     }
 
     @Override
@@ -87,13 +94,27 @@ class JenkinsPipelineContext implements PipelineContext {
     }
 
     @Override
-    void ensureOcInstallation() {
-        int status = sh(script: 'command -v oc', returnStatus: true)
-        if (status != 0) {
-            def oc_home = executable('oc', DEFAULT_OC_TOOL_NAME)
-            def path_value = getEnv('PATH')
-            setEnv('PATH', "${oc_home}:${path_value}")
+    void withOc(Closure body) {
+        if (this.needsOcInstallation()) {
+            def oc_home = this.defaultOcInstallation()
+            this.withEnv(["PATH+OC=${oc_home}"]) {
+                body()
+            }
+        } else {
+            body()
         }
+    }
+
+    private Boolean needsOcInstallation() {
+        int status = sh(script: 'command -v oc', returnStatus: true)
+        if (status == 0) {
+            return false
+        }
+        return true
+    }
+
+    private String defaultOcInstallation() {
+        return executable('oc', DEFAULT_OC_TOOL_NAME)
     }
 
     @Override
@@ -195,5 +216,4 @@ class JenkinsPipelineContext implements PipelineContext {
             }
         }
     }
-
 }

@@ -19,10 +19,16 @@ class OpenshiftStartBuildCommand {
         def fromFile = ctx.stepParams.getOptional('fromFile') as String
         def credentialsId = ctx.stepParams.getOptional('credentialsId') as String
         def saToken = ctx.lookupServiceAccountToken(credentialsId, project)
-        ctx.ensureOcInstallation()
+        ctx.withOc() {
+            executeOC(cluster, project, saToken, buildConfigName, fromDir, fromFile)
+        }
+    }
+
+    private void executeOC(cluster, project, saToken, buildConfigName, fromDir, fromFile) {
         ctx.openshift.withCluster(cluster) {
             ctx.openshift.withProject(project) {
                 ctx.openshift.withCredentials(saToken) {
+                    ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
                     ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
                     ctx.echo("openshift project: ${ctx.openshift.project()}")
                     def bc = ctx.openshift.selector("bc/${buildConfigName}")

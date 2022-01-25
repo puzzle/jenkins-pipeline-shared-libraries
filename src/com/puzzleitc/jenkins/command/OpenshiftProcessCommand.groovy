@@ -14,7 +14,7 @@ class OpenshiftProcessCommand {
 
     Object execute() {
         ctx.info('-- openshiftProcess --')
-        def result = null
+        def result
         def templateFilePath = ctx.stepParams.getRequired('templateFilePath')
         def params = ctx.stepParams.getOptional('params')
         def paramFile = ctx.stepParams.getOptional('paramFile') as String
@@ -24,7 +24,6 @@ class OpenshiftProcessCommand {
 
         validateOutputFormat(output)
         ctx.echo("template file: ${templateFilePath}")
-        ctx.ensureOcInstallation()
 
         def processScript = 'oc process' + ' ' + '-f ' + templateFilePath
         if (params) {
@@ -40,9 +39,15 @@ class OpenshiftProcessCommand {
             '--local=true' + ' ' +
             '--ignore-unknown-parameters=' + ignoreUnknownParameters + ' ' +
             '--output=' + output
-        result = ctx.sh(script: processScript, returnStdout: true)
 
+        ctx.withOc() {
+            result = executeOC(processScript)
+        }
         return result
+    }
+
+    private Object executeOC(String processScript) {
+        return ctx.sh(script: processScript, returnStdout: true)
     }
 
     private void validateOutputFormat(String validateOutput) {
