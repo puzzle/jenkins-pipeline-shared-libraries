@@ -1,39 +1,41 @@
 package groovy.vars
 
-import com.homeaway.devtools.jenkins.testing.JenkinsPipelineSpecification
+import com.lesfurets.jenkins.unit.BasePipelineTest
+import org.junit.Before
+import org.junit.Test
 
-class KustomizeSpec extends JenkinsPipelineSpecification {
+import static org.junit.Assert.assertTrue;
 
-    def kustomize = loadPipelineScriptForTest('vars/kustomize.groovy')
+class KustomizeSpec extends BasePipelineTest {
 
-    def setup() {
-        explicitlyMockPipelineStep('ansiColor')
-        explicitlyMockPipelineStep('executable')
+    Script kustomize;
+
+    @Before
+    @Override
+    void setUp() throws Exception {
+        super.setUp()
+
+        helper.registerAllowedMethod("ansiColor", [String.class, Closure.class])
+        helper.registerAllowedMethod("executable", [Map.class], { "/path/bin" })
+
+        kustomize = loadScript("vars/kustomize.groovy")
     }
 
-    def 'it should call kustomize shell command'(args) {
-
-        when:
-        def result = kustomize.call(args)
-
-        then:
-        1 * getPipelineMock('executable').call(['name': 'kustomize']) >> '/path/bin'
-        1 * getPipelineMock('sh').call({ it['script'].endsWith('/path/bin/kustomize build openshift/overlays/dev') && it['returnStdout'] }) >> 'kustomized output'
-        result == 'kustomized output'
-
-        where:
-        args << [[path: 'openshift/overlays/dev'], 'openshift/overlays/dev']
-
+    @Test
+    void "it should call kustomize shell command"() {
+        kustomize.call("openshift/overlays/dev")
+        assertTrue helper.callStack.stream()
+                .filter { it.methodName == "sh"}
+                .map {it.args["script"] as String}
+                .filter { it != null }
+                .any {
+                    it.contains("/path/bin/kustomize build openshift/overlays/dev")
+                }
     }
 
-    def 'it should fail when path is not set'() {
-
-        when:
-        kustomize.call()
-
-        then:
-        thrown IllegalArgumentException
-
+    @Test(expected = IllegalArgumentException.class)
+    void "it should fail when path is not set"() {
+        kustomize.call([:])
     }
 
 }
