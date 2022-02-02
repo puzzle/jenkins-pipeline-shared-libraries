@@ -4,7 +4,8 @@ import com.lesfurets.jenkins.unit.BasePipelineTest
 import org.junit.Before
 import org.junit.Test
 
-import static org.junit.Assert.assertTrue;
+import static com.lesfurets.jenkins.unit.MethodCall.callArgsToString
+import static org.assertj.core.api.Assertions.*;
 
 class KustomizeSpec extends BasePipelineTest {
 
@@ -24,13 +25,10 @@ class KustomizeSpec extends BasePipelineTest {
     @Test
     void "it should call kustomize shell command"() {
         kustomize.call("openshift/overlays/dev")
-        assertTrue helper.callStack.stream()
-                .filter { it.methodName == "sh"}
-                .map {it.args["script"] as String}
-                .filter { it != null }
-                .any {
-                    it.contains("/path/bin/kustomize build openshift/overlays/dev")
-                }
+        assertThat(helper.callStack
+                .findAll { it.methodName == "sh" }
+                .any { callArgsToString(it).contains("/path/bin/kustomize build openshift/overlays/dev") }
+        ).isTrue()
     }
 
     @Test(expected = IllegalArgumentException.class)

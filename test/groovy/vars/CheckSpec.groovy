@@ -4,6 +4,7 @@ import com.lesfurets.jenkins.unit.BasePipelineTest
 import org.junit.Before
 import org.junit.Test
 import static org.assertj.core.api.Assertions.*;
+import static com.lesfurets.jenkins.unit.MethodCall.callArgsToString
 
 class CheckSpec extends BasePipelineTest {
 
@@ -26,11 +27,11 @@ class CheckSpec extends BasePipelineTest {
         check.mandatoryParameter("hallo");
 
         assertJobStatusAborted()
-
-        assertThat(helper.callStack.stream()
-                .filter({ it.methodName == "error" })
-                .flatMap({ Arrays.stream(it.args) })
-                .any({ it == "missing parameter: hallo" })).isTrue()
+        assertThat(helper.callStack.findAll { call ->
+            call.methodName == "error"
+        }.any { call ->
+            callArgsToString(call).contains("missing parameter: hallo")
+        }).isTrue()
     }
 
     @Test
