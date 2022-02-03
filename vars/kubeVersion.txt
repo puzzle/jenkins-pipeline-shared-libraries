@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
+<dl>
+    <dt>
+        <code>kubeVersion(server:String):String</code>
+    </dt>
+    <dd>
+        <p>
+            Returns the Kubernetes version of a Kubernetes/OpenShift cluster in major.minor format as a string, suitable
+            for comparison with Jenkins `compareVersions` step. Requires `curl` to be available on the slave it runs.
+        </p>
+        <ul>
+            <li>
+                <b>server</b> (required) - URL to query Kubernetes version of.
+            </li>
+        </ul>
+        <p>
+            Example:
+        </p>
+        <pre style="margin-top: 0em; color:#657383;"><code>
+            def ocPath = ""
+            if (compareVersions(v1: kubeVersion(openshift.cluster()), v2: '1.12') >= 0) {  // OpenShift 4 is based on Kubernetes >= 1.12
+                ocPath="${tool('oc4')}/bin"
+            }
+        </code></pre>
+    </dd>
+</dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->
