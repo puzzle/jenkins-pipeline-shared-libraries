@@ -8,8 +8,8 @@
     </dt>
     <dd>
         <p>
-            Returns the Kubernetes version of a Kubernetes/OpenShift cluster in major.minor format as a string, suitable
-            for comparison with Jenkins `compareVersions` step. Requires `curl` to be available on the slave it runs.
+            Returns the Kubernetes version of a Kubernetes/OpenShift cluster in major.minor format as a string.
+            Suitable for comparison with Jenkins `compareVersions` step.
         </p>
         <ul>
             <li>
