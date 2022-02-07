@@ -48,7 +48,8 @@ dependencies {
 
     testImplementation "org.spockframework:spock-core:1.3-groovy-2.4@jar"
 
-    testImplementation "com.lesfurets:jenkins-pipeline-unit:1.9"
+    // Jenkins Pipeline Unit + JUnit 4
+    testImplementation "com.lesfurets:jenkins-pipeline-unit:1.13"
     testImplementation "org.assertj:assertj-core:3.22.0"
 
     // Jenkins related
