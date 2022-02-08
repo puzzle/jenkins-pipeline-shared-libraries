@@ -1,13 +1,13 @@
 // vim: ft=groovy
 // code: language=declarative
 
-def call(String server) {
-  server = (server != null) ? server.replace('insecure://', 'https://') : 'https://kubernetes.default.svc'
+import com.puzzleitc.jenkins.command.KubeVersionCommand
+import com.puzzleitc.jenkins.command.context.JenkinsPipelineContext
 
-  def out = sh script: "curl -sSk ${server}/version", returnStdout: true
-  def version = readJSON text: out
+import static com.puzzleitc.jenkins.Util.parseArgs
 
-  echo "${server} version: ${version.major}.${version.minor}"
-
-  return "${version.major}.${version.minor}"
+def call(Map namedArgs = [:], Object... positionalArgs) {
+  def args = parseArgs(namedArgs, positionalArgs, ['server'])
+  KubeVersionCommand command = new KubeVersionCommand(new JenkinsPipelineContext(this, args))
+  return command.execute()
 }
