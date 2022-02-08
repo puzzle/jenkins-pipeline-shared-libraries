@@ -13,7 +13,7 @@ class KubeVersionCommand {
 
     Object execute() {
         ctx.info('-- kubeVersion --')
-        def server = ctx.stepParams.getOptional('server') as String
+        def server = ctx.stepParams.getRequired('server') as String
 
         server = (server != null) ? server.replace('insecure://', 'https://') : 'https://kubernetes.default.svc'
 

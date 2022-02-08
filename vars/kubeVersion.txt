@@ -20,6 +20,12 @@
             Example:
         </p>
         <pre style="margin-top: 0em; color:#657383;"><code>
+            def version = kubeVersion('https://api.openshift.ch:6443')
+        </code></pre>
+        <p>
+            Example with Jenkins `compareVersions` step:
+        </p>
+        <pre style="margin-top: 0em; color:#657383;"><code>
             def ocPath = ""
             if (compareVersions(v1: kubeVersion(openshift.cluster()), v2: '1.12') >= 0) {  // OpenShift 4 is based on Kubernetes >= 1.12
                 ocPath="${tool('oc4')}/bin"
