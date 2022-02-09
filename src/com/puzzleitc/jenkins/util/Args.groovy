@@ -1,9 +1,6 @@
-package com.puzzleitc.jenkins
+package com.puzzleitc.jenkins.util
 
-// This class is deprecated, use src/com/puzzleitc/jenkins/util/Args.groovy instead
-
-@Deprecated
-class Util {
+class Args {
     static Map parseArgs(namedArgs, positionalArgs, List requiredParams, Map optionalParams = [:]) {
 
         // null can be incorrectly assigned to namedArgs or positionalArgs if there are no other named or positional arguments, fix it
