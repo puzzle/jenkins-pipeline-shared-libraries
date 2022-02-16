@@ -74,6 +74,11 @@ Use 'withEnv(...) {...}' instead.""")
     }
 
     @Override
+    Object string(Map args) {
+        script.string(args)
+    }
+
+    @Override
     void deleteDir() {
         script.deleteDir()
     }

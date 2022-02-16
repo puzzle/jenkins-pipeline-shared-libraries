@@ -18,6 +18,8 @@ interface PipelineContext {
 
     void dir(String path, Closure closure)
 
+    Object string(Map map)
+
     void deleteDir()
 
     String writeFile(String file, String text, String encoding)

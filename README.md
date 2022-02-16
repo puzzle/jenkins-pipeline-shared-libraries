@@ -82,7 +82,47 @@ Unlocks the Git repository in the current directory with <code>git-crypt</code> 
 
 This class was implemented to read and delete Docker Images by tag names.
 
-File: [src/com/puzzleitc/jenkins/DockerHub.groovy](src/com/puzzleitc/jenkins/DockerHub.groovy)
+File: [DockerHub.groovy](src/com/puzzleitc/jenkins/DockerHub.groovy)
+
+### Quay
+
+This class was implemented to organize images by API on the Quay registry.
+
+File: [Quay.groovy](src/com/puzzleitc/jenkins/Quay.groovy)
+
+Sample pipeline:
+
+```Groovy
+import com.puzzleitc.jenkins.Quay
+
+pipeline {
+    agent any
+    environment {
+        CRED = 'quay-token'
+        REGISTRY_URL = 'https://quay.io'
+        ORG = 'test-org'
+        REPOSITORY = 'test-repository'
+        TAG='latest'
+        NEW_TAG='later'
+    }
+    stages {
+        stage('set tag') {
+            steps {
+                script {
+                    Quay quay = new Quay(this, env.CRED, env.REGISTRY_URL)
+
+                    // get sha of image referenced by the tag
+                    def sha = quay.getTagManifest(env.ORG, env.REPOSITORY, env.TAG)
+                    println "SHA: " + sha
+
+                    // add new tag to image
+                    quay.addTag(env.ORG, env.REPOSITORY, sha, env.NEW_TAG)
+                }
+            }
+        }
+    }
+}
+```
 
 ## Testing
 
