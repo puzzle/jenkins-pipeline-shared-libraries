@@ -1,6 +1,3 @@
-import com.puzzleitc.jenkins.command.OpenshiftStartBuildCommand
-import com.puzzleitc.jenkins.command.context.JenkinsPipelineContext
-
 def call(Map args = [:]) {
 
     echo "Hello world 2!"

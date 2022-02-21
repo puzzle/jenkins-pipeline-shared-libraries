@@ -11,7 +11,7 @@ class SimpleTest {
     @Rule public JenkinsRule j = new JenkinsRule();
 
     @Test
-    void xxx() throws Exception {
+    void "echo should work"() throws Exception {
         def project = j.createProject(WorkflowJob.class)
         project.setDefinition(new CpsFlowDefinition("""
 pipeline {
@@ -28,6 +28,7 @@ pipeline {
 
         def build = project.scheduleBuild2(0)
         j.assertBuildStatusSuccess(build)
+        j.assertLogContains("Hello world!", build.get())
     }
 
 }
