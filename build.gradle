@@ -1,4 +1,5 @@
 plugins {
+    id "com.mkobit.jenkins.pipelines.shared-library" version "0.10.1"
     id 'java'
     id 'groovy'
 }
@@ -12,9 +13,6 @@ sourceSets {
     test {
         groovy {
             srcDirs = ['test']
-        }
-        resources {
-            srcDirs = ['test/resources']
         }
     }
 }
@@ -38,120 +36,27 @@ dependencies {
 
     testImplementation "junit:junit:4.13.2"
 
-    testImplementation "org.jenkins-ci.main:jenkins-test-harness:1700.v6d3cd3101b_12"
-    testImplementation "org.jenkins-ci.main:jenkins-war:2.319.3"
-    //testImplementation "org.jenkins-ci.main:jenkins-war:2.99:war-for-test@jar"
-
-    //https://repo.jenkins-ci.org/artifactory/public/org/jenkins-ci/plugins/
-    /*
-    testImplementation "org.jenkins-ci.plugins.workflow:workflow-api:2.47@jar"
-
-    testImplementation "org.jenkins-ci.plugins.workflow:workflow-basic-steps:2.24@jar"
-    testImplementation "org.jenkins-ci.plugins.workflow:workflow-cps:2648.va9433432b33c@jar"
-    testImplementation "org.jenkins-ci.plugins.workflow:workflow-durable-task-step:1121.va_65b_d2701486@jar"
-    testImplementation "org.jenkins-ci.plugins.workflow:workflow-job:1167.v8fe861b_09ef9@jar"    */
-
-
-    /*testImplementation("org.jenkins-ci.plugins.workflow:workflow-api:2.47@jar"){ artifact {name='workflow-api';type='jar'}; artifact {name='workflow-api';type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-basic-steps:2.24"){ artifact {name='workflow-basic-steps';type='jar'}; artifact {name='workflow-basic-steps';type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-cps:2.94") { artifact {name='workflow-cps';type='jar'}; artifact {name='workflow-cps';type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-durable-task-step:1121.va_65b_d2701486@jar") { artifact {name='workflow-durable-task-step';type='jar'}; artifact {name='workflow-durable-task-step';type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-job:1167.v8fe861b_09ef9") { artifact {name='workflow-job';type='jar'}; artifact {name='workflow-job';type='hpi' } }*/
-
-    testImplementation("org.jenkins-ci.modules:sshd:3.1.0") {  artifact {name="sshd";type='jar'}; artifact {name="sshd";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:cloudbees-folder:6.17") {  artifact {name="cloudbees-folder";type='jar'}; artifact {name="cloudbees-folder";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:antisamy-markup-formatter:2.7") {  artifact {name="antisamy-markup-formatter";type='jar'}; artifact {name="antisamy-markup-formatter";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:structs:308.v852b473a2b8c") {  artifact {name="structs";type='jar'}; artifact {name="structs";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-step-api:622.vb_8e7c15b_c95a_") {  artifact {name="workflow-step-api";type='jar'}; artifact {name="workflow-step-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:token-macro:270.v8c2ce50dc4fc") {  artifact {name="token-macro";type='jar'}; artifact {name="token-macro";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:build-timeout:1.20") {  artifact {name="build-timeout";type='jar'}; artifact {name="build-timeout";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:credentials:1074.v60e6c29b_b_44b_") {  artifact {name="credentials";type='jar'}; artifact {name="credentials";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:plain-credentials:1.8") {  artifact {name="plain-credentials";type='jar'}; artifact {name="plain-credentials";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:trilead-api:1.0.13") {  artifact {name="trilead-api";type='jar'}; artifact {name="trilead-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:ssh-credentials:1.19") {  artifact {name="ssh-credentials";type='jar'}; artifact {name="ssh-credentials";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:credentials-binding:1.27.1") {  artifact {name="credentials-binding";type='jar'}; artifact {name="credentials-binding";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:scm-api:595.vd5a_df5eb_0e39") {  artifact {name="scm-api";type='jar'}; artifact {name="scm-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-api:1136.v7f5f1759dc16") {  artifact {name="workflow-api";type='jar'}; artifact {name="workflow-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:timestamper:1.17") {  artifact {name="timestamper";type='jar'}; artifact {name="timestamper";type='hpi' } }
-    testImplementation("io.jenkins.plugins:caffeine-api:2.9.2-29.v717aac953ff3") {  artifact {name="caffeine-api";type='jar'}; artifact {name="caffeine-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:script-security:1131.v8b_b_5eda_c328e") {  artifact {name="script-security";type='jar'}; artifact {name="script-security";type='hpi' } }
-    testImplementation("io.jenkins.plugins:plugin-util-api:2.13.0") {  artifact {name="plugin-util-api";type='jar'}; artifact {name="plugin-util-api";type='hpi' } }
-    testImplementation("io.jenkins.plugins:font-awesome-api:5.15.4-5") {  artifact {name="font-awesome-api";type='jar'}; artifact {name="font-awesome-api";type='hpi' } }
-    testImplementation("io.jenkins.plugins:popper-api:1.16.1-2") {  artifact {name="popper-api";type='jar'}; artifact {name="popper-api";type='hpi' } }
-    testImplementation("io.jenkins.plugins:jquery3-api:3.6.0-2") {  artifact {name="jquery3-api";type='jar'}; artifact {name="jquery3-api";type='hpi' } }
-    testImplementation("io.jenkins.plugins:bootstrap4-api:4.6.0-3") {  artifact {name="bootstrap4-api";type='jar'}; artifact {name="bootstrap4-api";type='hpi' } }
-    testImplementation("io.jenkins.plugins:snakeyaml-api:1.29.1") {  artifact {name="snakeyaml-api";type='jar'}; artifact {name="snakeyaml-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:jackson2-api:2.13.1-246.va8a9f3eaf46a") {  artifact {name="jackson2-api";type='jar'}; artifact {name="jackson2-api";type='hpi' } }
-    testImplementation("io.jenkins.plugins:popper2-api:2.11.2-1") {  artifact {name="popper2-api";type='jar'}; artifact {name="popper2-api";type='hpi' } }
-    testImplementation("io.jenkins.plugins:bootstrap5-api:5.1.3-4") {  artifact {name="bootstrap5-api";type='jar'}; artifact {name="bootstrap5-api";type='hpi' } }
-    testImplementation("io.jenkins.plugins:echarts-api:5.2.2-2") {  artifact {name="echarts-api";type='jar'}; artifact {name="echarts-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:display-url-api:2.3.5") {  artifact {name="display-url-api";type='jar'}; artifact {name="display-url-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-support:813.vb_d7c3d2984a_0") {  artifact {name="workflow-support";type='jar'}; artifact {name="workflow-support";type='hpi' } }
-    testImplementation("io.jenkins.plugins:checks-api:1.7.2") {  artifact {name="checks-api";type='jar'}; artifact {name="checks-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:junit:1.54") {  artifact {name="junit";type='jar'}; artifact {name="junit";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:matrix-project:1.20") {  artifact {name="matrix-project";type='jar'}; artifact {name="matrix-project";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:resource-disposer:0.17") {  artifact {name="resource-disposer";type='jar'}; artifact {name="resource-disposer";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:ws-cleanup:0.40") {  artifact {name="ws-cleanup";type='jar'}; artifact {name="ws-cleanup";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:ant:1.13") {  artifact {name="ant";type='jar'}; artifact {name="ant";type='hpi' } }
-    testImplementation("io.jenkins.plugins:jaxb:2.3.0.1") {  artifact {name="jaxb";type='jar'}; artifact {name="jaxb";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:durable-task:493.v195aefbb0ff2") {  artifact {name="durable-task";type='jar'}; artifact {name="durable-task";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-durable-task-step:1121.va_65b_d2701486") {  artifact {name="workflow-durable-task-step";type='jar'}; artifact {name="workflow-durable-task-step";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:command-launcher:1.6") {  artifact {name="command-launcher";type='jar'}; artifact {name="command-launcher";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:jdk-tool:1.5") {  artifact {name="jdk-tool";type='jar'}; artifact {name="jdk-tool";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:bouncycastle-api:2.25") {  artifact {name="bouncycastle-api";type='jar'}; artifact {name="bouncycastle-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.ui:ace-editor:1.1") {  artifact {name="ace-editor";type='jar'}; artifact {name="ace-editor";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-scm-step:2.13") {  artifact {name="workflow-scm-step";type='jar'}; artifact {name="workflow-scm-step";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-cps:2648.va9433432b33c") {  artifact {name="workflow-cps";type='jar'}; artifact {name="workflow-cps";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-job:1145.v7f2433caa07f") {  artifact {name="workflow-job";type='jar'}; artifact {name="workflow-job";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:apache-httpcomponents-client-4-api:4.5.13-1.0") {  artifact {name="apache-httpcomponents-client-4-api";type='jar'}; artifact {name="apache-httpcomponents-client-4-api";type='hpi' } }
-    testImplementation("io.jenkins.plugins:javax-activation-api:1.2.0-2") {  artifact {name="javax-activation-api";type='jar'}; artifact {name="javax-activation-api";type='hpi' } }
-    testImplementation("io.jenkins.plugins:javax-mail-api:1.6.2-5") {  artifact {name="javax-mail-api";type='jar'}; artifact {name="javax-mail-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:mailer:408.vd726a_1130320") {  artifact {name="mailer";type='jar'}; artifact {name="mailer";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-basic-steps:2.24") {  artifact {name="workflow-basic-steps";type='jar'}; artifact {name="workflow-basic-steps";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:gradle:1.38") {  artifact {name="gradle";type='jar'}; artifact {name="gradle";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:pipeline-milestone-step:100.v60a_03cd446e1") {  artifact {name="pipeline-milestone-step";type='jar'}; artifact {name="pipeline-milestone-step";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:pipeline-input-step:446.vf27b_0b_83500e") {  artifact {name="pipeline-input-step";type='jar'}; artifact {name="pipeline-input-step";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:pipeline-stage-step:291.vf0a8a7aeeb50") {  artifact {name="pipeline-stage-step";type='jar'}; artifact {name="pipeline-stage-step";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:pipeline-graph-analysis:188.v3a01e7973f2c") {  artifact {name="pipeline-graph-analysis";type='jar'}; artifact {name="pipeline-graph-analysis";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.pipeline-stage-view:pipeline-rest-api:2.21") {  artifact {name="pipeline-rest-api";type='jar'}; artifact {name="pipeline-rest-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.ui:handlebars:3.0.8") {  artifact {name="handlebars";type='jar'}; artifact {name="handlebars";type='hpi' } }
-    testImplementation("org.jenkins-ci.ui:momentjs:1.1.1") {  artifact {name="momentjs";type='jar'}; artifact {name="momentjs";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.pipeline-stage-view:pipeline-stage-view:2.21") {  artifact {name="pipeline-stage-view";type='jar'}; artifact {name="pipeline-stage-view";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:pipeline-build-step:2.15") {  artifact {name="pipeline-build-step";type='jar'}; artifact {name="pipeline-build-step";type='hpi' } }
-    testImplementation("org.jenkinsci.plugins:pipeline-model-api:1.9.3") {  artifact {name="pipeline-model-api";type='jar'}; artifact {name="pipeline-model-api";type='hpi' } }
-    testImplementation("org.jenkinsci.plugins:pipeline-model-extensions:1.9.3") {  artifact {name="pipeline-model-extensions";type='jar'}; artifact {name="pipeline-model-extensions";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:jsch:0.1.55.2") {  artifact {name="jsch";type='jar'}; artifact {name="jsch";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:git-client:3.11.0") {  artifact {name="git-client";type='jar'}; artifact {name="git-client";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:git-server:1.10") {  artifact {name="git-server";type='jar'}; artifact {name="git-server";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-cps-global-lib:552.vd9cc05b8a2e1") {  artifact {name="workflow-cps-global-lib";type='jar'}; artifact {name="workflow-cps-global-lib";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:branch-api:2.7.0") {  artifact {name="branch-api";type='jar'}; artifact {name="branch-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-multibranch:706.vd43c65dec013") {  artifact {name="workflow-multibranch";type='jar'}; artifact {name="workflow-multibranch";type='hpi' } }
-    testImplementation("org.jenkinsci.plugins:pipeline-stage-tags-metadata:1.9.3") {  artifact {name="pipeline-stage-tags-metadata";type='jar'}; artifact {name="pipeline-stage-tags-metadata";type='hpi' } }
-    testImplementation("org.jenkinsci.plugins:pipeline-model-definition:1.9.3") {  artifact {name="pipeline-model-definition";type='jar'}; artifact {name="pipeline-model-definition";type='hpi' } }
-    testImplementation("org.6wind.jenkins:lockable-resources:2.14") {  artifact {name="lockable-resources";type='jar'}; artifact {name="lockable-resources";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins.workflow:workflow-aggregator:2.6") {  artifact {name="workflow-aggregator";type='jar'}; artifact {name="workflow-aggregator";type='hpi' } }
-    testImplementation("io.jenkins.plugins:jjwt-api:0.11.2-9.c8b45b8bb173") {  artifact {name="jjwt-api";type='jar'}; artifact {name="jjwt-api";type='hpi' } }
-    testImplementation("io.jenkins.plugins:okhttp-api:4.9.3-105.vb96869f8ac3a") {  artifact {name="okhttp-api";type='jar'}; artifact {name="okhttp-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:github-api:1.301-378.v9807bd746da5") {  artifact {name="github-api";type='jar'}; artifact {name="github-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:git:4.10.3") {  artifact {name="git";type='jar'}; artifact {name="git";type='hpi' } }
-    testImplementation("com.coravy.hudson.plugins.github:github:1.34.1") {  artifact {name="github";type='jar'}; artifact {name="github";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:github-branch-source:2.11.4") {  artifact {name="github-branch-source";type='jar'}; artifact {name="github-branch-source";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:pipeline-github-lib:36.v4c01db_ca_ed16") {  artifact {name="pipeline-github-lib";type='jar'}; artifact {name="pipeline-github-lib";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:ssh-slaves:1.33.0") {  artifact {name="ssh-slaves";type='jar'}; artifact {name="ssh-slaves";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:matrix-auth:3.0.1") {  artifact {name="matrix-auth";type='jar'}; artifact {name="matrix-auth";type='hpi' } }
-    testImplementation("io.jenkins.plugins:jnr-posix-api:3.1.7-1") {  artifact {name="jnr-posix-api";type='jar'}; artifact {name="jnr-posix-api";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:pam-auth:1.7") {  artifact {name="pam-auth";type='jar'}; artifact {name="pam-auth";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:ldap:2.7") {  artifact {name="ldap";type='jar'}; artifact {name="ldap";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:email-ext:2.87") {  artifact {name="email-ext";type='jar'}; artifact {name="email-ext";type='hpi' } }
-    testImplementation("org.jenkins-ci.plugins:ansicolor:1.0.1") {  artifact {name="ansicolor";type='jar'}; artifact {name="ansicolor";type='hpi' } }
-
-    testImplementation("org.jenkins-ci.plugins:durable-task:v1.39") {  artifact {name="durable-task";type='jar'}; artifact {name="durable-task";type='hpi' } }
-
 
     // TODO
     implementation "org.jenkins-ci.plugins:badge:1.8@jar"
     implementation "org.jenkins-ci.plugins:pipeline-maven:3.9.3@jar"
 }
+
+sharedLibrary {
+    coreVersion = "2.319.3"
+    testHarnessVersion = "1700.v6d3cd3101b_12"
+    pluginDependencies {
+        workflowCpsGlobalLibraryPluginVersion = "552.vd9cc05b8a2e1"
+        dependency("org.jenkins-ci.plugins.workflow", "workflow-basic-steps", "2.24")
+        dependency("org.jenkins-ci.plugins.workflow", "workflow-cps", "2648.va9433432b33c")
+        dependency("org.jenkins-ci.plugins.workflow", "workflow-durable-task-step", "1121.va_65b_d2701486")
+        dependency("org.jenkins-ci.plugins.workflow", "workflow-job", "1145.v7f2433caa07f")
+        dependency("org.jenkins-ci.plugins.workflow", "workflow-support", "813.vb_d7c3d2984a_0")
+        dependency("org.jenkins-ci.plugins.workflow", "workflow-aggregator", "2.6")
+        dependency("org.jenkins-ci.plugins", "ansicolor", "1.0.1")
+    }
+}
+
 // this is needed for spock to find all the source code in the var directory
 task copyGlobalLibVars (type: Copy) {
     from "$rootDir/vars"

@@ -1,4 +1,4 @@
-package groovy.integration
+
 
 import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition
 import org.jenkinsci.plugins.workflow.job.WorkflowJob
@@ -6,7 +6,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.jvnet.hudson.test.JenkinsRule
 
-class SimpleTest {
+class HelloWorldTest {
 
     @Rule public JenkinsRule j = new JenkinsRule();
 
@@ -28,6 +28,7 @@ pipeline {
 
         def build = project.scheduleBuild2(0)
         j.assertBuildStatusSuccess(build)
+        j.interactiveBreak()
         j.assertLogContains("Hello world!", build.get())
     }
 

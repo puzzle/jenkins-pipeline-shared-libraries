@@ -1,6 +1,5 @@
-package groovy.integration
-
-
+import com.mkobit.jenkins.pipelines.codegen.LocalLibraryRetriever
+import hudson.model.Result
 import jenkins.model.Jenkins
 import org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval
 import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition
@@ -37,19 +36,16 @@ class OpenshiftStartBuildIntegrationTest {
 
     @Test
     public void testStartBuild() {
-
-        def script = new File('test/groovy/integration/example.groovy')
+        def script = new File('test/integration/groovy/example.groovy')
 
         final WorkflowJob job = jenkins.createProject(WorkflowJob, "project")
         job.setDefinition(new CpsFlowDefinition(script.text, false))
 
         ScriptApproval.get().preapproveAll()
 
-        final jobRun = job.scheduleBuild2(0)
-
-        jobRun.get();
-        jenkins.interactiveBreak();
-        jenkins.assertBuildStatusSuccess(jobRun)
+        //final jobRun = job.scheduleBuild2(0)
+        jenkins.buildAndAssertStatus(Result.FAILURE, job)
+        jenkins.assertLogContains("CredentialNotFoundException: my-project-cicd-deployer", job.getBuilds()[0])
     }
 
 }
