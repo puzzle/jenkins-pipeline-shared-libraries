@@ -54,6 +54,7 @@ sharedLibrary {
         dependency("org.jenkins-ci.plugins.workflow", "workflow-support", "813.vb_d7c3d2984a_0")
         dependency("org.jenkins-ci.plugins.workflow", "workflow-aggregator", "2.6")
         dependency("org.jenkins-ci.plugins", "ansicolor", "1.0.1")
+        dependency("org.jenkins-ci.plugins", "badge", "1.9.1")
     }
 }
 
