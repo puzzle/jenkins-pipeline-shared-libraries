@@ -24,7 +24,7 @@ class Quay {
      * @param registryUrl optional param to set the url of the registry (defaults to quay.io)
      */
     Quay(Object script, String credentialName, String registryUrl) {
-        mandatoryParameter(credentialName)
+        mandatoryParameter('credentialName', credentialName)
         this.script = script
         this.credentialName = credentialName
         if (registryUrl?.trim()) {
@@ -44,9 +44,9 @@ class Quay {
      * @return the sha of the image with that tag
      */
     String getTagManifest(String registryUserOrOrg, String repository, String tag) {
-        mandatoryParameter(registryUserOrOrg)
-        mandatoryParameter(repository)
-        mandatoryParameter(tag)
+        mandatoryParameter('registryUserOrOrg', registryUserOrOrg)
+        mandatoryParameter('repository', repository)
+        mandatoryParameter('tag', tag)
 
         String url = registryUrl + '/' + REPOSITORY_PATH + '/' + registryUserOrOrg + '/' +
                 repository + '/' + 'tag' + '/' + '?onlyActiveTags=true' + '&specificTag=' + tag
@@ -64,10 +64,10 @@ class Quay {
      * @param newTagName new tag for the image
      */
     void addTag(String registryUserOrOrg, String repository, String existingTagSha, String newTagName) {
-        mandatoryParameter(registryUserOrOrg)
-        mandatoryParameter(repository)
-        mandatoryParameter(existingTagSha)
-        mandatoryParameter(newTagName)
+        mandatoryParameter('registryUserOrOrg', registryUserOrOrg)
+        mandatoryParameter('repository', repository)
+        mandatoryParameter('existingTagSha', existingTagSha)
+        mandatoryParameter('newTagName', newTagName)
 
         String url = registryUrl + '/' + REPOSITORY_PATH + '/' + registryUserOrOrg + '/' +
                 repository + '/' + 'tag' + '/' + newTagName
@@ -191,9 +191,9 @@ ${con.getResponseMessage()}""")
     }
 
     @NonCPS
-    private static void mandatoryParameter(parameter) {
+    private static void mandatoryParameter(String parameterName, parameter) {
         if (!(parameter?.trim())) {
-            throw new IllegalArgumentException("Missing argument '${parameter}'")
+            throw new IllegalArgumentException("Missing parameter '${parameterName}'")
         }
     }
 
