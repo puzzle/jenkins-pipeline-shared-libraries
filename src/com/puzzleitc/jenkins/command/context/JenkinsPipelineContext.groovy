@@ -184,12 +184,7 @@ Use 'withEnv(...) {...}' instead.""")
     @Override
     String lookupServiceAccountToken(String credentialsId, project) {
         if (credentialsId == null) {
-            // Token is only needed when not running on Kubernetes cluster
-            if (getEnv('KUBERNETES_PORT') == null) {
-                lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
-            } else {
-                return null
-            }
+            lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
         } else {
             lookupTokenFromCredentials(credentialsId)
         }
