@@ -3,6 +3,7 @@ package com.puzzleitc.jenkins.command.context
 import groovy.json.JsonSlurper
 
 import static com.puzzleitc.jenkins.command.Constants.DEFAULT_OC_TOOL_NAME
+import org.jenkinsci.plugins.credentialsbinding.impl.CredentialNotFoundException
 
 class JenkinsPipelineContext implements PipelineContext {
 
@@ -184,7 +185,16 @@ Use 'withEnv(...) {...}' instead.""")
     @Override
     String lookupServiceAccountToken(String credentialsId, project) {
         if (credentialsId == null) {
-            lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
+            try {
+                lookupTokenFromCredentials("${project}${DEFAULT_CREDENTIAL_ID_SUFFIX}")
+            } catch (CredentialNotFoundException e) {
+                // if jenkins runs in K8S use the default token
+                if (getEnv('KUBERNETES_PORT') == null) {
+                    throw e
+                } else {
+                    return null
+                }
+            }
         } else {
             lookupTokenFromCredentials(credentialsId)
         }
