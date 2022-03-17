@@ -36,6 +36,7 @@ dependencies {
     implementation "org.jenkins-ci.main:jenkins-core:2.225", withoutIcu
     implementation "org.jenkins-ci.plugins:badge:1.8@jar"
     implementation "org.jenkins-ci.plugins:pipeline-maven:3.9.3@jar" // dependency for MavenReport
+    implementation "org.jenkins-ci.plugins:credentials-binding:1.27.1@jar"
 
     implementation "org.slf4j:jcl-over-slf4j:1.7.25"
     testImplementation "org.slf4j:log4j-over-slf4j:1.7.25"
