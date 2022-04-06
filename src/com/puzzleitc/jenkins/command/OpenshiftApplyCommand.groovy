@@ -16,7 +16,7 @@ class OpenshiftApplyCommand {
     void execute() {
         ctx.info('-- openshiftApply --')
         ctx.info('-- openshiftApply start debug --')
-        ctx.echo("params: ${params}")
+        ctx.echo("params: ${ctx.getStepParams()}")
         def envs = ctx.sh(script: 'env', returnStdout: true)
         ctx.echo("env: ${envs}")
         ctx.info('-- openshiftApply end debug --')

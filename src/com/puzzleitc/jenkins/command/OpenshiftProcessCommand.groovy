@@ -15,7 +15,7 @@ class OpenshiftProcessCommand {
     Object execute() {
         ctx.info('-- openshiftProcess --')
         ctx.info('-- openshiftProcess start debug --')
-        ctx.echo("params: ${params}")
+        ctx.echo("params: ${ctx.getStepParams()}")
         def envs = ctx.sh(script: 'env', returnStdout: true)
         ctx.echo("env: ${envs}")
         ctx.info('-- openshiftProcess end debug --')
