@@ -7,15 +7,17 @@ class OpenshiftProcessCommand {
     private static final VALID_OUTPUT_FORMAT = ['json', 'yaml']
 
     private final PipelineContext ctx
+    private final Object script
 
-    OpenshiftProcessCommand(PipelineContext ctx) {
+    OpenshiftProcessCommand(PipelineContext ctx, Object script) {
         this.ctx = ctx
+        this.script = script
     }
 
     Object execute() {
         ctx.info('-- openshiftProcess --')
         ctx.info('-- openshiftProcess start debug --')
-        ctx.echo("params: ${ctx.getStepParams()}")
+        ctx.echo("params: ${script.params}")
         def envs = ctx.sh(script: 'env', returnStdout: true)
         ctx.echo("env: ${envs}")
         ctx.info('-- openshiftProcess end debug --')
