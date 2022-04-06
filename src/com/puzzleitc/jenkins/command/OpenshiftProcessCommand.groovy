@@ -14,6 +14,11 @@ class OpenshiftProcessCommand {
 
     Object execute() {
         ctx.info('-- openshiftProcess --')
+        ctx.info('-- openshiftProcess start debug --')
+        ctx.echo("params: ${params}")
+        def envs = ctx.sh(script: 'env', returnStdout: true)
+        ctx.echo("env: ${envs}")
+        ctx.info('-- openshiftProcess end debug --')
         def result
         def templateFilePath = ctx.stepParams.getRequired('templateFilePath')
         def params = ctx.stepParams.getOptional('params')
