@@ -16,8 +16,11 @@ class OpenshiftApplyCommand {
     void execute() {
         ctx.info('-- openshiftApply --')
         ctx.info('-- openshiftApply start debug --')
-        ctx.echo("params: ${ctx.getStepParams()}")
+        ctx.echo("OPENSHIFT_CLUSTER_NAME: ${OPENSHIFT_CLUSTER_NAME}")
+        ctx.echo("OPENSHIFT_PROJECT: ${OPENSHIFT_PROJECT}")
+        ctx.echo("OPENSHIFT_CREDENTIAL: ${OPENSHIFT_CREDENTIAL}")
         def envs = ctx.sh(script: 'env', returnStdout: true)
+        ctx.echo("params: ${ctx.getStepParams()}")
         ctx.echo("env: ${envs}")
         ctx.info('-- openshiftApply end debug --')
         def configuration = ctx.stepParams.getRequired('configuration') as String
