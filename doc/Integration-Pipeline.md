@@ -4,21 +4,21 @@
 
 <img src="images/overview.png" alt="overview" width="400"/>
 
-The itegration pipeline is part of the development process. It contains serveral functions with provide help with promotions and deployment.
+The integration pipeline is part of the development process. It contains several functions with provide help with promotions and deployment.
 The following image sketches how the pipeline is interacting with the rest of the build process.
 Every component triggers the function trackComponentVersions. The function gathers the data of the build an stores this in the file component-versions.yaml which is archived for every build.
 
 <img src="images/component-a.png" alt="component-a" width="400"/>
 
-When the build job was successful finished it automatically triggers the integration pipeline job. 
+When the build job was successful finished it automatically triggers the integration pipeline job.
 This job also contains the function trackComponentVersions. The result of the function is also a component-version.yaml. But in contrast to the build job the integration pipeline aggregates the information from the upstream build that it was triggered by and updates only the changed component and the component-version.yaml from the last successful integration pipeline build.
-Additionally the integration pipeline needs an own version.yaml (in the repository). This can be emtpy or it may contain external components with are necessary for a deployment. These informations will be added to the omponent-version.yaml
+Additionally the integration pipeline needs an own version.yaml (in the repository). This can be empty or it may contain external components with are necessary for a deployment. These information's will be added to the component-version.yaml
 
 <img src="images/integration-pipeline-overview.png" alt="integration-pipeline-overview" width="400"/>
 
 Once the integration pipeline has successfully gathered all information a `Deploy` badge will be applied to the job overview.
 This is done by the function addDeployLinks. This link triggers the deployment pipeline with the information of the integration pipeline (e.g. job-name and build-number).
-This procedere ensures that only the component versions stored in the component-versions.yaml are deployed when triggering the deployment pipeline.
+This procedure ensures that only the component versions stored in the component-versions.yaml are deployed when triggering the deployment pipeline.
 
 Once the `Deploy` badge is activated the deployment pipeline is triggered.
 This pipeline contains the function deployChangedComponents.
@@ -36,9 +36,10 @@ Once the Deployment is done the job in the deployment pipeline is marked with a 
 
 <img src="images/deployment-pipeline-overview.png" alt="deployment-pipeline-overview" width="400"/>
 
-You will find aditional information on the detail page of the deployment pipeline:
+You will find additional information on the detail page of the deployment pipeline:
+
 * deployed-components.yaml will show you which components have been installed
-* a bagde with the information which integration pipeline triggered the installation
+* a badge with the information which integration pipeline triggered the installation
 
 <img src="images/deployment-pipeline-detail.png" alt="deployment-pipeline-detail" width="400"/>
 
