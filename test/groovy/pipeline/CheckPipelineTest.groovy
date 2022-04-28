@@ -15,6 +15,7 @@ class CheckPipelineTest extends DeclarativePipelineTest {
     @Override
     void setUp() throws Exception {
         super.setUp()
+        helper.libLoader.preloadLibraryClasses = false
         def library = library().name('jenkins-shared-library')
                 .defaultVersion('master')
                 .allowOverride(true)
