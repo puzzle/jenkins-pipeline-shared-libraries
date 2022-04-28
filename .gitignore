@@ -2,6 +2,7 @@
 .gradle
 target
 bin
+misc
 .classpath
 .settings
 .project

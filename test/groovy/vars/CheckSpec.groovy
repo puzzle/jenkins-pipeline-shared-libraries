@@ -1,28 +1,56 @@
 package groovy.vars
 
-import com.homeaway.devtools.jenkins.testing.JenkinsPipelineSpecification
+import static org.assertj.core.api.Assertions.*
+import static com.lesfurets.jenkins.unit.MethodCall.callArgsToString
 
-class CheckSpec extends JenkinsPipelineSpecification {
+import com.lesfurets.jenkins.unit.BasePipelineTest
+import org.junit.Before
+import org.junit.Test
 
-    def check = loadPipelineScriptForTest('vars/check.groovy')
+/**
+ * Tests for vars/check.groovy
+ */
+class CheckSpec extends BasePipelineTest {
 
-    def 'It aborts the pipeline' () {
-        setup:
-            check.getBinding().setVariable('currentBuild', [:])
-        when:
-            check.mandatoryParameter('hallo')
-        then:
-            check.getBinding().getVariable('currentBuild').result == 'ABORTED'
-            1 * getPipelineMock("error").call('missing parameter: hallo')
+    private Script check
+
+    @Override
+    @Before
+    void setUp() {
+        super.setUp()
+        check = loadScript('vars/check.groovy')
     }
 
-    def 'It doesn\'t abort the pipeline' () {
-        setup:
-            check.getBinding().setVariable('currentBuild', [result: 'null'])
-            check.getBinding().setVariable('params', [hallo: 'test'])
-        when:
-            check.mandatoryParameter('hallo')
-        then:
-            check.getBinding().getVariable('currentBuild').result == 'null'
+    @Test
+    void itShouldAbortForMissingMandatoryParameter() {
+        // given
+        // Override error behaviour as it is not correctly implemented by the test framework
+        helper.registerAllowedMethod('error', [String.class])
+        check.binding.setVariable('params', [:])
+
+        // when
+        check.mandatoryParameter('hallo')
+
+        // then
+        assertJobStatusAborted()
+        assertThat(helper.callStack.findAll { call ->
+            call.methodName == 'error'
+        }.any { call ->
+            callArgsToString(call).contains('missing parameter: hallo')
+        }).isTrue()
+    }
+
+    @Test
+    void itShouldNotAbortForAvailableMandatoryParameter() {
+        // given
+        check.binding.setVariable('currentBuild', [result: 'null'])
+        check.binding.setVariable('params', [hallo: 'test'])
+
+        // when
+        check.mandatoryParameter('hallo')
+
+        // then
+        assertThat(check.binding.getVariable('currentBuild').result as String).isEqualTo('null')
+        assertThat(helper.callStack).filteredOn({ it.methodName == 'error' }).isEmpty()
     }
 }

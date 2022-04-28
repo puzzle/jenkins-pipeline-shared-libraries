@@ -11,22 +11,25 @@ Documentation: <https://jenkins.io/doc/book/pipeline/shared-libraries/>
 ### addDeployLinks
 
 Adds a link(to another job) for a specific build from the build history of a jenkins job.
-See it's [documentation](vars/addDeployLinks.txt)
+See it's [documentation](vars/addDeployLinks.txt).
+This function is a component of the [Integration Pipeline](doc/Integration-Pipeline.md).
 
 Source: [vars/addDeployLinks.groovy](vars/addDeployLinks.groovy)
 
 ### cleanBuilds
 
 Cleans up the build history of the jenkins job. It can differentiate deployments to specific environments.
-See it's [documentation](vars/cleanBuilds.txt)
+See it's [documentation](vars/cleanBuilds.txt).
+This function is a component of the [Integration Pipeline](doc/Integration-Pipeline.md).
 
 Source: [vars/cleanBuilds.groovy](vars/cleanBuilds.groovy)
 
 ### deployChangedComponents
 
-This function can be used as a template for deploying a component on a specifc environment.
+This function can be used as a template for deploying a component on a specific environment.
 There is no actual implementation of a deployment but a placeholder with an echo output.
-See it's [documentation](vars/deployChangedComponents.txt)
+See it's [documentation](vars/deployChangedComponents.txt).
+This function is a component of the [Integration Pipeline](doc/Integration-Pipeline.md).
 
 Source: [vars/deployChangedComponents.groovy](vars/deployChangedComponents.groovy)
 
@@ -45,7 +48,7 @@ Requests OpenShift to apply the given configuration and waits for the rollout to
 
 ### openshiftDiff
 
-Compares the OpenShift configuration/resources given in the <b>configuration</b> argument against the resources in an
+Compares the OpenShift configuration/resources given in the **configuration** argument against the resources in an
 OpenShift project.
 
 ### openshiftProcess
@@ -67,13 +70,14 @@ Substitutes variables in a provided String with secrets retrieved from HashiCorp
 ### trackComponentVersions
 
 This function tracks information about the current deployment state of a component on a specific environment.
-See it's [documentation](vars/trackComponentVersions.txt)
+See it's [documentation](vars/trackComponentVersions.txt).
+This function is a component of the [Integration Pipeline](doc/Integration-Pipeline.md).
 
 Source: [vars/trackComponentVersions.groovy](vars/trackComponentVersions.groovy)
 
 ### withGitCrypt
 
-Unlocks the Git repository in the current directory with <code>git-crypt</code> for the duration of the scope of the
+Unlocks the Git repository in the current directory with `git-crypt` for the duration of the scope of the
  step and locks it again afterwards.
 
 ## Groovy source files
@@ -124,13 +128,10 @@ pipeline {
 }
 ```
 
+## Workflows
+
+The [Integration Pipeline](doc/Integration-Pipeline.md) provides functionality that helps with microservice promotion and deployment.
+
 ## Testing
 
-### Unit tests
-
-Tests can be executed with `./gradlew clean test`
-
-* Documentation for the spock test framework can be found here: <https://spockframework.org/>
-* Documentation for the Jenkins test framework can be found here: <https://github.com/ExpediaGroup/jenkins-spock>
-  * [JenkinsPipelineSpecification](https://www.javadoc.io/doc/com.homeaway.devtools.jenkins/jenkins-spock/2.0.1/com/homeaway/devtools/jenkins/testing/JenkinsPipelineSpecification.html)
-* Source: [src/com/puzzleitc/jenkins/DockerHub.groovy](src/com/puzzleitc/jenkins/DockerHub.groovy)
+See the [testing concept](doc/testing.md)
