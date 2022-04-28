@@ -1,47 +1,56 @@
 package groovy.vars
 
+import static org.assertj.core.api.Assertions.*
+import static com.lesfurets.jenkins.unit.MethodCall.callArgsToString
+
 import com.lesfurets.jenkins.unit.BasePipelineTest
 import org.junit.Before
 import org.junit.Test
-import static org.assertj.core.api.Assertions.*;
-import static com.lesfurets.jenkins.unit.MethodCall.callArgsToString
 
+/**
+ * Tests for vars/check.groovy
+ */
 class CheckSpec extends BasePipelineTest {
 
     private Script check
 
     @Override
     @Before
-    void setUp() throws Exception {
+    void setUp() {
         super.setUp()
-        check = loadScript("vars/check.groovy")
+        check = loadScript('vars/check.groovy')
     }
 
     @Test
-    void "It aborts the pipeline"() throws Exception {
+    void itShouldAbortForMissingMandatoryParameter() {
+        // given
         // Override error behaviour as it is not correctly implemented by the test framework
-        helper.registerAllowedMethod("error", [String.class])
+        helper.registerAllowedMethod('error', [String.class])
+        check.binding.setVariable('params', [:])
 
-        check.binding.setVariable("params", [:])
+        // when
+        check.mandatoryParameter('hallo')
 
-        check.mandatoryParameter("hallo");
-
+        // then
         assertJobStatusAborted()
         assertThat(helper.callStack.findAll { call ->
-            call.methodName == "error"
+            call.methodName == 'error'
         }.any { call ->
-            callArgsToString(call).contains("missing parameter: hallo")
+            callArgsToString(call).contains('missing parameter: hallo')
         }).isTrue()
     }
 
     @Test
-    void 'It doesn\'t abort the pipline'() {
+    void itShouldNotAbortForAvailableMandatoryParameter() {
+        // given
         check.binding.setVariable('currentBuild', [result: 'null'])
         check.binding.setVariable('params', [hallo: 'test'])
+
+        // when
         check.mandatoryParameter('hallo')
 
-        assertThat(check.binding.getVariable("currentBuild").result as String)
-                .isEqualTo("null")
-        assertThat(helper.callStack).filteredOn({ it.methodName == "error" }).isEmpty()
+        // then
+        assertThat(check.binding.getVariable('currentBuild').result as String).isEqualTo('null')
+        assertThat(helper.callStack).filteredOn({ it.methodName == 'error' }).isEmpty()
     }
 }

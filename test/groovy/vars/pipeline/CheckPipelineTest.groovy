@@ -28,41 +28,24 @@ class CheckPipelineTest extends DeclarativePipelineTest {
 
     @Test
     void "mandatory parameter not set"() {
-        runInlineScript('''
-pipeline {
-    agent any
-    stages {
-        stage("Test") {
-            check.mandatoryParameter("hallo")
-        }
-    }
-}
-    ''')
+        // when
+        runScript('test/resources/vars/check/mandatoryParameterMissing.groovy')
 
+        // then
         assertThat(helper.callStack.findAll { call ->
             call.methodName == "error"
         }.any { call ->
             callArgsToString(call).contains("missing parameter: hallo")
         }).isTrue()
-
         printCallStack()
     }
 
     @Test
     void "mandatory parameter set by default parameter"() {
-        runInlineScript('''
-pipeline {
-    agent any
-    parameters {
-        string(name: 'hallo', defaultValue: 'Mr Jenkins')
-    }
-    stages {
-        stage("Test") {
-            check.mandatoryParameter("hallo")
-        }
-    }
-}
-    ''')
+        // when
+        runScript('test/resources/vars/check/mandatoryParameter.groovy')
+
+        // then
         assertJobStatusSuccess()
     }
 }
