@@ -1,11 +1,11 @@
 package groovy.vars
 
+import static com.lesfurets.jenkins.unit.MethodCall.callArgsToString
+import static org.assertj.core.api.Assertions.*;
+
 import com.lesfurets.jenkins.unit.BasePipelineTest
 import org.junit.Before
 import org.junit.Test
-
-import static com.lesfurets.jenkins.unit.MethodCall.callArgsToString
-import static org.assertj.core.api.Assertions.*;
 
 class KustomizeSpec extends BasePipelineTest {
 
@@ -23,8 +23,11 @@ class KustomizeSpec extends BasePipelineTest {
     }
 
     @Test
-    void "it should call kustomize shell command"() {
+    void itShouldCallKustomizeShellCommand() {
+        // when
         kustomize.call("openshift/overlays/dev")
+
+        // then
         assertThat(helper.callStack
                 .findAll { it.methodName == "sh" }
                 .any { callArgsToString(it).contains("/path/bin/kustomize build openshift/overlays/dev") }
@@ -32,8 +35,11 @@ class KustomizeSpec extends BasePipelineTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    void "it should fail when path is not set"() {
+    void itShouldFailWhenPathIsNotSet() {
+        // when
         kustomize.call([:])
+
+        // then - expect IllegalArgumentException
     }
 
 }

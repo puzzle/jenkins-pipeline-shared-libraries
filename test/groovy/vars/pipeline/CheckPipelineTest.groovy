@@ -27,7 +27,7 @@ class CheckPipelineTest extends DeclarativePipelineTest {
     }
 
     @Test
-    void "mandatory parameter not set"() {
+    void itShouldAbortForMissingMandatoryParameter() {
         // when
         runScript('test/resources/vars/check/mandatoryParameterMissing.groovy')
 
@@ -41,7 +41,7 @@ class CheckPipelineTest extends DeclarativePipelineTest {
     }
 
     @Test
-    void "mandatory parameter set by default parameter"() {
+    void itShouldNotAbortForAvailableMandatoryParameter() {
         // when
         runScript('test/resources/vars/check/mandatoryParameter.groovy')
 
