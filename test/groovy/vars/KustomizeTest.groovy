@@ -7,7 +7,7 @@ import com.lesfurets.jenkins.unit.BasePipelineTest
 import org.junit.Before
 import org.junit.Test
 
-class KustomizeSpec extends BasePipelineTest {
+class KustomizeTest extends BasePipelineTest {
 
     Script kustomize;
 

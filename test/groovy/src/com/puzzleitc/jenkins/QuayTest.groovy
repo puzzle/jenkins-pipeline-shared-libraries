@@ -11,7 +11,7 @@ import org.junit.Test
 /**
  * Tests for vars/check.groovy
  */
-class QuaySpec extends BasePipelineTest {
+class QuayTest extends BasePipelineTest {
 
     Script script
     Quay quay

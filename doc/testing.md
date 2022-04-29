@@ -27,13 +27,12 @@ Groovy functions and classes are tested with unit tests. Dependencies are mocked
 They are located in [test/groovy](../test/groovy)
 
 Function unit testing is done with [BasePipelineTest's](https://github.com/jenkinsci/JenkinsPipelineUnit/blob/master/src/main/groovy/com/lesfurets/jenkins/unit/BasePipelineTest.groovy)
-from [JenkinsPipelineUnit](https://github.com/jenkinsci/JenkinsPipelineUnit)
+from [JenkinsPipelineUnit](https://github.com/jenkinsci/JenkinsPipelineUnit). The test files are named *Test.groovy
 
 Eg. [test/groovy/vars](../test/groovy/vars) for scripts in [vars](../vars)
 
-Whole scripts are tested with a pipeline file. Mostly green-path testing is enough. Edge cases are tested in spec classes.
-
-Eg. [test/groovy/vars/pipeline](../test/groovy/vars/pipeline) for scripts in [vars](../vars)
+Whole scripts are tested with a pipeline file. Mostly green-path testing is enough.
+Edge cases are tested in spec classes. The test files are named *PipelineTest.groovy
 
 ## test execution
 
