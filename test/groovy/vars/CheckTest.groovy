@@ -10,7 +10,7 @@ import org.junit.Test
 /**
  * Tests for vars/check.groovy
  */
-class CheckSpec extends BasePipelineTest {
+class CheckTest extends BasePipelineTest {
 
     private Script check
 

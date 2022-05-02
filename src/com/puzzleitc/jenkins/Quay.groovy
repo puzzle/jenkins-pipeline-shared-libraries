@@ -14,16 +14,25 @@ class Quay {
 
     private final String credentialName
     private final String registryUrl
-    private final Object script
+    private final Script script
 
     /**
-     * This constructor sets the Jenkins 'script' class as the local script
-     * variable in order to execute steps (echo, etc).
+     * This constructor sets the Jenkins 'script' class as the local script variable in order to execute steps (echo, etc).
+     * Connecting to the default registry (quay.io)
+     * @param script the script object (normally 'this')
+     * @param credentialName the name of the Credential holding the login token
+     */
+    Quay(Script script, String credentialName) {
+        this(script, credentialName, '')
+    }
+
+    /**
+     * This constructor sets the Jenkins 'script' class as the local script variable in order to execute steps (echo, etc).
      * @param script the script object (normally 'this')
      * @param credentialName the name of the Credential holding the login token
      * @param registryUrl optional param to set the url of the registry (defaults to quay.io)
      */
-    Quay(Object script, String credentialName, String registryUrl) {
+    Quay(Script script, String credentialName, String registryUrl) {
         mandatoryParameter('credentialName', credentialName)
         this.script = script
         this.credentialName = credentialName
@@ -32,6 +41,14 @@ class Quay {
         } else {
             this.registryUrl = QUAY_URL
         }
+    }
+
+    /**
+     * Returns the url of the registry that is used.
+     * @return the registry url
+     */
+    String getRegistryUrl() {
+        return this.registryUrl
     }
 
     /**
