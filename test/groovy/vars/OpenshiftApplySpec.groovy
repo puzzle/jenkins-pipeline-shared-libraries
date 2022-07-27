@@ -34,7 +34,7 @@ class OpenshiftApplySpec extends JenkinsPipelineSpecification {
 
     }
 
-    def 'it calls install oc_3_11 tool and oc convert'(args) {
+    def 'it calls install oc4 tool and oc convert'(args) {
 
         def output = '{ "operation": "describe", "actions": [ { "err": "", "verb": "describe", "cmd": "oc --server=https://openshift.openshift.com --insecure-skip-tls-verify --namespace=myproject --token=XXXXX", "out": "Name: test-app\\nNamespace: myproject\\nLabels: pp=label\\nSelector: app=label", "status": 0 } ], "status": 0}'
         output = new JsonSlurper().parseText(output)
@@ -48,7 +48,7 @@ class OpenshiftApplySpec extends JenkinsPipelineSpecification {
 
         then:
         2 * getPipelineMock('sh').call({ ['script': 'command -v oc', 'returnStatus': 'true'] }) >> 1
-        1 * getPipelineMock('executable').call(['name': 'oc', 'toolName': 'oc_3_11']) >> '/path/bin'
+        1 * getPipelineMock('executable').call(['name': 'oc', 'toolName': 'oc4']) >> '/path/bin'
         1 * getPipelineMock('openshift.withCluster')(_)
         1 * getPipelineMock('openshift.withProject')(_)
         1 * getPipelineMock('openshift.withCredentials')(_)
