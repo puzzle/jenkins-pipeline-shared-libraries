@@ -65,7 +65,7 @@ class OpenshiftStartBuildCommandSpec extends JenkinsPipelineSpecification {
 
         then:
         1 * getPipelineMock('sh').call({ ['script': 'command -v oc', 'returnStatus': 'true'] }) >> 0
-        0 * getPipelineMock('executable').call(['name': 'oc', 'toolName': 'oc_3_11']) >> '/path/bin'
+        0 * getPipelineMock('executable').call(['name': 'oc', 'toolName': 'oc4']) >> '/path/bin'
         1 * getPipelineMock('openshift.withCluster')(_)
         1 * getPipelineMock('openshift.withProject')(_)
         1 * getPipelineMock('openshift.withCredentials')(_)
@@ -82,7 +82,7 @@ class OpenshiftStartBuildCommandSpec extends JenkinsPipelineSpecification {
 
     }
 
-    def 'it calls install oc_3_11 tool and startBuild'(args) {
+    def 'it calls install oc4 tool and startBuild'(args) {
 
         // mock Result
         def myResult = new Result().with {
@@ -110,7 +110,7 @@ class OpenshiftStartBuildCommandSpec extends JenkinsPipelineSpecification {
 
         then:
         1 * getPipelineMock('sh').call({ ['script': 'command -v oc', 'returnStatus': 'true'] }) >> 1
-        1 * getPipelineMock('executable').call(['name': 'oc', 'toolName': 'oc_3_11']) >> '/path/bin'
+        1 * getPipelineMock('executable').call(['name': 'oc', 'toolName': 'oc4']) >> '/path/bin'
         1 * getPipelineMock('openshift.withCluster')(_)
         1 * getPipelineMock('openshift.withProject')(_)
         1 * getPipelineMock('openshift.withCredentials')(_)

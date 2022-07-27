@@ -34,7 +34,7 @@ class OpenshiftProcessSpec extends JenkinsPipelineSpecification {
         then:
         1 * getPipelineMock('echo').call('template file: openshift/templates/dev-template.yaml')
         1 * getPipelineMock('sh').call({ it['script'].endsWith('command -v oc') && it['returnStatus'] }) >> 1
-        1 * getPipelineMock('executable').call(['name':'oc','toolName':'oc_3_11']) >> '/path/bin'
+        1 * getPipelineMock('executable').call(['name':'oc','toolName':'oc4']) >> '/path/bin'
         1 * getPipelineMock('sh').call({ it['script'].endsWith(expectedCommand) && it['returnStdout'] }) >> 'openshiftProcessed output'
         result == 'openshiftProcessed output'
 

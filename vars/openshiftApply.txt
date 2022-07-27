@@ -3,7 +3,7 @@
     Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
 </p>
 <p>
-    If there is no <code>oc</code> tool installed this method installs the  <code>oc_3_11</code> tool.
+    If there is no <code>oc</code> tool installed this method installs the  <code>oc4</code> tool.
 </p>
 <dl>
     <dt>
