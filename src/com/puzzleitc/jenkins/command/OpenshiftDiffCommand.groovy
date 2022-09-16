@@ -31,7 +31,7 @@ class OpenshiftDiffCommand {
                     ctx.echo("openshift whoami: ${ctx.openshift.raw('whoami').out.trim()}")
                     ctx.echo("openshift cluster: ${ctx.openshift.cluster()}")
                     ctx.echo("openshift project: ${project}")
-                    ctx.sh(script: "openshift-diff --server=${ctx.openshift.cluster()} ${insecureSkipTlsVerify ? '--insecure-skip-tls-verify': '' } ${saToken ? '--token=' + saToken : ''} -n ${project} <<< '${configuration}'")
+                    ctx.sh(script: "openshift-diff --server=${ctx.openshift.cluster()} ${insecureSkipTlsVerify ? '--insecure-skip-tls-verify': '' } ${saToken ? '--token=' + saToken : ''} -n ${project} <<< '${configuration}'", returnStatus: true)
                 }
             }
         }
