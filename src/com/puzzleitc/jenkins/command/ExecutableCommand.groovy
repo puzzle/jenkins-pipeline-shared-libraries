@@ -24,7 +24,8 @@ class ExecutableCommand {
     // Search executable in PATH of current Jenkins node
     String searchInPath(String executable) {
         Node node = getCurrentNode()
-        ctx.info("test")
+        def tester = "tester"
+        ctx.info(tester)
         def blub = "blub"
         ctx.info(blub)
         for (def path : ctx.getEnv('PATH').split(Pattern.quote(File.pathSeparator))) {
