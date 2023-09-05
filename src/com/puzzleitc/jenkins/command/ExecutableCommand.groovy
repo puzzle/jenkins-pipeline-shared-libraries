@@ -25,8 +25,8 @@ class ExecutableCommand {
     String searchInPath(String executable) {
         Node node = getCurrentNode()
         for (def path : ctx.getEnv('PATH').split(Pattern.quote(File.pathSeparator))) {
-            ctx.info(path.toString())
             if (node.createPath(path).child(executable).exists()) {
+                ctx.info("hi")
                 return path
             }
         }
