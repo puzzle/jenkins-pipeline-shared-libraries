@@ -46,7 +46,6 @@ class ExecutableCommand {
         exePath = searchInPath(executable)
 
         // Executable not found, install via tool
-        ctx.info(exePath)
         if (!exePath) {
             def toolHome = ctx.tool(toolName ? toolName : executable)
             Node node = getCurrentNode()
