@@ -24,6 +24,8 @@ class ExecutableCommand {
     // Search executable in PATH of current Jenkins node
     String searchInPath(String executable) {
         Node node = getCurrentNode()
+        println("test")
+        println(getCurrentNode)
         for (def path : ctx.getEnv('PATH').split(Pattern.quote(File.pathSeparator))) {
             if (node.createPath(path).child(executable).exists()) {
                 return path
@@ -46,6 +48,7 @@ class ExecutableCommand {
         exePath = searchInPath(executable)
 
         // Executable not found, install via tool
+        ctx.info(exePath)
         if (!exePath) {
             def toolHome = ctx.tool(toolName ? toolName : executable)
             Node node = getCurrentNode()
