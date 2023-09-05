@@ -14,6 +14,7 @@ class ExecutableCommand {
 
     Node getCurrentNode() {
         String nodeName = ctx.getEnv('NODE_NAME')
+        ctx.info(nodeName)
         if (nodeName.equals('master')) {
             return Jenkins.get()
         } else {
@@ -25,9 +26,7 @@ class ExecutableCommand {
     String searchInPath(String executable) {
         Node node = getCurrentNode()
         for (def path : ctx.getEnv('PATH').split(Pattern.quote(File.pathSeparator))) {
-            ctx.info("ho")
             if (node.createPath(path).child(executable).exists()) {
-                ctx.info("hi")
                 return path
             }
         }
