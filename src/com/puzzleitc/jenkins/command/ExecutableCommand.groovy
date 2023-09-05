@@ -30,7 +30,6 @@ class ExecutableCommand {
         ctx.info(blub)
         for (def path : ctx.getEnv('PATH').split(Pattern.quote(File.pathSeparator))) {
             if (node.createPath(path).child(executable).exists()) {
-                ctx.info(path)
                 return path
             }
         }
