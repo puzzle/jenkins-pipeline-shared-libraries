@@ -26,8 +26,6 @@ class ExecutableCommand {
         Node node = getCurrentNode()
         def tester = "tester"
         ctx.info(tester)
-        def blub = "blub"
-        ctx.info(blub)
         for (def path : ctx.getEnv('PATH').split(Pattern.quote(File.pathSeparator))) {
             if (node.createPath(path).child(executable).exists()) {
                 return path
