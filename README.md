@@ -38,6 +38,10 @@ Requests OpenShift to start build from the specified build config and waits for 
 
 Runs the OWASP dependency-check tool.
 
+### rocketSend
+
+Sends message to the specified WebHook.
+
 ## Groovy source files
 
 ### DockerHub
