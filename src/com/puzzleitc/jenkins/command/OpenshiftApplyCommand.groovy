@@ -5,7 +5,7 @@ import com.puzzleitc.jenkins.command.context.PipelineContext
 class OpenshiftApplyCommand {
 
     private static final VALID_ROLLOUT_KINDS =
-            ['deploymentconfig', 'dc', 'deployment', 'deploy', 'daemonset', 'ds', 'statefulset', 'sts']
+            ['deploymentconfig', 'dc', 'deployment', 'deploy', 'daemonset', 'ds', 'statefulset', 'sts', 'sealedsecret']
 
     private final PipelineContext ctx
 
