@@ -7,7 +7,7 @@ class Result {
 
     def Result() {}
 
-    def int status() {
+    int status() {
         return status
     }
 }
