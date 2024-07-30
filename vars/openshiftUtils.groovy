@@ -10,7 +10,7 @@
 // credentialsId -> credentials for the OpenShift login
 // namespace -> true adds NAMESPACE_NAME param
 //
-def void applyTemplate(String ocpUrl, String ocpProject, String templateFile, String credentialsId, boolean namespace) {
+void applyTemplate(String ocpUrl, String ocpProject, String templateFile, String credentialsId, boolean namespace) {
 
     echo "-- start resource update by template --"
     echo "OpenShift server URL: $ocpUrl"
@@ -47,7 +47,7 @@ def void applyTemplate(String ocpUrl, String ocpProject, String templateFile, St
 // envFile -> environment file
 // namespace -> true adds NAMESPACE_NAME param
 //
-def void applyTemplateWithEnvFile(String ocpUrl, String ocpProject, String templateFile, String credentialsId, String envFile, boolean namespace) {
+void applyTemplateWithEnvFile(String ocpUrl, String ocpProject, String templateFile, String credentialsId, String envFile, boolean namespace) {
 
     echo "-- start resource update by template with environment file --"
     echo "OpenShift server URL: $ocpUrl"

@@ -5,7 +5,7 @@ import com.jenkinsci.plugins.badge.action.BadgeAction
 // the function implements how many build per environment should be kept
 // parameter is maxKeepBuilds
 def call(Map args) {
-  def maxNumberToKeepBuilds = args?.maxKeepBuilds ?: 10;
+  def maxNumberToKeepBuilds = args?.maxKeepBuilds ?: 10
 
   def environmentBuildCount = [:]
   Jenkins.instance.getItemByFullName(args.job)
