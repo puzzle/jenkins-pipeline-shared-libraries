@@ -1,7 +1,7 @@
 package groovy.vars
 
 import static com.lesfurets.jenkins.unit.MethodCall.callArgsToString
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*
 
 import com.lesfurets.jenkins.unit.BasePipelineTest
 import org.junit.Before
@@ -9,7 +9,7 @@ import org.junit.Test
 
 class KustomizeTest extends BasePipelineTest {
 
-    Script kustomize;
+    Script kustomize
 
     @Before
     @Override
