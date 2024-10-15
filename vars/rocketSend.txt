@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p>
+    Part of <code>@Library('jenkins-pipeline-shared-libraries')</code>
+</p>
+<dl>
+    <dt>
+        <code id="rocketSend">rocketSend(webHook:String, message:String, avatar:String=null, rawMessage:Boolean=true):void</code>
+    </dt>
+    <dd>
+        <p>
+            Publish message at chat.puzzle.ch. The channel destination is disabled for the integration. Therefore you need to create the Webhook first.
+            <br />
+            Example call:
+            <br>
+            <code>rocketSend("https://chat.puzzle.ch/hooks/../..", "Build Successful", "https://chat.puzzle.ch/emoji-custom/success.png", true)</code>
+        </p>
+        <ul>
+            <li>
+                <b>webHook</b> - WebHook Url
+            </li>
+            <li>
+                <b>message</b> - Content of the Rocket Chat message
+            </li>
+            <li>
+                <b>avatar</b> - Avatar image used in Rocket Chat
+            </li>
+            <li>
+                <b>rawMessage</b> - Message should be sent as raw text
+            </li>
+        </ul>
+    </dd>
+</dl>
+<!-- vim: set ft=html : -->
+<!-- code: set language=html : -->

@@ -8,31 +8,6 @@ Documentation: <https://jenkins.io/doc/book/pipeline/shared-libraries/>
 
 ## global variables
 
-### addDeployLinks
-
-Adds a link(to another job) for a specific build from the build history of a jenkins job.
-See it's [documentation](vars/addDeployLinks.txt).
-This function is a component of the [Integration Pipeline](doc/Integration-Pipeline.md).
-
-Source: [vars/addDeployLinks.groovy](vars/addDeployLinks.groovy)
-
-### cleanBuilds
-
-Cleans up the build history of the jenkins job. It can differentiate deployments to specific environments.
-See it's [documentation](vars/cleanBuilds.txt).
-This function is a component of the [Integration Pipeline](doc/Integration-Pipeline.md).
-
-Source: [vars/cleanBuilds.groovy](vars/cleanBuilds.groovy)
-
-### deployChangedComponents
-
-This function can be used as a template for deploying a component on a specific environment.
-There is no actual implementation of a deployment but a placeholder with an echo output.
-See it's [documentation](vars/deployChangedComponents.txt).
-This function is a component of the [Integration Pipeline](doc/Integration-Pipeline.md).
-
-Source: [vars/deployChangedComponents.groovy](vars/deployChangedComponents.groovy)
-
 ### executable
 
 Ensures that the given executable is available on the current Jenkins agent, installing it with a Jenkins tool installer 
@@ -63,22 +38,9 @@ Requests OpenShift to start build from the specified build config and waits for 
 
 Runs the OWASP dependency-check tool.
 
-### replaceFromVault
+### rocketSend
 
-Substitutes variables in a provided String with secrets retrieved from HashiCorp Vault.
-
-### trackComponentVersions
-
-This function tracks information about the current deployment state of a component on a specific environment.
-See it's [documentation](vars/trackComponentVersions.txt).
-This function is a component of the [Integration Pipeline](doc/Integration-Pipeline.md).
-
-Source: [vars/trackComponentVersions.groovy](vars/trackComponentVersions.groovy)
-
-### withGitCrypt
-
-Unlocks the Git repository in the current directory with `git-crypt` for the duration of the scope of the
- step and locks it again afterwards.
+Sends message to the specified WebHook.
 
 ## Groovy source files
 
