@@ -21,3 +21,11 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew clean build
+    - name: Unittest Report
+      uses: dorny/test-reporter@v1.9.1
+      with:
+        name: unit-tests
+        path: target/test-results/test/*.xml
+        reporter: java-junit
+        fail-on-empty: 'true'
+        fail-on-error: 'true'
