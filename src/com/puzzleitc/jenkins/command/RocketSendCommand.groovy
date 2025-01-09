@@ -22,7 +22,7 @@ class RocketSendCommand {
         }
         def webHook = ctx.stepParams.getRequired('webHook')
 
-        String curlCmd = "curl " +
+        def curlCmd = "curl " +
                 "     -X POST \"" + webHook + "\" " +
                 "     -H \"Content-Type: application/json\" " +
                 "     --data '" + JsonOutput.toJson(data) + "' "
