@@ -33,7 +33,7 @@ class RocketSendSpec extends JenkinsPipelineSpecification {
         def rawMessage = true
 
         when:
-        rocketSend.call(webHook, message, rawMessage)
+        rocketSend.call(webHook, message, null, rawMessage)
 
         then:
         1 * getPipelineMock('sh').call({ it.contains('curl') }) >> 1
